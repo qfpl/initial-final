@@ -1,0 +1,6 @@
+signature Base where
+
+import Final
+
+lit :: Int -> Repr
+add :: Repr -> Repr -> Repr
