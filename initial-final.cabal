@@ -131,6 +131,7 @@ library final-bp-example-mul
 library final-bp-example-eval
   exposed-modules:     Example.Eval
   build-depends:       base >=4.10 && <4.11
+                     , final-bp-eval
                      , final-bp-base-eval
                      , final-bp-mul-eval
                      , final-bp-example-base
@@ -142,6 +143,7 @@ library final-bp-example-eval
 library final-bp-example-print
   exposed-modules:     Example.Print
   build-depends:       base >=4.10 && <4.11
+                     , final-bp-print
                      , final-bp-base-print
                      , final-bp-mul-print
                      , final-bp-example-base
@@ -153,6 +155,7 @@ library final-bp-example-print
 library
   exposed-modules:     TestMe
   build-depends:       base >=4.10 && <4.11
+                     , final-bp-example-eval
   hs-source-dirs:      src
   ghc-options:         -Wall
   default-language:    Haskell2010
