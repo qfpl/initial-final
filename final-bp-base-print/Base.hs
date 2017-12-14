@@ -1,8 +1,8 @@
 {-# LANGUAGE TypeApplications #-}
-module Base.Print where
+module Base where
 
-import Base
-import Print
-
+lit :: Int -> String
 lit = show @Int
+
+add :: String -> String -> String
 add x y = "(" ++ x ++ ") + (" ++ y ++ ")"

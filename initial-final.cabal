@@ -24,6 +24,7 @@ library initial
   build-depends:       base >=4.10 && <4.11
                      , lens
   hs-source-dirs:      initial
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final
@@ -33,26 +34,28 @@ library final
                      , Interpret.Print
   build-depends:       base >=4.10 && <4.11
   hs-source-dirs:      final
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final-bp
   signatures:          Final
   build-depends:       base >=4.10 && <4.11
   hs-source-dirs:      final-bp
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final-bp-eval
+  exposed-modules:     Final
   build-depends:       base >=4.10 && <4.11
-                     , final-bp
   hs-source-dirs:      final-bp-eval
+  ghc-options:         -Wall
   default-language:    Haskell2010
-  exposed-modules:     Eval
 
 library final-bp-print
-  exposed-modules:     Print
+  exposed-modules:     Final
   build-depends:       base >=4.10 && <4.11
-                     , final-bp
   hs-source-dirs:      final-bp-print
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final-bp-base
@@ -60,6 +63,7 @@ library final-bp-base
   build-depends:       base >=4.10 && <4.11
                      , final-bp
   hs-source-dirs:      final-bp-base
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final-bp-mul
@@ -67,42 +71,43 @@ library final-bp-mul
   build-depends:       base >=4.10 && <4.11
                      , final-bp
   hs-source-dirs:      final-bp-mul
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final-bp-base-eval
-  exposed-modules:     Base.Eval
+  exposed-modules:     Base
   build-depends:       base >=4.10 && <4.11
-                     , final-bp
                      , final-bp-base
                      , final-bp-eval
   hs-source-dirs:      final-bp-base-eval
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final-bp-base-print
-  exposed-modules:     Base.Print
+  exposed-modules:     Base
   build-depends:       base >=4.10 && <4.11
-                     , final-bp
                      , final-bp-base
                      , final-bp-print
   hs-source-dirs:      final-bp-base-print
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final-bp-mul-eval
-  exposed-modules:     Mul.Eval
+  exposed-modules:     Mul
   build-depends:       base >=4.10 && <4.11
-                     , final-bp
                      , final-bp-mul
                      , final-bp-eval
   hs-source-dirs:      final-bp-mul-eval
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final-bp-mul-print
-  exposed-modules:     Mul.Print
+  exposed-modules:     Mul
   build-depends:       base >=4.10 && <4.11
-                     , final-bp
                      , final-bp-mul
                      , final-bp-print
   hs-source-dirs:      final-bp-mul-print
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final-bp-example-base
@@ -110,6 +115,7 @@ library final-bp-example-base
   build-depends:       base >=4.10 && <4.11
                      , final-bp-base
   hs-source-dirs:      final-bp-example-base
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final-bp-example-mul
@@ -119,34 +125,34 @@ library final-bp-example-mul
                      , final-bp-mul
                      , final-bp-example-base
   hs-source-dirs:      final-bp-example-mul
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final-bp-example-eval
   exposed-modules:     Example.Eval
   build-depends:       base >=4.10 && <4.11
-                     , final-bp-eval
                      , final-bp-base-eval
                      , final-bp-mul-eval
                      , final-bp-example-base
                      , final-bp-example-mul
   hs-source-dirs:      final-bp-example-eval
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library final-bp-example-print
   exposed-modules:     Example.Print
   build-depends:       base >=4.10 && <4.11
-                     , final-bp-print
                      , final-bp-base-print
                      , final-bp-mul-print
                      , final-bp-example-base
                      , final-bp-example-mul
   hs-source-dirs:      final-bp-example-print
+  ghc-options:         -Wall
   default-language:    Haskell2010
 
 library
   exposed-modules:     TestMe
   build-depends:       base >=4.10 && <4.11
-                     , final-bp-example-eval
   hs-source-dirs:      src
+  ghc-options:         -Wall
   default-language:    Haskell2010
-

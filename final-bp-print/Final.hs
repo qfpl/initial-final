@@ -1,2 +1,2 @@
-module Print where
+module Final where
 type Repr = String

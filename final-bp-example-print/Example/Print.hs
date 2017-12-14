@@ -1,9 +1,11 @@
 module Example.Print where
 
-import Print
-
-import Base.Print
-import Mul.Print
+import Final
+import Base
+import Mul
 
 import Example.Base
 import Example.Mul
+
+pr1 :: String
+pr1 = term1
