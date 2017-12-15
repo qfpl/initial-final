@@ -77,7 +77,6 @@ library final-bp-mul
 library final-bp-base-eval
   exposed-modules:     Base
   build-depends:       base >=4.10 && <4.11
-                     , final-bp-base
                      , final-bp-eval
   hs-source-dirs:      final-bp-base-eval
   ghc-options:         -Wall
@@ -86,7 +85,6 @@ library final-bp-base-eval
 library final-bp-base-print
   exposed-modules:     Base
   build-depends:       base >=4.10 && <4.11
-                     , final-bp-base
                      , final-bp-print
   hs-source-dirs:      final-bp-base-print
   ghc-options:         -Wall
@@ -95,7 +93,6 @@ library final-bp-base-print
 library final-bp-mul-eval
   exposed-modules:     Mul
   build-depends:       base >=4.10 && <4.11
-                     , final-bp-mul
                      , final-bp-eval
   hs-source-dirs:      final-bp-mul-eval
   ghc-options:         -Wall
@@ -104,7 +101,6 @@ library final-bp-mul-eval
 library final-bp-mul-print
   exposed-modules:     Mul
   build-depends:       base >=4.10 && <4.11
-                     , final-bp-mul
                      , final-bp-print
   hs-source-dirs:      final-bp-mul-print
   ghc-options:         -Wall
