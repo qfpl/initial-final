@@ -15,18 +15,6 @@ build-type:          Simple
 extra-source-files:  ChangeLog.md
 cabal-version:       >=1.10
 
-library initial
-  exposed-modules:     Data.Term
-                     , Data.Base
-                     , Data.Mul
-                     , Interpret.Eval
-                     , Interpret.Print
-  build-depends:       base >=4.10 && <4.11
-                     , lens
-  hs-source-dirs:      initial
-  ghc-options:         -Wall
-  default-language:    Haskell2010
-
 library final
   exposed-modules:     Class.Base
                      , Class.Mul
@@ -145,6 +133,40 @@ library final-bp-example-print
                      , final-bp-example-base
                      , final-bp-example-mul
   hs-source-dirs:      final-bp-example-print
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
+library initial
+  exposed-modules:     Data.Term
+                     , Data.Base
+                     , Data.Mul
+                     , Interpret.Eval
+                     , Interpret.Print
+  build-depends:       base >=4.10 && <4.11
+                     , lens
+  hs-source-dirs:      initial
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
+library initial-bp-term
+  exposed-modules:     Data.Term
+  build-depends:       base >=4.10 && <4.11
+                     , lens
+  hs-source-dirs:      initial-bp-term
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
+library initial-bp-eval
+  exposed-modules:     Interpret.Eval
+  build-depends:       base >=4.10 && <4.11
+  hs-source-dirs:      initial-bp-eval
+  ghc-options:         -Wall
+  default-language:    Haskell2010
+
+library initial-bp-print
+  exposed-modules:     Interpret.Print
+  build-depends:       base >=4.10 && <4.11
+  hs-source-dirs:      initial-bp-print
   ghc-options:         -Wall
   default-language:    Haskell2010
 
