@@ -6,6 +6,7 @@ import Base
 import Mul
 
 newtype Eval = Eval { runEval :: Int }
+  deriving (Eq, Ord, Show)
 
 instance ExpBase Eval where
   lit = Eval

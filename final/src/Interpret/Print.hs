@@ -6,6 +6,7 @@ import Base
 import Mul
 
 newtype Print = Print { runPrint :: String }
+  deriving (Eq, Ord, Show)
 
 instance ExpBase Print where
   lit = Print . show

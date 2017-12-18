@@ -11,9 +11,23 @@ cabal-version:       >=1.10
 library
   exposed-modules:     Term
                      , Base
+                     , Base.Type
+                     , Base.Eval
+                     , Base.Print
                      , Mul
+                     , Mul.Type
+                     , Mul.Eval
+                     , Mul.Print
                      , Interpret.Eval
                      , Interpret.Print
+                     , Example.Base
+                     , Example.Term.Base.Type
+                     , Example.Term.Base.Eval
+                     , Example.Term.Base.Print
+                     , Example.Mul
+                     , Example.Term.BaseMul.Type
+                     , Example.Term.BaseMul.Eval
+                     , Example.Term.BaseMul.Print
   build-depends:       base >=4.10 && <4.11
                      , lens
   hs-source-dirs:      src
