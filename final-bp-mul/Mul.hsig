@@ -1,5 +1,0 @@
-signature Mul where
-
-import Final
-
-mul :: Repr -> Repr -> Repr

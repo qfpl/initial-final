@@ -1,0 +1,19 @@
+name:                final
+version:             0.1.0.0
+license:             BSD3
+license-file:        LICENSE
+author:              Dave Laing
+maintainer:          dave.laing.80@gmail.com
+build-type:          Simple
+extra-source-files:  ChangeLog.md
+cabal-version:       >=1.10
+
+library
+  exposed-modules:     Class.Base
+                     , Class.Mul
+                     , Interpret.Eval
+                     , Interpret.Print
+  build-depends:       base >=4.10 && <4.11
+  hs-source-dirs:      src
+  ghc-options:         -Wall
+  default-language:    Haskell2010

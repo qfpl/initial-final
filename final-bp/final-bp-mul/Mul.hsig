@@ -1,0 +1,5 @@
+signature Mul where
+
+import Repr
+
+mul :: Repr -> Repr -> Repr
