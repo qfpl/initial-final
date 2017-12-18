@@ -13,6 +13,12 @@ library
                      , Mul
                      , Interpret.Eval
                      , Interpret.Print
+                     , Example.Base
+                     , Example.Base.Eval
+                     , Example.Base.Print
+                     , Example.Mul
+                     , Example.Mul.Eval
+                     , Example.Mul.Print
   build-depends:       base >=4.10 && <4.11
   hs-source-dirs:      src
   ghc-options:         -Wall
