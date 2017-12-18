@@ -2,8 +2,8 @@ module Interpret.Print (
     Print(..)
   ) where
 
-import Class.Base
-import Class.Mul
+import Base
+import Mul
 
 newtype Print = Print { runPrint :: String }
 

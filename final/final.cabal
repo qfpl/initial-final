@@ -9,8 +9,8 @@ extra-source-files:  ChangeLog.md
 cabal-version:       >=1.10
 
 library
-  exposed-modules:     Class.Base
-                     , Class.Mul
+  exposed-modules:     Base
+                     , Mul
                      , Interpret.Eval
                      , Interpret.Print
   build-depends:       base >=4.10 && <4.11

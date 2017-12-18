@@ -1,8 +1,8 @@
 module Example.Mul where
 
-import Data.Term.Type
-import Data.Base
-import Data.Mul
+import Term.Type
+import Base
+import Mul
 
 import Example.Base
 

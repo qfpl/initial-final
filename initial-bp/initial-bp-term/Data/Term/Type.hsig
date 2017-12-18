@@ -1,4 +1,0 @@
-signature Data.Term.Type where
-
-data Term
-

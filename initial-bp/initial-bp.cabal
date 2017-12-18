@@ -23,14 +23,14 @@ library initial-bp-print
   default-language:    Haskell2010
 
 library initial-bp-term
-  signatures:          Data.Term.Type
+  signatures:          Term.Type
   build-depends:       base >=4.10 && <4.11
   hs-source-dirs:      initial-bp-term
   ghc-options:         -Wall
   default-language:    Haskell2010
 
 library initial-bp-base-sig
-  signatures:          Data.Base.Type
+  signatures:          Base.Type
   build-depends:       base >=4.10 && <4.11
                      , initial-bp-term 
                      , lens
@@ -39,7 +39,7 @@ library initial-bp-base-sig
   default-language:    Haskell2010
 
 library initial-bp-base
-  exposed-modules:     Data.Base
+  exposed-modules:     Base
   build-depends:       base >=4.10 && <4.11
                      , initial-bp-base-sig
                      , lens
@@ -48,7 +48,7 @@ library initial-bp-base
   default-language:    Haskell2010
 
 library initial-bp-base-eval
-  exposed-modules:     Data.Base.Eval
+  exposed-modules:     Base.Eval
   build-depends:       base >=4.10 && <4.11
                      , initial-bp-base-sig
                      , initial-bp-term
@@ -59,7 +59,7 @@ library initial-bp-base-eval
   default-language:    Haskell2010
 
 library initial-bp-base-print
-  exposed-modules:     Data.Base.Print
+  exposed-modules:     Base.Print
   build-depends:       base >=4.10 && <4.11
                      , initial-bp-base-sig
                      , initial-bp-term
@@ -70,7 +70,7 @@ library initial-bp-base-print
   default-language:    Haskell2010
 
 library initial-bp-mul-sig
-  signatures:          Data.Mul.Type
+  signatures:          Mul.Type
   build-depends:       base >=4.10 && <4.11
                      , initial-bp-term 
                      , lens
@@ -79,7 +79,7 @@ library initial-bp-mul-sig
   default-language:    Haskell2010
 
 library initial-bp-mul
-  exposed-modules:     Data.Mul
+  exposed-modules:     Mul
   build-depends:       base >=4.10 && <4.11
                      , initial-bp-mul-sig
                      , lens
@@ -88,7 +88,7 @@ library initial-bp-mul
   default-language:    Haskell2010
 
 library initial-bp-mul-eval
-  exposed-modules:     Data.Mul.Eval
+  exposed-modules:     Mul.Eval
   build-depends:       base >=4.10 && <4.11
                      , initial-bp-term
                      , initial-bp-base-sig
@@ -100,7 +100,7 @@ library initial-bp-mul-eval
   default-language:    Haskell2010
 
 library initial-bp-mul-print
-  exposed-modules:     Data.Mul.Print
+  exposed-modules:     Mul.Print
   build-depends:       base >=4.10 && <4.11
                      , initial-bp-term
                      , initial-bp-mul-sig
@@ -131,8 +131,8 @@ library initial-bp-example-mul
   default-language:    Haskell2010
 
 library initial-bp-example-term-base
-  exposed-modules:     Data.Term.Type
-                     , Data.Base.Type
+  exposed-modules:     Term.Type
+                     , Base.Type
   build-depends:       base >=4.10 && <4.11
                      , lens
   hs-source-dirs:      initial-bp-example-term-base
@@ -140,7 +140,7 @@ library initial-bp-example-term-base
   default-language:    Haskell2010
 
 library initial-bp-example-term-base-eval
-  exposed-modules:     Data.Term.Eval
+  exposed-modules:     Term.Eval
   build-depends:       base >=4.10 && <4.11
                      , initial-bp-example-term-base
                      , initial-bp-eval
@@ -150,7 +150,7 @@ library initial-bp-example-term-base-eval
   default-language:    Haskell2010
 
 library initial-bp-example-term-base-print
-  exposed-modules:     Data.Term.Print
+  exposed-modules:     Term.Print
   build-depends:       base >=4.10 && <4.11
                      , initial-bp-example-term-base
                      , initial-bp-print
@@ -160,9 +160,9 @@ library initial-bp-example-term-base-print
   default-language:    Haskell2010
 
 library initial-bp-example-term-base-mul
-  exposed-modules:     Data.Term.Type
-                     , Data.Base.Type
-                     , Data.Mul.Type
+  exposed-modules:     Term.Type
+                     , Base.Type
+                     , Mul.Type
   build-depends:       base >=4.10 && <4.11
                      , lens
   hs-source-dirs:      initial-bp-example-term-base-mul
@@ -170,7 +170,7 @@ library initial-bp-example-term-base-mul
   default-language:    Haskell2010
 
 library initial-bp-example-term-base-mul-eval
-  exposed-modules:     Data.Term.Eval
+  exposed-modules:     Term.Eval
   build-depends:       base >=4.10 && <4.11
                      , initial-bp-example-term-base-mul
                      , initial-bp-eval
@@ -182,7 +182,7 @@ library initial-bp-example-term-base-mul-eval
   default-language:    Haskell2010
 
 library initial-bp-example-term-base-mul-print
-  exposed-modules:     Data.Term.Print
+  exposed-modules:     Term.Print
   build-depends:       base >=4.10 && <4.11
                      , initial-bp-example-term-base-mul
                      , initial-bp-print

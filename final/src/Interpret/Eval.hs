@@ -2,8 +2,8 @@ module Interpret.Eval (
     Eval(..)
   ) where
 
-import Class.Base
-import Class.Mul
+import Base
+import Mul
 
 newtype Eval = Eval { runEval :: Int }
 

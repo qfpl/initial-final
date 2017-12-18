@@ -1,7 +1,0 @@
-signature Data.Mul.Type where
-
-import Data.Term.Type
-
-import Control.Lens
-
-_Mul :: Prism' Term (Term, Term)

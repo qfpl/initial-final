@@ -1,0 +1,8 @@
+signature Base.Type where
+
+import Term.Type
+
+import Control.Lens
+
+_Lit :: Prism' Term Int
+_Add :: Prism' Term (Term, Term)
