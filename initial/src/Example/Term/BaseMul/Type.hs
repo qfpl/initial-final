@@ -6,7 +6,9 @@ import Mul.Type
 
 import Control.Lens
 
-data TermF f a = BMBase (BaseF f a) | BMMul (MulF f a)
+data TermF f a =
+    BMBase (BaseF f a)
+  | BMMul (MulF f a)
   deriving (Eq, Ord, Show)
 
 makePrisms ''TermF

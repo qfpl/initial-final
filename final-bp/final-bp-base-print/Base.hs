@@ -2,7 +2,7 @@
 module Base where
 
 lit :: Int -> String
-lit = show @Int
+lit = show
 
 add :: String -> String -> String
 add x y = "(" ++ x ++ ") + (" ++ y ++ ")"
