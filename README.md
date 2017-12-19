@@ -64,31 +64,38 @@ printTerm (Add x y) = "(" ++ printTerm x ++ ") + (" ++ printTerm y ++ ")"
 
 ## The final encoding with the finally tagless style
 
+We start by defining a typeclass for our expressions:
 ```haskell
 class ExpBase repr where
   lit :: Int -> repr
   add :: repr -> repr -> repr
 ```
-
+which we can use straight away:
 ```haskell
 term1 :: ExpBase repr => repr
 term1 = add (lit 8) (add (lit 1) (lit 2))
 ```
 
+If we want to evaluate these terms, we can create a newtype:
 ```haskell
 newtype Eval = Eval { runEval :: Int }
   deriving (Eq, Ord, Show)
-
+```
+and write a typeclass instance for it:
+```haskell
 instance ExpBase Eval where
   lit = Eval
   add (Eval x) (Eval y) = Eval (x + y)
 ```
 
+We could have written `instance ExpBase Int` instead of creating a newtype elsewhere, but then we'd end up with all of our interpretations of our expression in the same module.
+
+We can extend this expression with multiplication, by writing a new typeclass:
 ```haskell
 class ExpMul repr where
   mul :: repr -> repr -> repr
 ```
-
+and we can create terms using the combination of these typeclasses:
 ```haskell
 term2 :: (ExpBase repr, ExpMul repr) => repr
 term2 = add (lit 7) (mul (lit 1) (lit 2))
@@ -97,11 +104,15 @@ term3 :: (ExpBase repr, ExpMul repr) => repr
 term3 = mul (lit 7) term1
 ```
 
+These types can be inferred, which is nice.
+
+We can extend the evaluation to handle multiplication by writing the appropriate instance:
 ```haskell
 instance ExpMul Eval where
   mul (Eval x) (Eval y) = Eval (x * y)
 ```
 
+We can also come up with new interpretations, like a pretty printer:
 ```haskell
 newtype Print = Print { runPrint :: String }
   deriving (Eq, Ord, Show)
@@ -120,6 +131,8 @@ We're also passing a lot of dictionaries around to do this, so we're perhaps not
 
 ## The final encoding with Backpack
 
+We start out with a signature that gives us the `Repr` type:
+
 ```
 library repr
   signatures:          Repr
@@ -133,18 +146,7 @@ signature Repr where
 data Repr
 ```
 
-```
-library final-bp-eval
-  exposed-modules:     Repr
-  hs-source-dirs:      final-bp-eval
-```
-
-```haskell
--- final-bp-eval/Repr.hs
-module Repr where
-
-type Repr = Int
-```
+We use that type in another signature, which gives us the first pieces of our expressions:
 
 ```
 library final-bp-base
@@ -162,6 +164,42 @@ import Repr
 lit :: Int -> Repr
 add :: Repr -> Repr -> Repr
 ```
+
+We can build up expressions using these, although they'll be abstract until we provide implementations for the `Repr` and `Base` signatures:
+
+```
+library final-bp-example-base
+  exposed-modules:     Example.Base
+  build-depends:       final-bp-base
+  hs-source-dirs:      final-bp-example-base
+```
+
+```haskell
+-- final-bp-example-base/Example/Base.hs
+module Example.Base where
+
+import Repr
+import Base
+
+term1 :: Repr
+term1 = add (lit 8) (add (lit 1) (lit 2))
+```
+
+For evaluation, our base type will be `Int`:
+```
+library final-bp-eval
+  exposed-modules:     Repr
+  hs-source-dirs:      final-bp-eval
+```
+
+```haskell
+-- final-bp-eval/Repr.hs
+module Repr where
+
+type Repr = Int
+```
+
+and the we'll interpret the pieces we have accordingly:
 
 ```
 library final-bp-base-eval
@@ -181,23 +219,7 @@ add :: Int -> Int -> Int
 add = (+)
 ```
 
-```
-library final-bp-example-base
-  exposed-modules:     Example.Base
-  build-depends:       final-bp-base
-  hs-source-dirs:      final-bp-example-base
-```
-
-```haskell
--- final-bp-example-base/Example/Base.hs
-module Example.Base where
-
-import Repr
-import Base
-
-term1 :: Repr
-term1 = add (lit 8) (add (lit 1) (lit 2))
-```
+At this point, we've provided implementations for all of the signatures that were in play, so we can bring our old example back into scope and we'll interpret it as an evaluation:
 
 ```
 library final-bp-example-eval
@@ -218,6 +240,8 @@ eval1 :: Int
 eval1 = term1
 ```
 
+We can add a signature for multiplication:
+
 ```
 library final-bp-mul
   signatures:          Mul
@@ -234,20 +258,7 @@ import Repr
 mul :: Repr -> Repr -> Repr
 ```
 
-```
-library final-bp-mul-eval
-  exposed-modules:     Mul
-  build-depends:       final-bp-eval
-  hs-source-dirs:      final-bp-mul-eval
-```
-
-```haskell
--- final-bp-mul-eval/Mul.hs
-module Mul where
-
-mul :: Int -> Int -> Int
-mul = (*)
-```
+and we can use that with our other pieces to build up more varied expressions:
 
 ```
 library final-bp-example-mul
@@ -274,6 +285,25 @@ term2 = add (lit 7) (mul (lit 1) (lit 2))
 term3 :: Repr
 term3 = mul (lit 7) term1
 ```
+
+We can add an interpretation for multiplication when we want to evaluate our expressions:
+
+```
+library final-bp-mul-eval
+  exposed-modules:     Mul
+  build-depends:       final-bp-eval
+  hs-source-dirs:      final-bp-mul-eval
+```
+
+```haskell
+-- final-bp-mul-eval/Mul.hs
+module Mul where
+
+mul :: Int -> Int -> Int
+mul = (*)
+```
+
+which we can make use of like we did before:
 
 ```
 library final-bp-example-eval
@@ -304,6 +334,10 @@ eval3 :: Int
 eval3 = term3
 ```
 
+We can add support for pretty printing as well.
+
+Our base type will be `String`:
+
 ```
 library final-bp-print
   exposed-modules:     Repr
@@ -315,6 +349,8 @@ module Repr where
 
 type Repr = String
 ```
+
+Which will interpret as we did before we were using Backpack, for both the base pieces:
 
 ```
 library final-bp-base-print
@@ -334,6 +370,8 @@ add :: String -> String -> String
 add x y = "(" ++ x ++ ") + (" ++ y ++ ")"
 ```
 
+and for multiplication:
+
 ```
 library final-bp-mul-print
   exposed-modules:     Mul
@@ -348,6 +386,8 @@ module Mul where
 mul :: String -> String -> String
 mul x y = "(" ++ x ++ ") * (" ++ y ++ ")"
 ```
+
+after which we can use it to interpret our example terms from earlier:
 
 ```
 library final-bp-example-print
@@ -378,6 +418,8 @@ print3 = term3
 ```
 
 ## The initial encoding with classy prisms
+
+Sometimes we want to have a data type that we can manipulate, and that means that we are dealing with an initial encoding.
 
 ```haskell
 import Control.Lens
