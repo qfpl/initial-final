@@ -417,6 +417,10 @@ print3 :: String
 print3 = term3
 ```
 
+We've managed to separate out things a bit more, and we don't have to worry about orphan instances.
+
+If we want to evaluate and pretty print an expression in the same module, I think we would have to do some fancy footwork to reexport some modules so that things didn't collide.  I'll look into this later.
+
 ## The initial encoding with classy prisms
 
 Sometimes we want to have a data type that we can manipulate, and that means that we are dealing with an initial encoding.
@@ -446,6 +450,8 @@ instance HasBaseF BaseF where
   _BaseF = id
 ```
 
+We can use this class and the prisms that we derived to build classy prisms for the pieces of our expressions:
+
 ```haskell
 _Lit :: HasBaseF tm => Prism' (Term tm a) Int
 _Lit = _Wrapped . _BaseF . _TmLit
@@ -454,6 +460,8 @@ _Add :: HasBaseF tm => Prism' (Term tm a) (Term tm a, Term tm a)
 _Add = _Wrapped . _BaseF . _TmAdd
 ```
 
+We'll add some smart constructors:
+
 ```haskell
 lit :: HasBaseF tm => Int -> Term tm a
 lit = review _Lit
@@ -461,6 +469,8 @@ lit = review _Lit
 add :: HasBaseF tm => Term tm a -> Term tm a -> Term tm a
 add tm1 tm2 = review _Add (tm1, tm2)
 ```
+
+and use them build an example term:
 
 ```haskell
 term1 :: HasBaseF tm => Term tm a
@@ -504,12 +514,13 @@ evalRules =
 ```
 
 ```haskell
-evalTerm1 :: Term BaseF a
-evalTerm1 =
-  let
-    eval = mkEval evalRules
-  in
-    eval term1
+evalTerm :: Term BaseF a -> Term BaseF a
+evalTerm = mkEval evalRules
+```
+
+```haskell
+eval1 :: Term BaseF a
+eval1 = evalTerm termq
 ```
 
 ```haskell
@@ -577,12 +588,13 @@ instance HasMulF BM where
 ```
 
 ```haskell
-evalTerm2 :: Term BM a
-evalTerm2 =
-  let
-    eval = mkEval (Base.evalRules ++ Mul.evalRules)
-  in
-    eval term2
+evalTerm :: Term BM a -> Term BM a
+evalTerm = mkEval (Base.evalRules ++ Mul.evalRules)
+```
+
+```haskell
+term2 :: Term BM a
+term2 = evalTerm term2
 ```
 
 ## The initial encoding with Backpack
@@ -911,5 +923,5 @@ import qualified Mul.Eval as ME
 import Interpret.Eval
 
 evalTerm :: Term -> Term
-evalTerm = mkEval $ BE.evalRules ++ ME.evalRules
+evalTerm = mkEval ( BE.evalRules ++ ME.evalRules )
 ```
