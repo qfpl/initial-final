@@ -6,168 +6,246 @@ author:              Dave Laing
 maintainer:          dave.laing.80@gmail.com
 build-type:          Simple
 extra-source-files:  ChangeLog.md
-cabal-version:       >=2.1
+cabal-version:       >=2.0
 
-common options
-  ghc-options:         -Wall
-  default-language:    Haskell2010
-
-common deps
-  build-depends:       base ^>=4.10
+flag dump
+    description: Dump core
+    manual: True
+    default: False
 
 library initial-bp-eval
-  import:              options, deps
   hs-source-dirs:      initial-bp-eval
   exposed-modules:     Interpret.Eval
+  build-depends:       base ^>=4.10
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-print
-  import:              options, deps
   hs-source-dirs:      initial-bp-print
   exposed-modules:     Interpret.Print
+  build-depends:       base ^>=4.10
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-term
-  import:              options, deps
   hs-source-dirs:      initial-bp-term
   signatures:          Term.Type
+  build-depends:       base ^>=4.10
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-base-sig
-  import:              options, deps
   hs-source-dirs:      initial-bp-base-sig
   signatures:          Base.Type
-  build-depends:       initial-bp-term 
+  build-depends:       base ^>=4.10
+                     , initial-bp-term 
                      , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-base
-  import:              options, deps
   hs-source-dirs:      initial-bp-base
   exposed-modules:     Base
-  build-depends:       initial-bp-base-sig
+  build-depends:       base ^>=4.10
+                     , initial-bp-base-sig
                      , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-base-eval
-  import:              options, deps
   hs-source-dirs:      initial-bp-base-eval
   exposed-modules:     Base.Eval
-  build-depends:       initial-bp-base-sig
+  build-depends:       base ^>=4.10
+                     , initial-bp-base-sig
                      , initial-bp-term
                      , initial-bp-eval
                      , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-base-print
-  import:              options, deps
   hs-source-dirs:      initial-bp-base-print
   exposed-modules:     Base.Print
-  build-depends:       initial-bp-base-sig
+  build-depends:       base ^>=4.10
+                     , initial-bp-base-sig
                      , initial-bp-term
                      , initial-bp-print
                      , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-mul-sig
-  import:              options, deps
   hs-source-dirs:      initial-bp-mul-sig
   signatures:          Mul.Type
-  build-depends:       initial-bp-term 
+  build-depends:       base ^>=4.10
+                     , initial-bp-term 
                      , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-mul
-  import:              options, deps
   hs-source-dirs:      initial-bp-mul
   exposed-modules:     Mul
-  build-depends:       initial-bp-mul-sig
+  build-depends:       base ^>=4.10
+                     , initial-bp-mul-sig
                      , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-mul-eval
-  import:              options, deps
   hs-source-dirs:      initial-bp-mul-eval
   exposed-modules:     Mul.Eval
-  build-depends:       initial-bp-term
+  build-depends:       base ^>=4.10
+                     , initial-bp-term
                      , initial-bp-base-sig
                      , initial-bp-mul-sig
                      , initial-bp-eval
                      , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-mul-print
-  import:              options, deps
   hs-source-dirs:      initial-bp-mul-print
   exposed-modules:     Mul.Print
-  build-depends:       initial-bp-term
+  build-depends:       base ^>=4.10
+                     , initial-bp-term
                      , initial-bp-mul-sig
                      , initial-bp-print
                      , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-example-base
-  import:              options, deps
   hs-source-dirs:      initial-bp-example-base
   exposed-modules:     Example.Base
-  build-depends:       initial-bp-base
+  build-depends:       base ^>=4.10
+                     , initial-bp-base
                      , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-example-mul
-  import:              options, deps
   hs-source-dirs:      initial-bp-example-mul
   exposed-modules:     Example.Mul
-  build-depends:       initial-bp-example-base
+  build-depends:       base ^>=4.10
+                     , initial-bp-example-base
                      , initial-bp-base
                      , initial-bp-mul
                      , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-example-term-base
-  import:              options, deps
   hs-source-dirs:      initial-bp-example-term-base
   exposed-modules:     Term.Type
                      , Base.Type
-  build-depends:       lens
+  build-depends:       base ^>=4.10
+                     , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-example-term-base-eval
-  import:              options, deps
   hs-source-dirs:      initial-bp-example-term-base-eval
   exposed-modules:     Term.Eval
-  build-depends:       initial-bp-example-term-base
+  build-depends:       base ^>=4.10
+                     , initial-bp-example-term-base
                      , initial-bp-eval
                      , initial-bp-base-eval
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-example-term-base-print
-  import:              options, deps
   hs-source-dirs:      initial-bp-example-term-base-print
   exposed-modules:     Term.Print
-  build-depends:       initial-bp-example-term-base
+  build-depends:       base ^>=4.10
+                     , initial-bp-example-term-base
                      , initial-bp-print
                      , initial-bp-base-print
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-example-term-base-mul
-  import:              options, deps
   hs-source-dirs:      initial-bp-example-term-base-mul
   exposed-modules:     Term.Type
                      , Base.Type
                      , Mul.Type
-  build-depends:       lens
+  build-depends:       base ^>=4.10
+                     , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-example-term-base-mul-eval
-  import:              options, deps
   hs-source-dirs:      initial-bp-example-term-base-mul-eval
   exposed-modules:     Term.Eval
-  build-depends:       initial-bp-example-term-base-mul
+  build-depends:       base ^>=4.10
+                     , initial-bp-example-term-base-mul
                      , initial-bp-eval
                      , initial-bp-base-eval
                      , initial-bp-mul-eval
                      , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library initial-bp-example-term-base-mul-print
-  import:              options, deps
   hs-source-dirs:      initial-bp-example-term-base-mul-print
   exposed-modules:     Term.Print
-  build-depends:       initial-bp-example-term-base-mul
+  build-depends:       base ^>=4.10
+                     , initial-bp-example-term-base-mul
                      , initial-bp-print
                      , initial-bp-base-print
                      , initial-bp-mul-print
                      , lens
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010
 
 library
-  import:              options, deps
   hs-source-dirs:      src
   exposed-modules:     TestMe
-  build-depends:       initial-bp-example-base
+  build-depends:       base ^>=4.10
+                     , initial-bp-example-base
                      , initial-bp-example-mul
                      , initial-bp-example-term-base-mul
                      , initial-bp-example-term-base-mul-eval
                      , initial-bp-example-term-base-mul-print
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010

@@ -15,6 +15,8 @@ makePrisms ''TermF
 
 instance HasBaseF TermF where
   _BaseF = _BMBase
+  {-# INLINE _BaseF #-}
 
 instance HasMulF TermF where
   _MulF = _BMMul
+  {-# INLINE _MulF #-}
