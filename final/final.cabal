@@ -6,7 +6,7 @@ author:              Dave Laing
 maintainer:          dave.laing.80@gmail.com
 build-type:          Simple
 extra-source-files:  ChangeLog.md
-cabal-version:       >=1.10
+cabal-version:       >=2
 
 flag dump
     description: Dump core
@@ -24,7 +24,9 @@ library
                      , Example.Mul
                      , Example.Mul.Eval
                      , Example.Mul.Print
+                     , Final.Bench
   build-depends:       base >=4.10 && <4.11
+                     , deepseq
   hs-source-dirs:      src
   ghc-options:         -Wall -O
   if flag(dump)

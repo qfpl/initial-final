@@ -1,0 +1,1512 @@
+In order, the following will be built (use -v for more details):
+ - final-0.1.0.0 (lib) +dump (first run)
+Configuring library for final-0.1.0.0..
+Preprocessing library for final-0.1.0.0..
+Building library for final-0.1.0.0..
+[ 1 of 11] Compiling Base             ( src/Base.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-0.1.0.0/build/Base.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 97, types: 62, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 6, types: 11, coercions: 0, joins: 0/0}
+lit :: forall repr. ExpBase repr => Int -> repr
+lit
+  = \ (@ repr) (v :: ExpBase repr) ->
+      case v of v { C:ExpBase v v -> v }
+
+-- RHS size: {terms: 6, types: 11, coercions: 0, joins: 0/0}
+add :: forall repr. ExpBase repr => repr -> repr -> repr
+add
+  = \ (@ repr) (v :: ExpBase repr) ->
+      case v of v { C:ExpBase v v -> v }
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Base"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+$krep :: KindRep
+$krep = KindRepTyConApp $tcInt ([] @ KindRep)
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+$krep1 :: KindRep
+$krep1 = KindRepTyConApp $tcConstraint ([] @ KindRep)
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$tcExpBase1 :: KindRep
+$tcExpBase1 = KindRepFun krep$* $krep1
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$krep2 :: KindRep
+$krep2 = KindRepVar 0#
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$krep3 :: KindRep
+$krep3 = KindRepFun $krep2 $krep2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$krep4 :: KindRep
+$krep4 = KindRepFun $krep2 $krep3
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$krep5 :: KindRep
+$krep5 = KindRepFun $krep $krep2
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$tcExpBase3 :: Addr#
+$tcExpBase3 = "ExpBase"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$tcExpBase2 :: TrName
+$tcExpBase2 = TrNameS $tcExpBase3
+
+-- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
+$tcExpBase :: TyCon
+$tcExpBase
+  = TyCon
+      8755670527849511401##
+      5419305586342230353##
+      $trModule
+      $tcExpBase2
+      0#
+      $tcExpBase1
+
+-- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
+$krep6 :: [KindRep]
+$krep6 = : @ KindRep $krep2 ([] @ KindRep)
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$krep7 :: KindRep
+$krep7 = KindRepTyConApp $tcExpBase $krep6
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$krep8 :: KindRep
+$krep8 = KindRepFun $krep4 $krep7
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$tc'C:ExpBase1 :: KindRep
+$tc'C:ExpBase1 = KindRepFun $krep5 $krep8
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$tc'C:ExpBase3 :: Addr#
+$tc'C:ExpBase3 = "'C:ExpBase"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$tc'C:ExpBase2 :: TrName
+$tc'C:ExpBase2 = TrNameS $tc'C:ExpBase3
+
+-- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
+$tc'C:ExpBase :: TyCon
+$tc'C:ExpBase
+  = TyCon
+      1869223079848627608##
+      10514222822274484468##
+      $trModule
+      $tc'C:ExpBase2
+      1#
+      $tc'C:ExpBase1
+
+
+
+[ 2 of 11] Compiling Example.Base     ( src/Example/Base.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-0.1.0.0/build/Example/Base.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 39, types: 22, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+term4 :: Int
+term4 = I# 8#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+term3 :: Int
+term3 = I# 1#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+term2 :: Int
+term2 = I# 2#
+
+-- RHS size: {terms: 15, types: 9, coercions: 0, joins: 0/0}
+term1 :: forall repr. ExpBase repr => repr
+term1
+  = \ (@ repr) ($dExpBase :: ExpBase repr) ->
+      add
+        @ repr
+        $dExpBase
+        (lit @ repr $dExpBase term4)
+        (add
+           @ repr
+           $dExpBase
+           (lit @ repr $dExpBase term3)
+           (lit @ repr $dExpBase term2))
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Example.Base"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
+[ 3 of 11] Compiling Mul              ( src/Mul.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-0.1.0.0/build/Mul.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 75, types: 34, coercions: 2, joins: 0/0}
+
+-- RHS size: {terms: 3, types: 4, coercions: 2, joins: 0/0}
+mul :: forall repr. ExpMul repr => repr -> repr -> repr
+mul
+  = \ (@ repr) (v :: ExpMul repr) ->
+      v
+      `cast` (N:ExpMul[0] <repr>_N
+              :: (ExpMul repr :: Constraint) ~R# ((repr -> repr -> repr) :: *))
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Mul"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+$krep :: KindRep
+$krep = KindRepTyConApp $tcConstraint ([] @ KindRep)
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$tcExpMul1 :: KindRep
+$tcExpMul1 = KindRepFun krep$* $krep
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$krep1 :: KindRep
+$krep1 = KindRepVar 0#
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$krep2 :: KindRep
+$krep2 = KindRepFun $krep1 $krep1
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$krep3 :: KindRep
+$krep3 = KindRepFun $krep1 $krep2
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$tcExpMul3 :: Addr#
+$tcExpMul3 = "ExpMul"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$tcExpMul2 :: TrName
+$tcExpMul2 = TrNameS $tcExpMul3
+
+-- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
+$tcExpMul :: TyCon
+$tcExpMul
+  = TyCon
+      9374537577504056060##
+      5530055685242691772##
+      $trModule
+      $tcExpMul2
+      0#
+      $tcExpMul1
+
+-- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
+$krep4 :: [KindRep]
+$krep4 = : @ KindRep $krep1 ([] @ KindRep)
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$krep5 :: KindRep
+$krep5 = KindRepTyConApp $tcExpMul $krep4
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$tc'C:ExpMul1 :: KindRep
+$tc'C:ExpMul1 = KindRepFun $krep3 $krep5
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$tc'C:ExpMul3 :: Addr#
+$tc'C:ExpMul3 = "'C:ExpMul"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$tc'C:ExpMul2 :: TrName
+$tc'C:ExpMul2 = TrNameS $tc'C:ExpMul3
+
+-- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
+$tc'C:ExpMul :: TyCon
+$tc'C:ExpMul
+  = TyCon
+      12046460716746065670##
+      1356137612035434625##
+      $trModule
+      $tc'C:ExpMul2
+      1#
+      $tc'C:ExpMul1
+
+
+
+[ 4 of 11] Compiling Interpret.Print  ( src/Interpret/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-0.1.0.0/build/Interpret/Print.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 214, types: 110, coercions: 95, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$fExpBasePrint5 :: Addr#
+$fExpBasePrint5 = "("#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$fExpBasePrint4 :: Addr#
+$fExpBasePrint4 = ") + ("#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$fExpBasePrint3 :: Addr#
+$fExpBasePrint3 = ")"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$fExpBasePrint2 :: [Char]
+$fExpBasePrint2 = unpackCString# $fExpBasePrint3
+
+-- RHS size: {terms: 11, types: 4, coercions: 2, joins: 0/0}
+$fExpBasePrint1 :: Print -> Print -> [Char]
+$fExpBasePrint1
+  = \ (ds :: Print) (ds1 :: Print) ->
+      unpackAppendCString#
+        $fExpBasePrint5
+        (++
+           @ Char
+           (ds `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
+           (unpackAppendCString#
+              $fExpBasePrint4
+              (++
+                 @ Char
+                 (ds1 `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
+                 $fExpBasePrint2)))
+
+-- RHS size: {terms: 3, types: 1, coercions: 10, joins: 0/0}
+$fExpBasePrint :: ExpBase Print
+$fExpBasePrint
+  = C:ExpBase
+      @ Print
+      ($fShowInt_$cshow
+       `cast` (<Int>_R -> Sym N:Print[0]
+               :: ((Int -> String) :: *) ~R# ((Int -> Print) :: *)))
+      ($fExpBasePrint1
+       `cast` (<Print>_R -> <Print>_R -> Sym N:Print[0]
+               :: ((Print -> Print -> String) :: *)
+                  ~R#
+                  ((Print -> Print -> Print) :: *)))
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$fExpMulPrint2 :: Addr#
+$fExpMulPrint2 = ") * ("#
+
+-- RHS size: {terms: 11, types: 4, coercions: 2, joins: 0/0}
+$fExpMulPrint1 :: Print -> Print -> [Char]
+$fExpMulPrint1
+  = \ (ds :: Print) (ds1 :: Print) ->
+      unpackAppendCString#
+        $fExpBasePrint5
+        (++
+           @ Char
+           (ds `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
+           (unpackAppendCString#
+              $fExpMulPrint2
+              (++
+                 @ Char
+                 (ds1 `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
+                 $fExpBasePrint2)))
+
+-- RHS size: {terms: 1, types: 0, coercions: 10, joins: 0/0}
+$fExpMulPrint :: ExpMul Print
+$fExpMulPrint
+  = $fExpMulPrint1
+    `cast` ((<Print>_R -> <Print>_R -> Sym N:Print[0])
+            ; Sym (N:ExpMul[0] <Print>_N)
+            :: ((Print -> Print -> String) :: *)
+               ~R#
+               (ExpMul Print :: Constraint))
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$fShowPrint5 :: Addr#
+$fShowPrint5 = "Print {"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$fShowPrint4 :: [Char]
+$fShowPrint4 = unpackCString# $fShowPrint5
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$fShowPrint3 :: Addr#
+$fShowPrint3 = "runPrint = "#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$fShowPrint2 :: Addr#
+$fShowPrint2 = "}"#
+
+-- RHS size: {terms: 40, types: 13, coercions: 2, joins: 0/0}
+$w$cshowsPrec :: Int# -> Print -> String -> String
+$w$cshowsPrec
+  = \ (ww :: Int#) (w :: Print) (w1 :: String) ->
+      case tagToEnum# @ Bool (>=# ww 11#) of {
+        False ->
+          ++
+            @ Char
+            $fShowPrint4
+            (unpackAppendCString#
+               $fShowPrint3
+               (: @ Char
+                  $fShow(,)3
+                  (showLitString
+                     (w `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
+                     (: @ Char $fShow(,)3 (unpackAppendCString# $fShowPrint2 w1)))));
+        True ->
+          : @ Char
+            $fShow(,)4
+            (++
+               @ Char
+               $fShowPrint4
+               (unpackAppendCString#
+                  $fShowPrint3
+                  (: @ Char
+                     $fShow(,)3
+                     (showLitString
+                        (w `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
+                        (: @ Char
+                           $fShow(,)3
+                           (unpackAppendCString# $fShowPrint2 (: @ Char $fShow(,)2 w1)))))))
+      }
+
+-- RHS size: {terms: 10, types: 5, coercions: 0, joins: 0/0}
+$fShowPrint_$cshowsPrec :: Int -> Print -> ShowS
+$fShowPrint_$cshowsPrec
+  = \ (w :: Int) (w1 :: Print) (w2 :: String) ->
+      case w of { I# ww1 -> $w$cshowsPrec ww1 w1 w2 }
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$fShowPrint7 :: [Char]
+$fShowPrint7 = unpackCString# $fShowPrint2
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+$fShowPrint6 :: [Char]
+$fShowPrint6 = : @ Char $fShow(,)3 $fShowPrint7
+
+-- RHS size: {terms: 10, types: 3, coercions: 1, joins: 0/0}
+$fShowPrint_$cshow :: Print -> String
+$fShowPrint_$cshow
+  = \ (x :: Print) ->
+      ++
+        @ Char
+        $fShowPrint4
+        (unpackAppendCString#
+           $fShowPrint3
+           (: @ Char
+              $fShow(,)3
+              (showLitString
+                 (x `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
+                 $fShowPrint6)))
+
+-- RHS size: {terms: 6, types: 2, coercions: 0, joins: 0/0}
+$fShowPrint1 :: Print -> ShowS
+$fShowPrint1
+  = \ (w :: Print) (w1 :: String) -> $w$cshowsPrec 0# w w1
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+$fShowPrint_$cshowList :: [Print] -> ShowS
+$fShowPrint_$cshowList = showList__ @ Print $fShowPrint1
+
+-- RHS size: {terms: 4, types: 1, coercions: 0, joins: 0/0}
+$fShowPrint :: Show Print
+$fShowPrint
+  = C:Show
+      @ Print
+      $fShowPrint_$cshowsPrec
+      $fShowPrint_$cshow
+      $fShowPrint_$cshowList
+
+-- RHS size: {terms: 3, types: 1, coercions: 14, joins: 0/0}
+$fEqPrint :: Eq Print
+$fEqPrint
+  = C:Eq
+      @ Print
+      (eqString
+       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Bool>_R
+               :: ((String -> String -> Bool) :: *)
+                  ~R#
+                  ((Print -> Print -> Bool) :: *)))
+      ($fEq[]_$s$c/=1
+       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Bool>_R
+               :: ((String -> String -> Bool) :: *)
+                  ~R#
+                  ((Print -> Print -> Bool) :: *)))
+
+-- RHS size: {terms: 9, types: 1, coercions: 51, joins: 0/0}
+$fOrdPrint :: Ord Print
+$fOrdPrint
+  = C:Ord
+      @ Print
+      $fEqPrint
+      ($fOrd[]_$s$ccompare1
+       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Ordering>_R
+               :: ((String -> String -> Ordering) :: *)
+                  ~R#
+                  ((Print -> Print -> Ordering) :: *)))
+      ($fOrd[]_$s$c<1
+       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Bool>_R
+               :: ((String -> String -> Bool) :: *)
+                  ~R#
+                  ((Print -> Print -> Bool) :: *)))
+      ($fOrd[]_$s$c<=1
+       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Bool>_R
+               :: ((String -> String -> Bool) :: *)
+                  ~R#
+                  ((Print -> Print -> Bool) :: *)))
+      ($fOrd[]_$s$c>1
+       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Bool>_R
+               :: ((String -> String -> Bool) :: *)
+                  ~R#
+                  ((Print -> Print -> Bool) :: *)))
+      ($fOrd[]_$s$c>=1
+       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Bool>_R
+               :: ((String -> String -> Bool) :: *)
+                  ~R#
+                  ((Print -> Print -> Bool) :: *)))
+      ($fOrd[]_$s$cmax1
+       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> Sym N:Print[0]
+               :: ((String -> String -> String) :: *)
+                  ~R#
+                  ((Print -> Print -> Print) :: *)))
+      ($fOrd[]_$s$cmin1
+       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> Sym N:Print[0]
+               :: ((String -> String -> String) :: *)
+                  ~R#
+                  ((Print -> Print -> Print) :: *)))
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+runPrint1 :: Print -> Print
+runPrint1 = \ (ds :: Print) -> ds
+
+-- RHS size: {terms: 1, types: 0, coercions: 3, joins: 0/0}
+runPrint :: Print -> String
+runPrint
+  = runPrint1
+    `cast` (<Print>_R -> N:Print[0]
+            :: ((Print -> Print) :: *) ~R# ((Print -> String) :: *))
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Interpret.Print"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+$krep :: KindRep
+$krep = KindRepTyConApp $tcChar ([] @ KindRep)
+
+-- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
+$krep1 :: [KindRep]
+$krep1 = : @ KindRep $krep ([] @ KindRep)
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$krep2 :: KindRep
+$krep2 = KindRepTyConApp $tc[] $krep1
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$tcPrint2 :: Addr#
+$tcPrint2 = "Print"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$tcPrint1 :: TrName
+$tcPrint1 = TrNameS $tcPrint2
+
+-- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
+$tcPrint :: TyCon
+$tcPrint
+  = TyCon
+      1075507527058703562##
+      16482393331656468136##
+      $trModule
+      $tcPrint1
+      0#
+      krep$*
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+$krep3 :: KindRep
+$krep3 = KindRepTyConApp $tcPrint ([] @ KindRep)
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$tc'Print1 :: KindRep
+$tc'Print1 = KindRepFun $krep2 $krep3
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$tc'Print3 :: Addr#
+$tc'Print3 = "'Print"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$tc'Print2 :: TrName
+$tc'Print2 = TrNameS $tc'Print3
+
+-- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
+$tc'Print :: TyCon
+$tc'Print
+  = TyCon
+      178913704857179844##
+      2891051689275283674##
+      $trModule
+      $tc'Print2
+      0#
+      $tc'Print1
+
+
+
+[ 5 of 11] Compiling Example.Base.Print ( src/Example/Base/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-0.1.0.0/build/Example/Base/Print.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 72, types: 59, coercions: 2, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Example.Base.Print"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
+print9 :: [Char]
+print9
+  = case $wshowSignedInt 0# 2# ([] @ Char) of { (# ww5, ww6 #) ->
+    ++ @ Char (: @ Char ww5 ww6) $fExpBasePrint2
+    }
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print8 :: [Char]
+print8 = unpackAppendCString# $fExpBasePrint4 print9
+
+-- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
+print7 :: [Char]
+print7
+  = case $wshowSignedInt 0# 1# ([] @ Char) of { (# ww5, ww6 #) ->
+    ++ @ Char (: @ Char ww5 ww6) print8
+    }
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print6 :: [Char]
+print6 = unpackAppendCString# $fExpBasePrint5 print7
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+print5 :: [Char]
+print5 = ++ @ Char print6 $fExpBasePrint2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print4 :: [Char]
+print4 = unpackAppendCString# $fExpBasePrint4 print5
+
+-- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
+print3 :: [Char]
+print3
+  = case $wshowSignedInt 0# 8# ([] @ Char) of { (# ww5, ww6 #) ->
+    ++ @ Char (: @ Char ww5 ww6) print4
+    }
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print2 :: [Char]
+print2 = unpackAppendCString# $fExpBasePrint5 print3
+
+-- RHS size: {terms: 1, types: 0, coercions: 2, joins: 0/0}
+print1 :: Print
+print1
+  = print2 `cast` (Sym N:Print[0] :: (String :: *) ~R# (Print :: *))
+
+
+
+[ 6 of 11] Compiling Interpret.Eval   ( src/Interpret/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-0.1.0.0/build/Interpret/Eval.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 204, types: 135, coercions: 303, joins: 0/0}
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+$fExpBaseEval1 :: Int -> Int
+$fExpBaseEval1 = \ (v :: Int) -> v
+
+-- RHS size: {terms: 3, types: 1, coercions: 18, joins: 0/0}
+$fExpBaseEval :: ExpBase Eval
+$fExpBaseEval
+  = C:ExpBase
+      @ Eval
+      ($fExpBaseEval1
+       `cast` (<Int>_R -> Sym N:Eval[0]
+               :: ((Int -> Int) :: *) ~R# ((Int -> Eval) :: *)))
+      ($fNumInt_$c+
+       `cast` ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
+               ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])
+               :: ((Int -> Int -> Int) :: *) ~R# ((Eval -> Eval -> Eval) :: *)))
+
+-- RHS size: {terms: 1, types: 0, coercions: 18, joins: 0/0}
+$fExpMulEval :: ExpMul Eval
+$fExpMulEval
+  = $fNumInt_$c*
+    `cast` ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
+            ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])
+            ; Sym (N:ExpMul[0] <Eval>_N)
+            :: ((Int -> Int -> Int) :: *) ~R# (ExpMul Eval :: Constraint))
+
+-- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
+$fGenericEval1 :: forall x. Rep Eval x -> Rep Eval x
+$fGenericEval1 = \ (@ x) (ds :: Rep Eval x) -> ds
+
+-- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
+$fGenericEval2 :: forall x. Eval -> Eval
+$fGenericEval2 = \ (@ x) (x1 :: Eval) -> x1
+
+-- RHS size: {terms: 3, types: 1, coercions: 192, joins: 0/0}
+$fGenericEval :: Generic Eval
+$fGenericEval
+  = C:Generic
+      @ Eval
+      ($fGenericEval2
+       `cast` (forall (x :: <*>_N).
+               <Eval>_R
+               -> N:Eval[0]
+                  ; Sym (N:K1[0] <*>_N <R>_P <Int>_R <x>_P)
+                  ; Sym
+                      (N:M1[0]
+                         <*>_N
+                         <S>_P
+                         <'MetaSel
+                            ('Just "runEval")
+                            'NoSourceUnpackedness
+                            'NoSourceStrictness
+                            'DecidedLazy>_P
+                         <K1 R Int>_R)
+                    ; Sym
+                        (N:M1[0]
+                           <*>_N
+                           <C>_P
+                           <'MetaCons "Eval" 'PrefixI 'True>_P
+                           <M1
+                              S
+                              ('MetaSel
+                                 ('Just "runEval")
+                                 'NoSourceUnpackedness
+                                 'NoSourceStrictness
+                                 'DecidedLazy)
+                              (K1 R Int)>_R)
+                    ; Sym
+                        (N:M1[0]
+                           <*>_N
+                           <D>_P
+                           <'MetaData "Eval" "Interpret.Eval" "final-0.1.0.0-inplace" 'True>_P
+                           <M1
+                              C
+                              ('MetaCons "Eval" 'PrefixI 'True)
+                              (M1
+                                 S
+                                 ('MetaSel
+                                    ('Just "runEval")
+                                    'NoSourceUnpackedness
+                                    'NoSourceStrictness
+                                    'DecidedLazy)
+                                 (K1 R Int))>_R)
+                    ; Sub (Sym Rep_Eval[0]) <x>_N
+               :: ((forall x. Eval -> Eval) :: *)
+                  ~R#
+                  ((forall x. Eval -> Rep Eval x) :: *)))
+      ($fGenericEval1
+       `cast` (forall (x :: <*>_N).
+               <Rep Eval x>_R
+               -> Sub Rep_Eval[0]
+                  ; N:M1[0]
+                      <*>_N
+                      <D>_P
+                      <'MetaData "Eval" "Interpret.Eval" "final-0.1.0.0-inplace" 'True>_P
+                      <M1
+                         C
+                         ('MetaCons "Eval" 'PrefixI 'True)
+                         (M1
+                            S
+                            ('MetaSel
+                               ('Just "runEval")
+                               'NoSourceUnpackedness
+                               'NoSourceStrictness
+                               'DecidedLazy)
+                            (K1 R Int))>_R
+                  ; N:M1[0]
+                      <*>_N
+                      <C>_P
+                      <'MetaCons "Eval" 'PrefixI 'True>_P
+                      <M1
+                         S
+                         ('MetaSel
+                            ('Just "runEval")
+                            'NoSourceUnpackedness
+                            'NoSourceStrictness
+                            'DecidedLazy)
+                         (K1 R Int)>_R
+                  ; N:M1[0]
+                      <*>_N
+                      <S>_P
+                      <'MetaSel
+                         ('Just "runEval")
+                         'NoSourceUnpackedness
+                         'NoSourceStrictness
+                         'DecidedLazy>_P
+                      <K1 R Int>_R <x>_N
+                  ; N:K1[0] <*>_N <R>_P <Int>_R <x>_P
+                  ; Sym N:Eval[0]
+               :: ((forall x. Rep Eval x -> Rep Eval x) :: *)
+                  ~R#
+                  ((forall x. Rep Eval x -> Eval) :: *)))
+
+-- RHS size: {terms: 5, types: 3, coercions: 1, joins: 0/0}
+$fNFDataEval_$crnf :: Eval -> ()
+$fNFDataEval_$crnf
+  = \ (x :: Eval) ->
+      case x `cast` (N:Eval[0] :: (Eval :: *) ~R# (Int :: *)) of
+      { I# ipv ->
+      ()
+      }
+
+-- RHS size: {terms: 1, types: 0, coercions: 3, joins: 0/0}
+$fNFDataEval :: NFData Eval
+$fNFDataEval
+  = $fNFDataEval_$crnf
+    `cast` (Sym (N:NFData[0] <Eval>_N)
+            :: ((Eval -> ()) :: *) ~R# (NFData Eval :: Constraint))
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$fShowEval4 :: Addr#
+$fShowEval4 = "Eval {"#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$fShowEval3 :: Addr#
+$fShowEval3 = "runEval = "#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$fShowEval2 :: Addr#
+$fShowEval2 = "}"#
+
+-- RHS size: {terms: 50, types: 31, coercions: 2, joins: 0/0}
+$w$cshowsPrec :: Int# -> Eval -> String -> String
+$w$cshowsPrec
+  = \ (ww :: Int#) (w :: Eval) (w1 :: String) ->
+      case tagToEnum# @ Bool (>=# ww 11#) of {
+        False ->
+          unpackAppendCString#
+            $fShowEval4
+            (unpackAppendCString#
+               $fShowEval3
+               (case w `cast` (N:Eval[0] :: (Eval :: *) ~R# (Int :: *)) of
+                { I# ww3 ->
+                case $wshowSignedInt 0# ww3 (unpackAppendCString# $fShowEval2 w1)
+                of
+                { (# ww5, ww6 #) ->
+                : @ Char ww5 ww6
+                }
+                }));
+        True ->
+          : @ Char
+            $fShow(,)4
+            (unpackAppendCString#
+               $fShowEval4
+               (unpackAppendCString#
+                  $fShowEval3
+                  (case w `cast` (N:Eval[0] :: (Eval :: *) ~R# (Int :: *)) of
+                   { I# ww3 ->
+                   case $wshowSignedInt
+                          0# ww3 (unpackAppendCString# $fShowEval2 (: @ Char $fShow(,)2 w1))
+                   of
+                   { (# ww5, ww6 #) ->
+                   : @ Char ww5 ww6
+                   }
+                   })))
+      }
+
+-- RHS size: {terms: 10, types: 5, coercions: 0, joins: 0/0}
+$fShowEval_$cshowsPrec :: Int -> Eval -> ShowS
+$fShowEval_$cshowsPrec
+  = \ (w :: Int) (w1 :: Eval) (w2 :: String) ->
+      case w of { I# ww1 -> $w$cshowsPrec ww1 w1 w2 }
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$fShowEval5 :: [Char]
+$fShowEval5 = unpackCString# $fShowEval2
+
+-- RHS size: {terms: 17, types: 13, coercions: 1, joins: 0/0}
+$fShowEval_$cshow :: Eval -> String
+$fShowEval_$cshow
+  = \ (x :: Eval) ->
+      unpackAppendCString#
+        $fShowEval4
+        (unpackAppendCString#
+           $fShowEval3
+           (case x `cast` (N:Eval[0] :: (Eval :: *) ~R# (Int :: *)) of
+            { I# ww3 ->
+            case $wshowSignedInt 0# ww3 $fShowEval5 of { (# ww5, ww6 #) ->
+            : @ Char ww5 ww6
+            }
+            }))
+
+-- RHS size: {terms: 6, types: 2, coercions: 0, joins: 0/0}
+$fShowEval1 :: Eval -> ShowS
+$fShowEval1 = \ (w :: Eval) (w1 :: String) -> $w$cshowsPrec 0# w w1
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+$fShowEval_$cshowList :: [Eval] -> ShowS
+$fShowEval_$cshowList = showList__ @ Eval $fShowEval1
+
+-- RHS size: {terms: 4, types: 1, coercions: 0, joins: 0/0}
+$fShowEval :: Show Eval
+$fShowEval
+  = C:Show
+      @ Eval
+      $fShowEval_$cshowsPrec
+      $fShowEval_$cshow
+      $fShowEval_$cshowList
+
+-- RHS size: {terms: 3, types: 1, coercions: 14, joins: 0/0}
+$fEqEval :: Eq Eval
+$fEqEval
+  = C:Eq
+      @ Eval
+      (eqInt
+       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Bool>_R
+               :: ((Int -> Int -> Bool) :: *) ~R# ((Eval -> Eval -> Bool) :: *)))
+      (neInt
+       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Bool>_R
+               :: ((Int -> Int -> Bool) :: *) ~R# ((Eval -> Eval -> Bool) :: *)))
+
+-- RHS size: {terms: 9, types: 1, coercions: 51, joins: 0/0}
+$fOrdEval :: Ord Eval
+$fOrdEval
+  = C:Ord
+      @ Eval
+      $fEqEval
+      (compareInt
+       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Ordering>_R
+               :: ((Int -> Int -> Ordering) :: *)
+                  ~R#
+                  ((Eval -> Eval -> Ordering) :: *)))
+      (ltInt
+       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Bool>_R
+               :: ((Int -> Int -> Bool) :: *) ~R# ((Eval -> Eval -> Bool) :: *)))
+      (leInt
+       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Bool>_R
+               :: ((Int -> Int -> Bool) :: *) ~R# ((Eval -> Eval -> Bool) :: *)))
+      (gtInt
+       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Bool>_R
+               :: ((Int -> Int -> Bool) :: *) ~R# ((Eval -> Eval -> Bool) :: *)))
+      (geInt
+       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Bool>_R
+               :: ((Int -> Int -> Bool) :: *) ~R# ((Eval -> Eval -> Bool) :: *)))
+      ($fOrdInt_$cmax
+       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> Sym N:Eval[0]
+               :: ((Int -> Int -> Int) :: *) ~R# ((Eval -> Eval -> Eval) :: *)))
+      ($fOrdInt_$cmin
+       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> Sym N:Eval[0]
+               :: ((Int -> Int -> Int) :: *) ~R# ((Eval -> Eval -> Eval) :: *)))
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+runEval1 :: Eval -> Eval
+runEval1 = \ (ds :: Eval) -> ds
+
+-- RHS size: {terms: 1, types: 0, coercions: 3, joins: 0/0}
+runEval :: Eval -> Int
+runEval
+  = runEval1
+    `cast` (<Eval>_R -> N:Eval[0]
+            :: ((Eval -> Eval) :: *) ~R# ((Eval -> Int) :: *))
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Interpret.Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+$krep :: KindRep
+$krep = KindRepTyConApp $tcInt ([] @ KindRep)
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$tcEval2 :: Addr#
+$tcEval2 = "Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$tcEval1 :: TrName
+$tcEval1 = TrNameS $tcEval2
+
+-- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
+$tcEval :: TyCon
+$tcEval
+  = TyCon
+      15824382824028947385##
+      9663270948317796019##
+      $trModule
+      $tcEval1
+      0#
+      krep$*
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+$krep1 :: KindRep
+$krep1 = KindRepTyConApp $tcEval ([] @ KindRep)
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$tc'Eval1 :: KindRep
+$tc'Eval1 = KindRepFun $krep $krep1
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$tc'Eval3 :: Addr#
+$tc'Eval3 = "'Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$tc'Eval2 :: TrName
+$tc'Eval2 = TrNameS $tc'Eval3
+
+-- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
+$tc'Eval :: TyCon
+$tc'Eval
+  = TyCon
+      15938321307258681068##
+      4983853947647050196##
+      $trModule
+      $tc'Eval2
+      0#
+      $tc'Eval1
+
+
+
+[ 7 of 11] Compiling Example.Base.Eval ( src/Example/Base/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-0.1.0.0/build/Example/Base/Eval.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 19, types: 7, coercions: 16, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Example.Base.Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+eval2 :: Int
+eval2 = I# 11#
+
+-- RHS size: {terms: 1, types: 0, coercions: 16, joins: 0/0}
+eval1 :: Eval
+eval1
+  = eval2
+    `cast` (Nth:3
+              (Nth:3
+                 ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
+                  ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
+            :: (Int :: *) ~R# (Eval :: *))
+
+
+
+[ 8 of 11] Compiling Final.Bench      ( src/Final/Bench.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-0.1.0.0/build/Final/Bench.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 77, types: 33, coercions: 135, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Final.Bench"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 20, types: 3, coercions: 12, joins: 0/0}
+evalAddMulBig1 :: Eval -> Int
+evalAddMulBig1
+  = \ (tm :: Eval) ->
+      case tm
+           `cast` (Nth:2
+                     ((<Eval>_R -> <Eval>_R -> N:Eval[0])
+                      ; (N:Eval[0] -> N:Eval[0] -> <Int>_R))
+                   :: (Eval :: *) ~R# (Int :: *))
+      of
+      { I# x ->
+      I# (+# (*# (+# x 3#) (+# x 5#)) (*# (+# x 7#) (+# x 11#)))
+      }
+
+-- RHS size: {terms: 1, types: 0, coercions: 18, joins: 0/0}
+evalAddMulBig :: Eval -> Eval
+evalAddMulBig
+  = evalAddMulBig1
+    `cast` (<Eval>_R
+            -> Nth:3
+                 (Nth:3
+                    ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
+                     ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
+            :: ((Eval -> Int) :: *) ~R# ((Eval -> Eval) :: *))
+
+-- RHS size: {terms: 12, types: 3, coercions: 12, joins: 0/0}
+evalAddBig1 :: Eval -> Int
+evalAddBig1
+  = \ (tm :: Eval) ->
+      case tm
+           `cast` (Nth:2
+                     ((<Eval>_R -> <Eval>_R -> N:Eval[0])
+                      ; (N:Eval[0] -> N:Eval[0] -> <Int>_R))
+                   :: (Eval :: *) ~R# (Int :: *))
+      of
+      { I# x ->
+      I# (+# (+# x 3#) (+# x 5#))
+      }
+
+-- RHS size: {terms: 1, types: 0, coercions: 18, joins: 0/0}
+evalAddBig :: Eval -> Eval
+evalAddBig
+  = evalAddBig1
+    `cast` (<Eval>_R
+            -> Nth:3
+                 (Nth:3
+                    ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
+                     ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
+            :: ((Eval -> Int) :: *) ~R# ((Eval -> Eval) :: *))
+
+-- RHS size: {terms: 10, types: 3, coercions: 12, joins: 0/0}
+evalAddMulSmall1 :: Eval -> Int
+evalAddMulSmall1
+  = \ (tm :: Eval) ->
+      case tm
+           `cast` (Nth:2
+                     ((<Eval>_R -> <Eval>_R -> N:Eval[0])
+                      ; (N:Eval[0] -> N:Eval[0] -> <Int>_R))
+                   :: (Eval :: *) ~R# (Int :: *))
+      of
+      { I# x ->
+      I# (+# (*# x 3#) 5#)
+      }
+
+-- RHS size: {terms: 1, types: 0, coercions: 18, joins: 0/0}
+evalAddMulSmall :: Eval -> Eval
+evalAddMulSmall
+  = evalAddMulSmall1
+    `cast` (<Eval>_R
+            -> Nth:3
+                 (Nth:3
+                    ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
+                     ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
+            :: ((Eval -> Int) :: *) ~R# ((Eval -> Eval) :: *))
+
+-- RHS size: {terms: 4, types: 1, coercions: 25, joins: 0/0}
+evalAddSmall1 :: Eval -> Int
+evalAddSmall1
+  = \ (tm :: Eval) ->
+      $fNumInt_$c+
+        (tm
+         `cast` (Nth:2
+                   ((<Eval>_R -> <Eval>_R -> N:Eval[0])
+                    ; (N:Eval[0] -> N:Eval[0] -> <Int>_R))
+                 :: (Eval :: *) ~R# (Int :: *)))
+        (tm
+         `cast` (Nth:2
+                   (Nth:3
+                      ((<Eval>_R -> <Eval>_R -> N:Eval[0])
+                       ; (N:Eval[0] -> N:Eval[0] -> <Int>_R)))
+                 :: (Eval :: *) ~R# (Int :: *)))
+
+-- RHS size: {terms: 1, types: 0, coercions: 18, joins: 0/0}
+evalAddSmall :: Eval -> Eval
+evalAddSmall
+  = evalAddSmall1
+    `cast` (<Eval>_R
+            -> Nth:3
+                 (Nth:3
+                    ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
+                     ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
+            :: ((Eval -> Int) :: *) ~R# ((Eval -> Eval) :: *))
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+lit1 :: Int
+lit1 = I# 2#
+
+-- RHS size: {terms: 1, types: 0, coercions: 2, joins: 0/0}
+lit2 :: Eval
+lit2 = lit1 `cast` (Sym N:Eval[0] :: (Int :: *) ~R# (Eval :: *))
+
+
+
+[ 9 of 11] Compiling Example.Mul      ( src/Example/Mul.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-0.1.0.0/build/Example/Mul.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 49, types: 40, coercions: 4, joins: 0/0}
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+term6 :: Int
+term6 = I# 7#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+term5 :: Int
+term5 = I# 1#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+term1 :: Int
+term1 = I# 2#
+
+-- RHS size: {terms: 15, types: 10, coercions: 2, joins: 0/0}
+term2 :: forall repr. (ExpBase repr, ExpMul repr) => repr
+term2
+  = \ (@ repr)
+      ($dExpBase :: ExpBase repr)
+      ($dExpMul :: ExpMul repr) ->
+      add
+        @ repr
+        $dExpBase
+        (lit @ repr $dExpBase term6)
+        (($dExpMul
+          `cast` (N:ExpMul[0] <repr>_N
+                  :: (ExpMul repr :: Constraint) ~R# ((repr -> repr -> repr) :: *)))
+           (lit @ repr $dExpBase term5) (lit @ repr $dExpBase term1))
+
+-- RHS size: {terms: 9, types: 8, coercions: 2, joins: 0/0}
+term3 :: forall repr. (ExpBase repr, ExpMul repr) => repr
+term3
+  = \ (@ repr)
+      ($dExpBase :: ExpBase repr)
+      ($dExpMul :: ExpMul repr) ->
+      ($dExpMul
+       `cast` (N:ExpMul[0] <repr>_N
+               :: (ExpMul repr :: Constraint) ~R# ((repr -> repr -> repr) :: *)))
+        (lit @ repr $dExpBase term6) (term1 @ repr $dExpBase)
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Example.Mul"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
+[10 of 11] Compiling Example.Mul.Print ( src/Example/Mul/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-0.1.0.0/build/Example/Mul/Print.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 144, types: 121, coercions: 6, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Example.Mul.Print"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
+print11 :: [Char]
+print11
+  = case $wshowSignedInt 0# 2# ([] @ Char) of { (# ww5, ww6 #) ->
+    ++ @ Char (: @ Char ww5 ww6) $fExpBasePrint2
+    }
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print10 :: [Char]
+print10 = unpackAppendCString# $fExpBasePrint4 print11
+
+-- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
+print9 :: [Char]
+print9
+  = case $wshowSignedInt 0# 1# ([] @ Char) of { (# ww5, ww6 #) ->
+    ++ @ Char (: @ Char ww5 ww6) print10
+    }
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print8 :: [Char]
+print8 = unpackAppendCString# $fExpBasePrint5 print9
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+print7 :: [Char]
+print7 = ++ @ Char print8 $fExpBasePrint2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print6 :: [Char]
+print6 = unpackAppendCString# $fExpBasePrint4 print7
+
+-- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
+print5 :: [Char]
+print5
+  = case $wshowSignedInt 0# 8# ([] @ Char) of { (# ww5, ww6 #) ->
+    ++ @ Char (: @ Char ww5 ww6) print6
+    }
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print4 :: [Char]
+print4 = unpackAppendCString# $fExpBasePrint5 print5
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+print22 :: [Char]
+print22 = ++ @ Char print4 $fExpBasePrint2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print21 :: [Char]
+print21 = unpackAppendCString# $fExpMulPrint2 print22
+
+-- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
+print20 :: [Char]
+print20
+  = case $wshowSignedInt 0# 7# ([] @ Char) of { (# ww5, ww6 #) ->
+    ++ @ Char (: @ Char ww5 ww6) print21
+    }
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print19 :: [Char]
+print19 = unpackAppendCString# $fExpBasePrint5 print20
+
+-- RHS size: {terms: 1, types: 0, coercions: 2, joins: 0/0}
+print3 :: Print
+print3
+  = print19 `cast` (Sym N:Print[0] :: (String :: *) ~R# (Print :: *))
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print18 :: [Char]
+print18 = unpackAppendCString# $fExpMulPrint2 print11
+
+-- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
+print17 :: [Char]
+print17
+  = case $wshowSignedInt 0# 1# ([] @ Char) of { (# ww5, ww6 #) ->
+    ++ @ Char (: @ Char ww5 ww6) print18
+    }
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print16 :: [Char]
+print16 = unpackAppendCString# $fExpBasePrint5 print17
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+print15 :: [Char]
+print15 = ++ @ Char print16 $fExpBasePrint2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print14 :: [Char]
+print14 = unpackAppendCString# $fExpBasePrint4 print15
+
+-- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
+print13 :: [Char]
+print13
+  = case $wshowSignedInt 0# 7# ([] @ Char) of { (# ww5, ww6 #) ->
+    ++ @ Char (: @ Char ww5 ww6) print14
+    }
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+print12 :: [Char]
+print12 = unpackAppendCString# $fExpBasePrint5 print13
+
+-- RHS size: {terms: 1, types: 0, coercions: 2, joins: 0/0}
+print2 :: Print
+print2
+  = print12 `cast` (Sym N:Print[0] :: (String :: *) ~R# (Print :: *))
+
+-- RHS size: {terms: 1, types: 0, coercions: 2, joins: 0/0}
+print1 :: Print
+print1
+  = print4 `cast` (Sym N:Print[0] :: (String :: *) ~R# (Print :: *))
+
+
+
+[11 of 11] Compiling Example.Mul.Eval ( src/Example/Mul/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-0.1.0.0/build/Example/Mul/Eval.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 29, types: 11, coercions: 48, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Example.Mul.Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+eval6 :: Int
+eval6 = I# 77#
+
+-- RHS size: {terms: 1, types: 0, coercions: 16, joins: 0/0}
+eval3 :: Eval
+eval3
+  = eval6
+    `cast` (Nth:3
+              (Nth:3
+                 ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
+                  ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
+            :: (Int :: *) ~R# (Eval :: *))
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+eval5 :: Int
+eval5 = I# 9#
+
+-- RHS size: {terms: 1, types: 0, coercions: 16, joins: 0/0}
+eval2 :: Eval
+eval2
+  = eval5
+    `cast` (Nth:3
+              (Nth:3
+                 ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
+                  ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
+            :: (Int :: *) ~R# (Eval :: *))
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+eval4 :: Int
+eval4 = I# 11#
+
+-- RHS size: {terms: 1, types: 0, coercions: 16, joins: 0/0}
+eval1 :: Eval
+eval1
+  = eval4
+    `cast` (Nth:3
+              (Nth:3
+                 ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
+                  ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
+            :: (Int :: *) ~R# (Eval :: *))
+
+
+

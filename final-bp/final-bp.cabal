@@ -152,10 +152,13 @@ library final-bp-example-print
 
 library
   hs-source-dirs:      src
-  exposed-modules:     TestMe
+  exposed-modules:     FinalBP.Bench
   build-depends:       base ^>=4.10
-                     , final-bp-example-eval
-                     , final-bp-example-print
+                     , final-bp-base
+                     , final-bp-mul
+                     , final-bp-eval
+                     , final-bp-base-eval
+                     , final-bp-mul-eval
   ghc-options:         -Wall -O
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes

@@ -1,4 +1,4 @@
-{ nixpkgs ? import <nixpkgs> {}, compiler ? "ghc822" }:
+{ nixpkgs ? import <nixpkgs> {}, compiler ? "default" }:
 
 let
 
@@ -8,7 +8,7 @@ let
                        then pkgs.haskellPackages
                        else pkgs.haskell.packages.${compiler};
 
-  drv = haskellPackages.ghcWithPackages (pkgs: [pkgs.lens pkgs.criterion]);
+  drv = haskellPackages.callPackage ./inital.nix {};
 
 in
 

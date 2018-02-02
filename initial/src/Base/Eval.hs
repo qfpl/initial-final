@@ -16,3 +16,4 @@ evalRules =
       pure $ review _Lit (i1 + i2)
   in
     [ EvalRule addRule ]
+{-# INLINE evalRules #-}

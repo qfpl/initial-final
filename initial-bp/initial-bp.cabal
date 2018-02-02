@@ -203,6 +203,7 @@ library initial-bp-example-term-base-mul
                      , Mul.Type
   build-depends:       base ^>=4.10
                      , lens
+                     , deepseq
   ghc-options:         -Wall -O
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
@@ -238,13 +239,12 @@ library initial-bp-example-term-base-mul-print
 
 library
   hs-source-dirs:      src
-  exposed-modules:     TestMe
+  exposed-modules:     InitialBP.Bench
   build-depends:       base ^>=4.10
-                     , initial-bp-example-base
-                     , initial-bp-example-mul
                      , initial-bp-example-term-base-mul
-                     , initial-bp-example-term-base-mul-eval
-                     , initial-bp-example-term-base-mul-print
+                     , initial-bp-eval
+                     , initial-bp-base-eval
+                     , initial-bp-mul-eval
   ghc-options:         -Wall -O
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
