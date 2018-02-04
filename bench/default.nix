@@ -11,6 +11,7 @@ let
 
   modifiedHaskellPackages = haskellPackages.override {
     overrides = self: super: {
+      vanilla = self.callPackage ../vanilla/vanilla.nix {};
       initial = self.callPackage ../initial/initial.nix {};
       final = self.callPackage ../final/final.nix {};
       initial-bp = pkgs.haskell.lib.dontHaddock (self.callPackage ../initial-bp/initial-bp.nix {});

@@ -13,6 +13,7 @@ executable bench
   ghc-options:         -Wall -O
   build-depends:       base
                      , criterion
+                     , vanilla
                      , initial
                      , final
                      , initial-bp

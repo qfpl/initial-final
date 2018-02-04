@@ -1,0 +1,28 @@
+name:                vanilla
+version:             0.1.0.0
+license:             BSD3
+license-file:        LICENSE
+author:              Dave Laing
+maintainer:          dave.laing.80@gmail.com
+build-type:          Simple
+extra-source-files:  ChangeLog.md
+cabal-version:       >=2
+
+flag dump
+    description: Dump core
+    manual: True
+    default: False
+
+library
+  exposed-modules:     Term
+                     , Interpret.Eval
+                     , Interpret.Print
+                     , Vanilla.Bench
+  build-depends:       base >=4.10 && <4.11
+                     , lens
+                     , deepseq
+  hs-source-dirs:      src
+  ghc-options:         -Wall -O
+  if flag(dump)
+    ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-uniques -dsuppress-module-prefixes
+  default-language:    Haskell2010

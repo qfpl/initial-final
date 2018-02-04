@@ -1,4 +1,5 @@
 packages:
+  vanilla/
   initial/
   final/
   initial-bp/
