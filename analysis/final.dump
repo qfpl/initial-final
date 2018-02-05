@@ -43,11 +43,11 @@ $trModule = Module $trModule3 $trModule1
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $krep :: KindRep
-$krep = KindRepTyConApp $tcInt ([] @ KindRep)
+$krep = KindRepTyConApp $tcInt []
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $krep1 :: KindRep
-$krep1 = KindRepTyConApp $tcConstraint ([] @ KindRep)
+$krep1 = KindRepTyConApp $tcConstraint []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $tcExpBase1 :: KindRep
@@ -90,7 +90,7 @@ $tcExpBase
 
 -- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
 $krep6 :: [KindRep]
-$krep6 = : @ KindRep $krep2 ([] @ KindRep)
+$krep6 = : $krep2 []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $krep7 :: KindRep
@@ -148,14 +148,9 @@ term1 :: forall repr. ExpBase repr => repr
 term1
   = \ (@ repr) ($dExpBase :: ExpBase repr) ->
       add
-        @ repr
         $dExpBase
-        (lit @ repr $dExpBase term4)
-        (add
-           @ repr
-           $dExpBase
-           (lit @ repr $dExpBase term3)
-           (lit @ repr $dExpBase term2))
+        (lit $dExpBase term4)
+        (add $dExpBase (lit $dExpBase term3) (lit $dExpBase term2))
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -187,11 +182,7 @@ Result size of Tidy Core
 
 -- RHS size: {terms: 3, types: 4, coercions: 2, joins: 0/0}
 mul :: forall repr. ExpMul repr => repr -> repr -> repr
-mul
-  = \ (@ repr) (v :: ExpMul repr) ->
-      v
-      `cast` (N:ExpMul[0] <repr>_N
-              :: (ExpMul repr :: Constraint) ~R# ((repr -> repr -> repr) :: *))
+mul = \ (@ repr) (v :: ExpMul repr) -> v `cast` <Co:2>
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -215,7 +206,7 @@ $trModule = Module $trModule3 $trModule1
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $krep :: KindRep
-$krep = KindRepTyConApp $tcConstraint ([] @ KindRep)
+$krep = KindRepTyConApp $tcConstraint []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $tcExpMul1 :: KindRep
@@ -254,7 +245,7 @@ $tcExpMul
 
 -- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
 $krep4 :: [KindRep]
-$krep4 = : @ KindRep $krep1 ([] @ KindRep)
+$krep4 = : $krep1 []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $krep5 :: KindRep
@@ -314,28 +305,15 @@ $fExpBasePrint1
       unpackAppendCString#
         $fExpBasePrint5
         (++
-           @ Char
-           (ds `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
+           (ds `cast` <Co:1>)
            (unpackAppendCString#
-              $fExpBasePrint4
-              (++
-                 @ Char
-                 (ds1 `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
-                 $fExpBasePrint2)))
+              $fExpBasePrint4 (++ (ds1 `cast` <Co:1>) $fExpBasePrint2)))
 
 -- RHS size: {terms: 3, types: 1, coercions: 10, joins: 0/0}
 $fExpBasePrint :: ExpBase Print
 $fExpBasePrint
   = C:ExpBase
-      @ Print
-      ($fShowInt_$cshow
-       `cast` (<Int>_R -> Sym N:Print[0]
-               :: ((Int -> String) :: *) ~R# ((Int -> Print) :: *)))
-      ($fExpBasePrint1
-       `cast` (<Print>_R -> <Print>_R -> Sym N:Print[0]
-               :: ((Print -> Print -> String) :: *)
-                  ~R#
-                  ((Print -> Print -> Print) :: *)))
+      ($fShowInt_$cshow `cast` <Co:4>) ($fExpBasePrint1 `cast` <Co:6>)
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $fExpMulPrint2 :: Addr#
@@ -348,24 +326,13 @@ $fExpMulPrint1
       unpackAppendCString#
         $fExpBasePrint5
         (++
-           @ Char
-           (ds `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
+           (ds `cast` <Co:1>)
            (unpackAppendCString#
-              $fExpMulPrint2
-              (++
-                 @ Char
-                 (ds1 `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
-                 $fExpBasePrint2)))
+              $fExpMulPrint2 (++ (ds1 `cast` <Co:1>) $fExpBasePrint2)))
 
 -- RHS size: {terms: 1, types: 0, coercions: 10, joins: 0/0}
 $fExpMulPrint :: ExpMul Print
-$fExpMulPrint
-  = $fExpMulPrint1
-    `cast` ((<Print>_R -> <Print>_R -> Sym N:Print[0])
-            ; Sym (N:ExpMul[0] <Print>_N)
-            :: ((Print -> Print -> String) :: *)
-               ~R#
-               (ExpMul Print :: Constraint))
+$fExpMulPrint = $fExpMulPrint1 `cast` <Co:10>
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $fShowPrint5 :: Addr#
@@ -387,33 +354,27 @@ $fShowPrint2 = "}"#
 $w$cshowsPrec :: Int# -> Print -> String -> String
 $w$cshowsPrec
   = \ (ww :: Int#) (w :: Print) (w1 :: String) ->
-      case tagToEnum# @ Bool (>=# ww 11#) of {
+      case tagToEnum# (>=# ww 11#) of {
         False ->
           ++
-            @ Char
             $fShowPrint4
             (unpackAppendCString#
                $fShowPrint3
-               (: @ Char
-                  $fShow(,)3
+               (: $fShow(,)3
                   (showLitString
-                     (w `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
-                     (: @ Char $fShow(,)3 (unpackAppendCString# $fShowPrint2 w1)))));
+                     (w `cast` <Co:1>)
+                     (: $fShow(,)3 (unpackAppendCString# $fShowPrint2 w1)))));
         True ->
-          : @ Char
-            $fShow(,)4
+          : $fShow(,)4
             (++
-               @ Char
                $fShowPrint4
                (unpackAppendCString#
                   $fShowPrint3
-                  (: @ Char
-                     $fShow(,)3
+                  (: $fShow(,)3
                      (showLitString
-                        (w `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
-                        (: @ Char
-                           $fShow(,)3
-                           (unpackAppendCString# $fShowPrint2 (: @ Char $fShow(,)2 w1)))))))
+                        (w `cast` <Co:1>)
+                        (: $fShow(,)3
+                           (unpackAppendCString# $fShowPrint2 (: $fShow(,)2 w1)))))))
       }
 
 -- RHS size: {terms: 10, types: 5, coercions: 0, joins: 0/0}
@@ -428,22 +389,17 @@ $fShowPrint7 = unpackCString# $fShowPrint2
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $fShowPrint6 :: [Char]
-$fShowPrint6 = : @ Char $fShow(,)3 $fShowPrint7
+$fShowPrint6 = : $fShow(,)3 $fShowPrint7
 
 -- RHS size: {terms: 10, types: 3, coercions: 1, joins: 0/0}
 $fShowPrint_$cshow :: Print -> String
 $fShowPrint_$cshow
   = \ (x :: Print) ->
       ++
-        @ Char
         $fShowPrint4
         (unpackAppendCString#
            $fShowPrint3
-           (: @ Char
-              $fShow(,)3
-              (showLitString
-                 (x `cast` (N:Print[0] :: (Print :: *) ~R# (String :: *)))
-                 $fShowPrint6)))
+           (: $fShow(,)3 (showLitString (x `cast` <Co:1>) $fShowPrint6)))
 
 -- RHS size: {terms: 6, types: 2, coercions: 0, joins: 0/0}
 $fShowPrint1 :: Print -> ShowS
@@ -452,74 +408,31 @@ $fShowPrint1
 
 -- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
 $fShowPrint_$cshowList :: [Print] -> ShowS
-$fShowPrint_$cshowList = showList__ @ Print $fShowPrint1
+$fShowPrint_$cshowList = showList__ $fShowPrint1
 
 -- RHS size: {terms: 4, types: 1, coercions: 0, joins: 0/0}
 $fShowPrint :: Show Print
 $fShowPrint
   = C:Show
-      @ Print
-      $fShowPrint_$cshowsPrec
-      $fShowPrint_$cshow
-      $fShowPrint_$cshowList
+      $fShowPrint_$cshowsPrec $fShowPrint_$cshow $fShowPrint_$cshowList
 
 -- RHS size: {terms: 3, types: 1, coercions: 14, joins: 0/0}
 $fEqPrint :: Eq Print
 $fEqPrint
-  = C:Eq
-      @ Print
-      (eqString
-       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Bool>_R
-               :: ((String -> String -> Bool) :: *)
-                  ~R#
-                  ((Print -> Print -> Bool) :: *)))
-      ($fEq[]_$s$c/=1
-       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Bool>_R
-               :: ((String -> String -> Bool) :: *)
-                  ~R#
-                  ((Print -> Print -> Bool) :: *)))
+  = C:Eq (eqString `cast` <Co:7>) ($fEq[]_$s$c/=1 `cast` <Co:7>)
 
 -- RHS size: {terms: 9, types: 1, coercions: 51, joins: 0/0}
 $fOrdPrint :: Ord Print
 $fOrdPrint
   = C:Ord
-      @ Print
       $fEqPrint
-      ($fOrd[]_$s$ccompare1
-       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Ordering>_R
-               :: ((String -> String -> Ordering) :: *)
-                  ~R#
-                  ((Print -> Print -> Ordering) :: *)))
-      ($fOrd[]_$s$c<1
-       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Bool>_R
-               :: ((String -> String -> Bool) :: *)
-                  ~R#
-                  ((Print -> Print -> Bool) :: *)))
-      ($fOrd[]_$s$c<=1
-       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Bool>_R
-               :: ((String -> String -> Bool) :: *)
-                  ~R#
-                  ((Print -> Print -> Bool) :: *)))
-      ($fOrd[]_$s$c>1
-       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Bool>_R
-               :: ((String -> String -> Bool) :: *)
-                  ~R#
-                  ((Print -> Print -> Bool) :: *)))
-      ($fOrd[]_$s$c>=1
-       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> <Bool>_R
-               :: ((String -> String -> Bool) :: *)
-                  ~R#
-                  ((Print -> Print -> Bool) :: *)))
-      ($fOrd[]_$s$cmax1
-       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> Sym N:Print[0]
-               :: ((String -> String -> String) :: *)
-                  ~R#
-                  ((Print -> Print -> Print) :: *)))
-      ($fOrd[]_$s$cmin1
-       `cast` (Sym N:Print[0] -> Sym N:Print[0] -> Sym N:Print[0]
-               :: ((String -> String -> String) :: *)
-                  ~R#
-                  ((Print -> Print -> Print) :: *)))
+      ($fOrd[]_$s$ccompare1 `cast` <Co:7>)
+      ($fOrd[]_$s$c<1 `cast` <Co:7>)
+      ($fOrd[]_$s$c<=1 `cast` <Co:7>)
+      ($fOrd[]_$s$c>1 `cast` <Co:7>)
+      ($fOrd[]_$s$c>=1 `cast` <Co:7>)
+      ($fOrd[]_$s$cmax1 `cast` <Co:8>)
+      ($fOrd[]_$s$cmin1 `cast` <Co:8>)
 
 -- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
 runPrint1 :: Print -> Print
@@ -527,10 +440,7 @@ runPrint1 = \ (ds :: Print) -> ds
 
 -- RHS size: {terms: 1, types: 0, coercions: 3, joins: 0/0}
 runPrint :: Print -> String
-runPrint
-  = runPrint1
-    `cast` (<Print>_R -> N:Print[0]
-            :: ((Print -> Print) :: *) ~R# ((Print -> String) :: *))
+runPrint = runPrint1 `cast` <Co:3>
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -554,11 +464,11 @@ $trModule = Module $trModule3 $trModule1
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $krep :: KindRep
-$krep = KindRepTyConApp $tcChar ([] @ KindRep)
+$krep = KindRepTyConApp $tcChar []
 
 -- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
 $krep1 :: [KindRep]
-$krep1 = : @ KindRep $krep ([] @ KindRep)
+$krep1 = : $krep []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $krep2 :: KindRep
@@ -585,7 +495,7 @@ $tcPrint
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $krep3 :: KindRep
-$krep3 = KindRepTyConApp $tcPrint ([] @ KindRep)
+$krep3 = KindRepTyConApp $tcPrint []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $tc'Print1 :: KindRep
@@ -641,8 +551,8 @@ $trModule = Module $trModule3 $trModule1
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 print9 :: [Char]
 print9
-  = case $wshowSignedInt 0# 2# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) $fExpBasePrint2
+  = case $wshowSignedInt 0# 2# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) $fExpBasePrint2
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -652,8 +562,8 @@ print8 = unpackAppendCString# $fExpBasePrint4 print9
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 print7 :: [Char]
 print7
-  = case $wshowSignedInt 0# 1# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) print8
+  = case $wshowSignedInt 0# 1# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) print8
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -662,7 +572,7 @@ print6 = unpackAppendCString# $fExpBasePrint5 print7
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 print5 :: [Char]
-print5 = ++ @ Char print6 $fExpBasePrint2
+print5 = ++ print6 $fExpBasePrint2
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 print4 :: [Char]
@@ -671,8 +581,8 @@ print4 = unpackAppendCString# $fExpBasePrint4 print5
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 print3 :: [Char]
 print3
-  = case $wshowSignedInt 0# 8# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) print4
+  = case $wshowSignedInt 0# 8# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) print4
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -681,8 +591,7 @@ print2 = unpackAppendCString# $fExpBasePrint5 print3
 
 -- RHS size: {terms: 1, types: 0, coercions: 2, joins: 0/0}
 print1 :: Print
-print1
-  = print2 `cast` (Sym N:Print[0] :: (String :: *) ~R# (Print :: *))
+print1 = print2 `cast` <Co:2>
 
 
 
@@ -700,23 +609,11 @@ $fExpBaseEval1 = \ (v :: Int) -> v
 $fExpBaseEval :: ExpBase Eval
 $fExpBaseEval
   = C:ExpBase
-      @ Eval
-      ($fExpBaseEval1
-       `cast` (<Int>_R -> Sym N:Eval[0]
-               :: ((Int -> Int) :: *) ~R# ((Int -> Eval) :: *)))
-      ($fNumInt_$c+
-       `cast` ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
-               ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])
-               :: ((Int -> Int -> Int) :: *) ~R# ((Eval -> Eval -> Eval) :: *)))
+      ($fExpBaseEval1 `cast` <Co:4>) ($fNumInt_$c+ `cast` <Co:14>)
 
 -- RHS size: {terms: 1, types: 0, coercions: 18, joins: 0/0}
 $fExpMulEval :: ExpMul Eval
-$fExpMulEval
-  = $fNumInt_$c*
-    `cast` ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
-            ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])
-            ; Sym (N:ExpMul[0] <Eval>_N)
-            :: ((Int -> Int -> Int) :: *) ~R# (ExpMul Eval :: Constraint))
+$fExpMulEval = $fNumInt_$c* `cast` <Co:18>
 
 -- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
 $fGenericEval1 :: forall x. Rep Eval x -> Rep Eval x
@@ -730,116 +627,16 @@ $fGenericEval2 = \ (@ x) (x1 :: Eval) -> x1
 $fGenericEval :: Generic Eval
 $fGenericEval
   = C:Generic
-      @ Eval
-      ($fGenericEval2
-       `cast` (forall (x :: <*>_N).
-               <Eval>_R
-               -> N:Eval[0]
-                  ; Sym (N:K1[0] <*>_N <R>_P <Int>_R <x>_P)
-                  ; Sym
-                      (N:M1[0]
-                         <*>_N
-                         <S>_P
-                         <'MetaSel
-                            ('Just "runEval")
-                            'NoSourceUnpackedness
-                            'NoSourceStrictness
-                            'DecidedLazy>_P
-                         <K1 R Int>_R)
-                    ; Sym
-                        (N:M1[0]
-                           <*>_N
-                           <C>_P
-                           <'MetaCons "Eval" 'PrefixI 'True>_P
-                           <M1
-                              S
-                              ('MetaSel
-                                 ('Just "runEval")
-                                 'NoSourceUnpackedness
-                                 'NoSourceStrictness
-                                 'DecidedLazy)
-                              (K1 R Int)>_R)
-                    ; Sym
-                        (N:M1[0]
-                           <*>_N
-                           <D>_P
-                           <'MetaData "Eval" "Interpret.Eval" "final-0.1.0.0-inplace" 'True>_P
-                           <M1
-                              C
-                              ('MetaCons "Eval" 'PrefixI 'True)
-                              (M1
-                                 S
-                                 ('MetaSel
-                                    ('Just "runEval")
-                                    'NoSourceUnpackedness
-                                    'NoSourceStrictness
-                                    'DecidedLazy)
-                                 (K1 R Int))>_R)
-                    ; Sub (Sym Rep_Eval[0]) <x>_N
-               :: ((forall x. Eval -> Eval) :: *)
-                  ~R#
-                  ((forall x. Eval -> Rep Eval x) :: *)))
-      ($fGenericEval1
-       `cast` (forall (x :: <*>_N).
-               <Rep Eval x>_R
-               -> Sub Rep_Eval[0]
-                  ; N:M1[0]
-                      <*>_N
-                      <D>_P
-                      <'MetaData "Eval" "Interpret.Eval" "final-0.1.0.0-inplace" 'True>_P
-                      <M1
-                         C
-                         ('MetaCons "Eval" 'PrefixI 'True)
-                         (M1
-                            S
-                            ('MetaSel
-                               ('Just "runEval")
-                               'NoSourceUnpackedness
-                               'NoSourceStrictness
-                               'DecidedLazy)
-                            (K1 R Int))>_R
-                  ; N:M1[0]
-                      <*>_N
-                      <C>_P
-                      <'MetaCons "Eval" 'PrefixI 'True>_P
-                      <M1
-                         S
-                         ('MetaSel
-                            ('Just "runEval")
-                            'NoSourceUnpackedness
-                            'NoSourceStrictness
-                            'DecidedLazy)
-                         (K1 R Int)>_R
-                  ; N:M1[0]
-                      <*>_N
-                      <S>_P
-                      <'MetaSel
-                         ('Just "runEval")
-                         'NoSourceUnpackedness
-                         'NoSourceStrictness
-                         'DecidedLazy>_P
-                      <K1 R Int>_R <x>_N
-                  ; N:K1[0] <*>_N <R>_P <Int>_R <x>_P
-                  ; Sym N:Eval[0]
-               :: ((forall x. Rep Eval x -> Rep Eval x) :: *)
-                  ~R#
-                  ((forall x. Rep Eval x -> Eval) :: *)))
+      ($fGenericEval2 `cast` <Co:97>) ($fGenericEval1 `cast` <Co:95>)
 
 -- RHS size: {terms: 5, types: 3, coercions: 1, joins: 0/0}
 $fNFDataEval_$crnf :: Eval -> ()
 $fNFDataEval_$crnf
-  = \ (x :: Eval) ->
-      case x `cast` (N:Eval[0] :: (Eval :: *) ~R# (Int :: *)) of
-      { I# ipv ->
-      ()
-      }
+  = \ (x :: Eval) -> case x `cast` <Co:1> of { I# ipv -> () }
 
 -- RHS size: {terms: 1, types: 0, coercions: 3, joins: 0/0}
 $fNFDataEval :: NFData Eval
-$fNFDataEval
-  = $fNFDataEval_$crnf
-    `cast` (Sym (N:NFData[0] <Eval>_N)
-            :: ((Eval -> ()) :: *) ~R# (NFData Eval :: Constraint))
+$fNFDataEval = $fNFDataEval_$crnf `cast` <Co:3>
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $fShowEval4 :: Addr#
@@ -857,34 +654,31 @@ $fShowEval2 = "}"#
 $w$cshowsPrec :: Int# -> Eval -> String -> String
 $w$cshowsPrec
   = \ (ww :: Int#) (w :: Eval) (w1 :: String) ->
-      case tagToEnum# @ Bool (>=# ww 11#) of {
+      case tagToEnum# (>=# ww 11#) of {
         False ->
           unpackAppendCString#
             $fShowEval4
             (unpackAppendCString#
                $fShowEval3
-               (case w `cast` (N:Eval[0] :: (Eval :: *) ~R# (Int :: *)) of
-                { I# ww3 ->
+               (case w `cast` <Co:1> of { I# ww3 ->
                 case $wshowSignedInt 0# ww3 (unpackAppendCString# $fShowEval2 w1)
                 of
                 { (# ww5, ww6 #) ->
-                : @ Char ww5 ww6
+                : ww5 ww6
                 }
                 }));
         True ->
-          : @ Char
-            $fShow(,)4
+          : $fShow(,)4
             (unpackAppendCString#
                $fShowEval4
                (unpackAppendCString#
                   $fShowEval3
-                  (case w `cast` (N:Eval[0] :: (Eval :: *) ~R# (Int :: *)) of
-                   { I# ww3 ->
+                  (case w `cast` <Co:1> of { I# ww3 ->
                    case $wshowSignedInt
-                          0# ww3 (unpackAppendCString# $fShowEval2 (: @ Char $fShow(,)2 w1))
+                          0# ww3 (unpackAppendCString# $fShowEval2 (: $fShow(,)2 w1))
                    of
                    { (# ww5, ww6 #) ->
-                   : @ Char ww5 ww6
+                   : ww5 ww6
                    }
                    })))
       }
@@ -907,10 +701,9 @@ $fShowEval_$cshow
         $fShowEval4
         (unpackAppendCString#
            $fShowEval3
-           (case x `cast` (N:Eval[0] :: (Eval :: *) ~R# (Int :: *)) of
-            { I# ww3 ->
+           (case x `cast` <Co:1> of { I# ww3 ->
             case $wshowSignedInt 0# ww3 $fShowEval5 of { (# ww5, ww6 #) ->
-            : @ Char ww5 ww6
+            : ww5 ww6
             }
             }))
 
@@ -920,58 +713,30 @@ $fShowEval1 = \ (w :: Eval) (w1 :: String) -> $w$cshowsPrec 0# w w1
 
 -- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
 $fShowEval_$cshowList :: [Eval] -> ShowS
-$fShowEval_$cshowList = showList__ @ Eval $fShowEval1
+$fShowEval_$cshowList = showList__ $fShowEval1
 
 -- RHS size: {terms: 4, types: 1, coercions: 0, joins: 0/0}
 $fShowEval :: Show Eval
 $fShowEval
   = C:Show
-      @ Eval
-      $fShowEval_$cshowsPrec
-      $fShowEval_$cshow
-      $fShowEval_$cshowList
+      $fShowEval_$cshowsPrec $fShowEval_$cshow $fShowEval_$cshowList
 
 -- RHS size: {terms: 3, types: 1, coercions: 14, joins: 0/0}
 $fEqEval :: Eq Eval
-$fEqEval
-  = C:Eq
-      @ Eval
-      (eqInt
-       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Bool>_R
-               :: ((Int -> Int -> Bool) :: *) ~R# ((Eval -> Eval -> Bool) :: *)))
-      (neInt
-       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Bool>_R
-               :: ((Int -> Int -> Bool) :: *) ~R# ((Eval -> Eval -> Bool) :: *)))
+$fEqEval = C:Eq (eqInt `cast` <Co:7>) (neInt `cast` <Co:7>)
 
 -- RHS size: {terms: 9, types: 1, coercions: 51, joins: 0/0}
 $fOrdEval :: Ord Eval
 $fOrdEval
   = C:Ord
-      @ Eval
       $fEqEval
-      (compareInt
-       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Ordering>_R
-               :: ((Int -> Int -> Ordering) :: *)
-                  ~R#
-                  ((Eval -> Eval -> Ordering) :: *)))
-      (ltInt
-       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Bool>_R
-               :: ((Int -> Int -> Bool) :: *) ~R# ((Eval -> Eval -> Bool) :: *)))
-      (leInt
-       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Bool>_R
-               :: ((Int -> Int -> Bool) :: *) ~R# ((Eval -> Eval -> Bool) :: *)))
-      (gtInt
-       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Bool>_R
-               :: ((Int -> Int -> Bool) :: *) ~R# ((Eval -> Eval -> Bool) :: *)))
-      (geInt
-       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> <Bool>_R
-               :: ((Int -> Int -> Bool) :: *) ~R# ((Eval -> Eval -> Bool) :: *)))
-      ($fOrdInt_$cmax
-       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> Sym N:Eval[0]
-               :: ((Int -> Int -> Int) :: *) ~R# ((Eval -> Eval -> Eval) :: *)))
-      ($fOrdInt_$cmin
-       `cast` (Sym N:Eval[0] -> Sym N:Eval[0] -> Sym N:Eval[0]
-               :: ((Int -> Int -> Int) :: *) ~R# ((Eval -> Eval -> Eval) :: *)))
+      (compareInt `cast` <Co:7>)
+      (ltInt `cast` <Co:7>)
+      (leInt `cast` <Co:7>)
+      (gtInt `cast` <Co:7>)
+      (geInt `cast` <Co:7>)
+      ($fOrdInt_$cmax `cast` <Co:8>)
+      ($fOrdInt_$cmin `cast` <Co:8>)
 
 -- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
 runEval1 :: Eval -> Eval
@@ -979,10 +744,7 @@ runEval1 = \ (ds :: Eval) -> ds
 
 -- RHS size: {terms: 1, types: 0, coercions: 3, joins: 0/0}
 runEval :: Eval -> Int
-runEval
-  = runEval1
-    `cast` (<Eval>_R -> N:Eval[0]
-            :: ((Eval -> Eval) :: *) ~R# ((Eval -> Int) :: *))
+runEval = runEval1 `cast` <Co:3>
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -1006,7 +768,7 @@ $trModule = Module $trModule3 $trModule1
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $krep :: KindRep
-$krep = KindRepTyConApp $tcInt ([] @ KindRep)
+$krep = KindRepTyConApp $tcInt []
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $tcEval2 :: Addr#
@@ -1029,7 +791,7 @@ $tcEval
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $krep1 :: KindRep
-$krep1 = KindRepTyConApp $tcEval ([] @ KindRep)
+$krep1 = KindRepTyConApp $tcEval []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $tc'Eval1 :: KindRep
@@ -1088,13 +850,7 @@ eval2 = I# 11#
 
 -- RHS size: {terms: 1, types: 0, coercions: 16, joins: 0/0}
 eval1 :: Eval
-eval1
-  = eval2
-    `cast` (Nth:3
-              (Nth:3
-                 ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
-                  ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
-            :: (Int :: *) ~R# (Eval :: *))
+eval1 = eval2 `cast` <Co:16>
 
 
 
@@ -1128,104 +884,43 @@ $trModule = Module $trModule3 $trModule1
 evalAddMulBig1 :: Eval -> Int
 evalAddMulBig1
   = \ (tm :: Eval) ->
-      case tm
-           `cast` (Nth:2
-                     ((<Eval>_R -> <Eval>_R -> N:Eval[0])
-                      ; (N:Eval[0] -> N:Eval[0] -> <Int>_R))
-                   :: (Eval :: *) ~R# (Int :: *))
-      of
-      { I# x ->
+      case tm `cast` <Co:12> of { I# x ->
       I# (+# (*# (+# x 3#) (+# x 5#)) (*# (+# x 7#) (+# x 11#)))
       }
 
 -- RHS size: {terms: 1, types: 0, coercions: 18, joins: 0/0}
 evalAddMulBig :: Eval -> Eval
-evalAddMulBig
-  = evalAddMulBig1
-    `cast` (<Eval>_R
-            -> Nth:3
-                 (Nth:3
-                    ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
-                     ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
-            :: ((Eval -> Int) :: *) ~R# ((Eval -> Eval) :: *))
+evalAddMulBig = evalAddMulBig1 `cast` <Co:18>
 
 -- RHS size: {terms: 12, types: 3, coercions: 12, joins: 0/0}
 evalAddBig1 :: Eval -> Int
 evalAddBig1
   = \ (tm :: Eval) ->
-      case tm
-           `cast` (Nth:2
-                     ((<Eval>_R -> <Eval>_R -> N:Eval[0])
-                      ; (N:Eval[0] -> N:Eval[0] -> <Int>_R))
-                   :: (Eval :: *) ~R# (Int :: *))
-      of
-      { I# x ->
-      I# (+# (+# x 3#) (+# x 5#))
-      }
+      case tm `cast` <Co:12> of { I# x -> I# (+# (+# x 3#) (+# x 5#)) }
 
 -- RHS size: {terms: 1, types: 0, coercions: 18, joins: 0/0}
 evalAddBig :: Eval -> Eval
-evalAddBig
-  = evalAddBig1
-    `cast` (<Eval>_R
-            -> Nth:3
-                 (Nth:3
-                    ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
-                     ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
-            :: ((Eval -> Int) :: *) ~R# ((Eval -> Eval) :: *))
+evalAddBig = evalAddBig1 `cast` <Co:18>
 
 -- RHS size: {terms: 10, types: 3, coercions: 12, joins: 0/0}
 evalAddMulSmall1 :: Eval -> Int
 evalAddMulSmall1
   = \ (tm :: Eval) ->
-      case tm
-           `cast` (Nth:2
-                     ((<Eval>_R -> <Eval>_R -> N:Eval[0])
-                      ; (N:Eval[0] -> N:Eval[0] -> <Int>_R))
-                   :: (Eval :: *) ~R# (Int :: *))
-      of
-      { I# x ->
-      I# (+# (*# x 3#) 5#)
-      }
+      case tm `cast` <Co:12> of { I# x -> I# (+# (*# x 3#) 5#) }
 
 -- RHS size: {terms: 1, types: 0, coercions: 18, joins: 0/0}
 evalAddMulSmall :: Eval -> Eval
-evalAddMulSmall
-  = evalAddMulSmall1
-    `cast` (<Eval>_R
-            -> Nth:3
-                 (Nth:3
-                    ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
-                     ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
-            :: ((Eval -> Int) :: *) ~R# ((Eval -> Eval) :: *))
+evalAddMulSmall = evalAddMulSmall1 `cast` <Co:18>
 
 -- RHS size: {terms: 4, types: 1, coercions: 25, joins: 0/0}
 evalAddSmall1 :: Eval -> Int
 evalAddSmall1
   = \ (tm :: Eval) ->
-      $fNumInt_$c+
-        (tm
-         `cast` (Nth:2
-                   ((<Eval>_R -> <Eval>_R -> N:Eval[0])
-                    ; (N:Eval[0] -> N:Eval[0] -> <Int>_R))
-                 :: (Eval :: *) ~R# (Int :: *)))
-        (tm
-         `cast` (Nth:2
-                   (Nth:3
-                      ((<Eval>_R -> <Eval>_R -> N:Eval[0])
-                       ; (N:Eval[0] -> N:Eval[0] -> <Int>_R)))
-                 :: (Eval :: *) ~R# (Int :: *)))
+      $fNumInt_$c+ (tm `cast` <Co:12>) (tm `cast` <Co:13>)
 
 -- RHS size: {terms: 1, types: 0, coercions: 18, joins: 0/0}
 evalAddSmall :: Eval -> Eval
-evalAddSmall
-  = evalAddSmall1
-    `cast` (<Eval>_R
-            -> Nth:3
-                 (Nth:3
-                    ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
-                     ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
-            :: ((Eval -> Int) :: *) ~R# ((Eval -> Eval) :: *))
+evalAddSmall = evalAddSmall1 `cast` <Co:18>
 
 -- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
 lit1 :: Int
@@ -1233,7 +928,7 @@ lit1 = I# 2#
 
 -- RHS size: {terms: 1, types: 0, coercions: 2, joins: 0/0}
 lit2 :: Eval
-lit2 = lit1 `cast` (Sym N:Eval[0] :: (Int :: *) ~R# (Eval :: *))
+lit2 = lit1 `cast` <Co:2>
 
 
 
@@ -1262,13 +957,10 @@ term2
       ($dExpBase :: ExpBase repr)
       ($dExpMul :: ExpMul repr) ->
       add
-        @ repr
         $dExpBase
-        (lit @ repr $dExpBase term6)
-        (($dExpMul
-          `cast` (N:ExpMul[0] <repr>_N
-                  :: (ExpMul repr :: Constraint) ~R# ((repr -> repr -> repr) :: *)))
-           (lit @ repr $dExpBase term5) (lit @ repr $dExpBase term1))
+        (lit $dExpBase term6)
+        (($dExpMul `cast` <Co:2>)
+           (lit $dExpBase term5) (lit $dExpBase term1))
 
 -- RHS size: {terms: 9, types: 8, coercions: 2, joins: 0/0}
 term3 :: forall repr. (ExpBase repr, ExpMul repr) => repr
@@ -1276,10 +968,7 @@ term3
   = \ (@ repr)
       ($dExpBase :: ExpBase repr)
       ($dExpMul :: ExpMul repr) ->
-      ($dExpMul
-       `cast` (N:ExpMul[0] <repr>_N
-               :: (ExpMul repr :: Constraint) ~R# ((repr -> repr -> repr) :: *)))
-        (lit @ repr $dExpBase term6) (term1 @ repr $dExpBase)
+      ($dExpMul `cast` <Co:2>) (lit $dExpBase term6) (term1 $dExpBase)
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -1332,8 +1021,8 @@ $trModule = Module $trModule3 $trModule1
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 print11 :: [Char]
 print11
-  = case $wshowSignedInt 0# 2# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) $fExpBasePrint2
+  = case $wshowSignedInt 0# 2# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) $fExpBasePrint2
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -1343,8 +1032,8 @@ print10 = unpackAppendCString# $fExpBasePrint4 print11
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 print9 :: [Char]
 print9
-  = case $wshowSignedInt 0# 1# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) print10
+  = case $wshowSignedInt 0# 1# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) print10
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -1353,7 +1042,7 @@ print8 = unpackAppendCString# $fExpBasePrint5 print9
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 print7 :: [Char]
-print7 = ++ @ Char print8 $fExpBasePrint2
+print7 = ++ print8 $fExpBasePrint2
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 print6 :: [Char]
@@ -1362,8 +1051,8 @@ print6 = unpackAppendCString# $fExpBasePrint4 print7
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 print5 :: [Char]
 print5
-  = case $wshowSignedInt 0# 8# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) print6
+  = case $wshowSignedInt 0# 8# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) print6
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -1372,7 +1061,7 @@ print4 = unpackAppendCString# $fExpBasePrint5 print5
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 print22 :: [Char]
-print22 = ++ @ Char print4 $fExpBasePrint2
+print22 = ++ print4 $fExpBasePrint2
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 print21 :: [Char]
@@ -1381,8 +1070,8 @@ print21 = unpackAppendCString# $fExpMulPrint2 print22
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 print20 :: [Char]
 print20
-  = case $wshowSignedInt 0# 7# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) print21
+  = case $wshowSignedInt 0# 7# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) print21
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -1391,8 +1080,7 @@ print19 = unpackAppendCString# $fExpBasePrint5 print20
 
 -- RHS size: {terms: 1, types: 0, coercions: 2, joins: 0/0}
 print3 :: Print
-print3
-  = print19 `cast` (Sym N:Print[0] :: (String :: *) ~R# (Print :: *))
+print3 = print19 `cast` <Co:2>
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 print18 :: [Char]
@@ -1401,8 +1089,8 @@ print18 = unpackAppendCString# $fExpMulPrint2 print11
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 print17 :: [Char]
 print17
-  = case $wshowSignedInt 0# 1# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) print18
+  = case $wshowSignedInt 0# 1# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) print18
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -1411,7 +1099,7 @@ print16 = unpackAppendCString# $fExpBasePrint5 print17
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 print15 :: [Char]
-print15 = ++ @ Char print16 $fExpBasePrint2
+print15 = ++ print16 $fExpBasePrint2
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 print14 :: [Char]
@@ -1420,8 +1108,8 @@ print14 = unpackAppendCString# $fExpBasePrint4 print15
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 print13 :: [Char]
 print13
-  = case $wshowSignedInt 0# 7# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) print14
+  = case $wshowSignedInt 0# 7# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) print14
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -1430,13 +1118,11 @@ print12 = unpackAppendCString# $fExpBasePrint5 print13
 
 -- RHS size: {terms: 1, types: 0, coercions: 2, joins: 0/0}
 print2 :: Print
-print2
-  = print12 `cast` (Sym N:Print[0] :: (String :: *) ~R# (Print :: *))
+print2 = print12 `cast` <Co:2>
 
 -- RHS size: {terms: 1, types: 0, coercions: 2, joins: 0/0}
 print1 :: Print
-print1
-  = print4 `cast` (Sym N:Print[0] :: (String :: *) ~R# (Print :: *))
+print1 = print4 `cast` <Co:2>
 
 
 
@@ -1472,13 +1158,7 @@ eval6 = I# 77#
 
 -- RHS size: {terms: 1, types: 0, coercions: 16, joins: 0/0}
 eval3 :: Eval
-eval3
-  = eval6
-    `cast` (Nth:3
-              (Nth:3
-                 ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
-                  ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
-            :: (Int :: *) ~R# (Eval :: *))
+eval3 = eval6 `cast` <Co:16>
 
 -- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
 eval5 :: Int
@@ -1486,13 +1166,7 @@ eval5 = I# 9#
 
 -- RHS size: {terms: 1, types: 0, coercions: 16, joins: 0/0}
 eval2 :: Eval
-eval2
-  = eval5
-    `cast` (Nth:3
-              (Nth:3
-                 ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
-                  ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
-            :: (Int :: *) ~R# (Eval :: *))
+eval2 = eval5 `cast` <Co:16>
 
 -- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
 eval4 :: Int
@@ -1500,13 +1174,7 @@ eval4 = I# 11#
 
 -- RHS size: {terms: 1, types: 0, coercions: 16, joins: 0/0}
 eval1 :: Eval
-eval1
-  = eval4
-    `cast` (Nth:3
-              (Nth:3
-                 ((Sym N:Eval[0] -> Sym N:Eval[0] -> <Int>_R)
-                  ; (<Eval>_R -> <Eval>_R -> Sym N:Eval[0])))
-            :: (Int :: *) ~R# (Eval :: *))
+eval1 = eval4 `cast` <Co:16>
 
 
 

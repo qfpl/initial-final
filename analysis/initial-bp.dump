@@ -1,4 +1,3 @@
-Resolving dependencies...
 In order, the following will be built (use -v for more details):
  - initial-bp-0.1.0.0 (lib:initial-bp-eval) +dump (first run)
  - initial-bp-0.1.0.0 (lib:initial-bp-example-term-base) +dump (first run)
@@ -26,27 +25,22 @@ In order, the following will be built (use -v for more details):
  - initial-bp-0.1.0.0 (lib:initial-bp-example-term-base-mul-eval) +dump (first run)
  - initial-bp-0.1.0.0 (lib) +dump (first run)
  - initial-bp-0.1.0.0 (lib:initial-bp-example-mul) +dump (first run)
-Configuring library 'initial-bp-example-term-base-mul' for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-eval' for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-print' for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-example-term-base' for initial-bp-0.1.0.0..
 Configuring library 'initial-bp-term' for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-print' for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-eval' for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-example-term-base' for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-example-term-base-mul' for initial-bp-0.1.0.0..
+Preprocessing library 'initial-bp-print' for initial-bp-0.1.0.0..
+Building library 'initial-bp-print' for initial-bp-0.1.0.0..
 Preprocessing library 'initial-bp-eval' for initial-bp-0.1.0.0..
 Building library 'initial-bp-eval' for initial-bp-0.1.0.0..
 Preprocessing library 'initial-bp-example-term-base' for initial-bp-0.1.0.0..
 Building library 'initial-bp-example-term-base' for initial-bp-0.1.0.0..
-Preprocessing library 'initial-bp-example-term-base-mul' for initial-bp-0.1.0.0..
-Building library 'initial-bp-example-term-base-mul' for initial-bp-0.1.0.0..
-Preprocessing library 'initial-bp-print' for initial-bp-0.1.0.0..
-Building library 'initial-bp-print' for initial-bp-0.1.0.0..
 Preprocessing library 'initial-bp-term' for initial-bp-0.1.0.0..
 Building library 'initial-bp-term' instantiated with Term.Type = <Term.Type>
 for initial-bp-0.1.0.0..
-[1 of 1] Compiling Interpret.Eval   ( initial-bp-eval/Interpret/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-eval/build/initial-bp-eval/Interpret/Eval.o )
-[1 of 2] Compiling Term.Type        ( initial-bp-example-term-base/Term/Type.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base/build/initial-bp-example-term-base/Term/Type.o )
 [1 of 1] Compiling Interpret.Print  ( initial-bp-print/Interpret/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-print/build/initial-bp-print/Interpret/Print.o )
-[1 of 1] Compiling Term.Type[sig]   ( initial-bp-term/Term/Type.hsig, nothing )
-[1 of 3] Compiling Term.Type        ( initial-bp-example-term-base-mul/Term/Type.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base-mul/build/initial-bp-example-term-base-mul/Term/Type.o )
+[1 of 1] Compiling Interpret.Eval   ( initial-bp-eval/Interpret/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-eval/build/initial-bp-eval/Interpret/Eval.o )
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
@@ -106,7 +100,7 @@ $krep1 = KindRepFun $krep $krep
 
 -- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
 $krep2 :: [KindRep]
-$krep2 = : @ KindRep $krep ([] @ KindRep)
+$krep2 = : $krep []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $krep3 :: KindRep
@@ -185,7 +179,7 @@ mkPrint
                 go :: [PrintRule tm] -> Maybe String
                 go (ds :: [PrintRule tm])
                   = case ds of {
-                      [] -> Nothing @ String;
+                      [] -> Nothing;
                       : y ys ->
                         case y of { PrintRule f ->
                         case f pr tm1 of wild2 {
@@ -219,11 +213,11 @@ $trModule = Module $trModule3 $trModule1
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $krep :: KindRep
-$krep = KindRepTyConApp $tcChar ([] @ KindRep)
+$krep = KindRepTyConApp $tcChar []
 
 -- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
 $krep1 :: [KindRep]
-$krep1 = : @ KindRep $krep ([] @ KindRep)
+$krep1 = : $krep []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $krep2 :: KindRep
@@ -231,7 +225,7 @@ $krep2 = KindRepTyConApp $tc[] $krep1
 
 -- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
 $krep3 :: [KindRep]
-$krep3 = : @ KindRep $krep2 ([] @ KindRep)
+$krep3 = : $krep2 []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $krep4 :: KindRep
@@ -270,7 +264,7 @@ $tcPrintRule
 
 -- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
 $krep8 :: [KindRep]
-$krep8 = : @ KindRep $krep5 ([] @ KindRep)
+$krep8 = : $krep5 []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $krep9 :: KindRep
@@ -301,6 +295,11 @@ $tc'PrintRule
 
 
 
+[1 of 1] Compiling Term.Type[sig]   ( initial-bp-term/Term/Type.hsig, nothing )
+[1 of 2] Compiling Term.Type        ( initial-bp-example-term-base/Term/Type.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base/build/initial-bp-example-term-base/Term/Type.o )
+Preprocessing library 'initial-bp-example-term-base-mul' for initial-bp-0.1.0.0..
+Building library 'initial-bp-example-term-base-mul' for initial-bp-0.1.0.0..
+[1 of 3] Compiling Term.Type        ( initial-bp-example-term-base-mul/Term/Type.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base-mul/build/initial-bp-example-term-base-mul/Term/Type.o )
 
 ==================== Simplified expression ====================
 makePrisms
@@ -311,6 +310,8 @@ makePrisms
      (unpackCString# "Term"#))
 
 
+Configuring library 'initial-bp-mul-sig' for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-base-sig' for initial-bp-0.1.0.0..
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
@@ -331,45 +332,36 @@ $w$cshowsPrec
   = \ (ww :: Int#) (w :: Term) (w1 :: String) ->
       case w of {
         Lit b1 ->
-          case tagToEnum# @ Bool (>=# ww 11#) of {
+          case tagToEnum# (>=# ww 11#) of {
             False ->
               unpackAppendCString#
                 lvl1
                 (case b1 of { I# ww3 ->
-                 case $wshowSignedInt 11# ww3 w1 of { (# ww5, ww6 #) ->
-                 : @ Char ww5 ww6
-                 }
+                 case $wshowSignedInt 11# ww3 w1 of { (# ww5, ww6 #) -> : ww5 ww6 }
                  });
             True ->
-              : @ Char
-                $fShow(,)4
+              : $fShow(,)4
                 (unpackAppendCString#
                    lvl1
                    (case b1 of { I# ww3 ->
-                    case $wshowSignedInt 11# ww3 (: @ Char $fShow(,)2 w1) of
+                    case $wshowSignedInt 11# ww3 (: $fShow(,)2 w1) of
                     { (# ww5, ww6 #) ->
-                    : @ Char ww5 ww6
+                    : ww5 ww6
                     }
                     }))
           };
         Add b1 b2 ->
-          case tagToEnum# @ Bool (>=# ww 11#) of {
+          case tagToEnum# (>=# ww 11#) of {
             False ->
               unpackAppendCString#
                 lvl
-                ($w$cshowsPrec
-                   11# b1 (: @ Char showSpace1 ($w$cshowsPrec 11# b2 w1)));
+                ($w$cshowsPrec 11# b1 (: showSpace1 ($w$cshowsPrec 11# b2 w1)));
             True ->
-              : @ Char
-                $fShow(,)4
+              : $fShow(,)4
                 (unpackAppendCString#
                    lvl
                    ($w$cshowsPrec
-                      11#
-                      b1
-                      (: @ Char
-                         showSpace1
-                         ($w$cshowsPrec 11# b2 (: @ Char $fShow(,)2 w1)))))
+                      11# b1 (: showSpace1 ($w$cshowsPrec 11# b2 (: $fShow(,)2 w1)))))
           }
       }
 end Rec }
@@ -386,7 +378,7 @@ $fShowTerm2 = I# 0#
 
 -- RHS size: {terms: 5, types: 2, coercions: 0, joins: 0/0}
 $fShowTerm_$cshow :: Term -> String
-$fShowTerm_$cshow = \ (x :: Term) -> $w$cshowsPrec 0# x ([] @ Char)
+$fShowTerm_$cshow = \ (x :: Term) -> $w$cshowsPrec 0# x []
 
 -- RHS size: {terms: 6, types: 2, coercions: 0, joins: 0/0}
 $fShowTerm1 :: Term -> ShowS
@@ -394,16 +386,13 @@ $fShowTerm1 = \ (w :: Term) (w1 :: String) -> $w$cshowsPrec 0# w w1
 
 -- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
 $fShowTerm_$cshowList :: [Term] -> ShowS
-$fShowTerm_$cshowList = showList__ @ Term $fShowTerm1
+$fShowTerm_$cshowList = showList__ $fShowTerm1
 
 -- RHS size: {terms: 4, types: 1, coercions: 0, joins: 0/0}
 $fShowTerm :: Show Term
 $fShowTerm
   = C:Show
-      @ Term
-      $fShowTerm_$cshowsPrec
-      $fShowTerm_$cshow
-      $fShowTerm_$cshowList
+      $fShowTerm_$cshowsPrec $fShowTerm_$cshow $fShowTerm_$cshowList
 
 Rec {
 -- RHS size: {terms: 29, types: 15, coercions: 0, joins: 0/0}
@@ -439,7 +428,7 @@ $fEqTerm_$c/=
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $fEqTerm :: Eq Term
-$fEqTerm = C:Eq @ Term $fEqTerm_$c== $fEqTerm_$c/=
+$fEqTerm = C:Eq $fEqTerm_$c== $fEqTerm_$c/=
 
 Rec {
 -- RHS size: {terms: 31, types: 15, coercions: 0, joins: 0/0}
@@ -533,7 +522,6 @@ $fOrdTerm_$cmin
 $fOrdTerm :: Ord Term
 $fOrdTerm
   = C:Ord
-      @ Term
       $fEqTerm
       $fOrdTerm_$ccompare
       $fOrdTerm_$c<
@@ -548,8 +536,8 @@ _Lit1 :: Term -> Either Term Int
 _Lit1
   = \ (x :: Term) ->
       case x of wild {
-        Lit y1 -> Right @ Term @ Int y1;
-        Add ipv ipv1 -> Left @ Term @ Int wild
+        Lit y1 -> Right y1;
+        Add ipv ipv1 -> Left wild
       }
 
 -- RHS size: {terms: 29, types: 68, coercions: 0, joins: 0/2}
@@ -563,32 +551,25 @@ _Lit
         f1 :: p (Either Term Int) (Either Term (f Int)) -> p Term (f Term)
         f1
           = dimap
-              @ p
-              ($p1Choice @ p $dChoice)
-              @ Term
-              @ (Either Term Int)
-              @ (Either Term (f Int))
-              @ (f Term)
+              ($p1Choice $dChoice)
               _Lit1
               (let {
                  ds :: f Int -> f Term
-                 ds
-                   = fmap @ f ($p1Applicative @ f $dApplicative) @ Int @ Term Lit } in
+                 ds = fmap ($p1Applicative $dApplicative) Lit } in
                \ (ds1 :: Either Term (f Int)) ->
                  case ds1 of {
-                   Left x -> pure @ f $dApplicative @ Term x;
+                   Left x -> pure $dApplicative x;
                    Right y -> ds y
                  }) } in
-      \ (x :: p Int (f Int)) ->
-        f1 (right' @ p $dChoice @ Int @ (f Int) @ Term x)
+      \ (x :: p Int (f Int)) -> f1 (right' $dChoice x)
 
 -- RHS size: {terms: 11, types: 15, coercions: 0, joins: 0/0}
 _Add2 :: Term -> Either Term (Term, Term)
 _Add2
   = \ (x :: Term) ->
       case x of wild {
-        Lit ipv -> Left @ Term @ (Term, Term) wild;
-        Add y1 y2 -> Right @ Term @ (Term, Term) (y1, y2)
+        Lit ipv -> Left wild;
+        Add y1 y2 -> Right (y1, y2)
       }
 
 -- RHS size: {terms: 7, types: 8, coercions: 0, joins: 0/0}
@@ -609,29 +590,17 @@ _Add
              -> p Term (f Term)
         f1
           = dimap
-              @ p
-              ($p1Choice @ p $dChoice)
-              @ Term
-              @ (Either Term (Term, Term))
-              @ (Either Term (f (Term, Term)))
-              @ (f Term)
+              ($p1Choice $dChoice)
               _Add2
               (let {
                  ds :: f (Term, Term) -> f Term
-                 ds
-                   = fmap
-                       @ f
-                       ($p1Applicative @ f $dApplicative)
-                       @ (Term, Term)
-                       @ Term
-                       _Add1 } in
+                 ds = fmap ($p1Applicative $dApplicative) _Add1 } in
                \ (ds1 :: Either Term (f (Term, Term))) ->
                  case ds1 of {
-                   Left x -> pure @ f $dApplicative @ Term x;
+                   Left x -> pure $dApplicative x;
                    Right y -> ds y
                  }) } in
-      \ (x :: p (Term, Term) (f (Term, Term))) ->
-        f1 (right' @ p $dChoice @ (Term, Term) @ (f (Term, Term)) @ Term x)
+      \ (x :: p (Term, Term) (f (Term, Term))) -> f1 (right' $dChoice x)
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -656,7 +625,7 @@ $trModule = Module $trModule3 $trModule1
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $krep :: KindRep
-$krep = KindRepTyConApp $tcInt ([] @ KindRep)
+$krep = KindRepTyConApp $tcInt []
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $tcTerm2 :: Addr#
@@ -679,7 +648,7 @@ $tcTerm
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $krep1 :: KindRep
-$krep1 = KindRepTyConApp $tcTerm ([] @ KindRep)
+$krep1 = KindRepTyConApp $tcTerm []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $tc'Lit1 :: KindRep
@@ -733,18 +702,6 @@ $tc'Add
 
 
 
-Configuring library 'initial-bp-base-sig' for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-mul-sig' for initial-bp-0.1.0.0..
-
-==================== Simplified expression ====================
-makePrisms
-  (mkNameG_tc
-     (unpackCString#
-        "initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul"#)
-     (unpackCString# "Term.Type"#)
-     (unpackCString# "Term"#))
-
-
 [2 of 2] Compiling Base.Type        ( initial-bp-example-term-base/Base/Type.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base/build/initial-bp-example-term-base/Base/Type.o )
 
 ==================== Tidy Core ====================
@@ -775,6 +732,16 @@ $trModule = Module $trModule3 $trModule1
 
 
 
+==================== Simplified expression ====================
+makePrisms
+  (mkNameG_tc
+     (unpackCString#
+        "initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul"#)
+     (unpackCString# "Term.Type"#)
+     (unpackCString# "Term"#))
+
+
+
 ==================== Tidy Core ====================
 Result size of Tidy Core
   = {terms: 680, types: 1,800, coercions: 716, joins: 0/6}
@@ -783,329 +750,17 @@ Result size of Tidy Core
 $fGenericTerm_$cto :: forall x. Rep Term x -> Term
 $fGenericTerm_$cto
   = \ (@ x) (ds :: Rep Term x) ->
-      case ds
-           `cast` (Sub Rep_Term[0]
-                   ; N:M1[0]
-                       <*>_N
-                       <D>_P
-                       <'MetaData
-                          "Term"
-                          "Term.Type"
-                          "initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul"
-                          'False>_P
-                       <M1
-                          C
-                          ('MetaCons "Lit" 'PrefixI 'False)
-                          (M1
-                             S
-                             ('MetaSel
-                                'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                             (K1 R Int))
-                        :+: (M1
-                               C
-                               ('MetaCons "Add" 'PrefixI 'False)
-                               (M1
-                                  S
-                                  ('MetaSel
-                                     'Nothing
-                                     'NoSourceUnpackedness
-                                     'NoSourceStrictness
-                                     'DecidedLazy)
-                                  (K1 R Term)
-                                :*: M1
-                                      S
-                                      ('MetaSel
-                                         'Nothing
-                                         'NoSourceUnpackedness
-                                         'NoSourceStrictness
-                                         'DecidedLazy)
-                                      (K1 R Term))
-                             :+: M1
-                                   C
-                                   ('MetaCons "Mul" 'PrefixI 'False)
-                                   (M1
-                                      S
-                                      ('MetaSel
-                                         'Nothing
-                                         'NoSourceUnpackedness
-                                         'NoSourceStrictness
-                                         'DecidedLazy)
-                                      (K1 R Term)
-                                    :*: M1
-                                          S
-                                          ('MetaSel
-                                             'Nothing
-                                             'NoSourceUnpackedness
-                                             'NoSourceStrictness
-                                             'DecidedLazy)
-                                          (K1 R Term)))>_R <x>_N
-                   :: (Rep Term x :: *)
-                      ~R#
-                      ((:+:)
-                         (M1
-                            C
-                            ('MetaCons "Lit" 'PrefixI 'False)
-                            (M1
-                               S
-                               ('MetaSel
-                                  'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                               (K1 R Int)))
-                         (M1
-                            C
-                            ('MetaCons "Add" 'PrefixI 'False)
-                            (M1
-                               S
-                               ('MetaSel
-                                  'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                               (K1 R Term)
-                             :*: M1
-                                   S
-                                   ('MetaSel
-                                      'Nothing
-                                      'NoSourceUnpackedness
-                                      'NoSourceStrictness
-                                      'DecidedLazy)
-                                   (K1 R Term))
-                          :+: M1
-                                C
-                                ('MetaCons "Mul" 'PrefixI 'False)
-                                (M1
-                                   S
-                                   ('MetaSel
-                                      'Nothing
-                                      'NoSourceUnpackedness
-                                      'NoSourceStrictness
-                                      'DecidedLazy)
-                                   (K1 R Term)
-                                 :*: M1
-                                       S
-                                       ('MetaSel
-                                          'Nothing
-                                          'NoSourceUnpackedness
-                                          'NoSourceStrictness
-                                          'DecidedLazy)
-                                       (K1 R Term)))
-                         x :: *))
-      of {
-        L1 ds1 ->
-          Lit
-            (ds1
-             `cast` (N:M1[0]
-                       <*>_N
-                       <C>_P
-                       <'MetaCons "Lit" 'PrefixI 'False>_P
-                       <M1
-                          S
-                          ('MetaSel
-                             'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                          (K1 R Int)>_R
-                     ; N:M1[0]
-                         <*>_N
-                         <S>_P
-                         <'MetaSel
-                            'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy>_P
-                         <K1 R Int>_R <x>_N
-                     ; N:K1[0] <*>_N <R>_P <Int>_R <x>_P
-                     :: (M1
-                           C
-                           ('MetaCons "Lit" 'PrefixI 'False)
-                           (M1
-                              S
-                              ('MetaSel
-                                 'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                              (K1 R Int))
-                           x :: *)
-                        ~R#
-                        (Int :: *)));
+      case ds `cast` <Co:124> of {
+        L1 ds1 -> Lit (ds1 `cast` <Co:47>);
         R1 ds1 ->
           case ds1 of {
             L1 ds2 ->
-              case ds2
-                   `cast` (N:M1[0]
-                             <*>_N
-                             <C>_P
-                             <'MetaCons "Add" 'PrefixI 'False>_P
-                             <M1
-                                S
-                                ('MetaSel
-                                   'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                                (K1 R Term)
-                              :*: M1
-                                    S
-                                    ('MetaSel
-                                       'Nothing
-                                       'NoSourceUnpackedness
-                                       'NoSourceStrictness
-                                       'DecidedLazy)
-                                    (K1 R Term)>_R <x>_N
-                           :: (M1
-                                 C
-                                 ('MetaCons "Add" 'PrefixI 'False)
-                                 (M1
-                                    S
-                                    ('MetaSel
-                                       'Nothing
-                                       'NoSourceUnpackedness
-                                       'NoSourceStrictness
-                                       'DecidedLazy)
-                                    (K1 R Term)
-                                  :*: M1
-                                        S
-                                        ('MetaSel
-                                           'Nothing
-                                           'NoSourceUnpackedness
-                                           'NoSourceStrictness
-                                           'DecidedLazy)
-                                        (K1 R Term))
-                                 x :: *)
-                              ~R#
-                              ((:*:)
-                                 (M1
-                                    S
-                                    ('MetaSel
-                                       'Nothing
-                                       'NoSourceUnpackedness
-                                       'NoSourceStrictness
-                                       'DecidedLazy)
-                                    (K1 R Term))
-                                 (M1
-                                    S
-                                    ('MetaSel
-                                       'Nothing
-                                       'NoSourceUnpackedness
-                                       'NoSourceStrictness
-                                       'DecidedLazy)
-                                    (K1 R Term))
-                                 x :: *))
-              of
-              { :*: ds3 ds4 ->
-              Add
-                (ds3
-                 `cast` (N:M1[0]
-                           <*>_N
-                           <S>_P
-                           <'MetaSel
-                              'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy>_P
-                           <K1 R Term>_R <x>_N
-                         ; N:K1[0] <*>_N <R>_P <Term>_R <x>_P
-                         :: (M1
-                               S
-                               ('MetaSel
-                                  'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                               (K1 R Term)
-                               x :: *)
-                            ~R#
-                            (Term :: *)))
-                (ds4
-                 `cast` (N:M1[0]
-                           <*>_N
-                           <S>_P
-                           <'MetaSel
-                              'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy>_P
-                           <K1 R Term>_R <x>_N
-                         ; N:K1[0] <*>_N <R>_P <Term>_R <x>_P
-                         :: (M1
-                               S
-                               ('MetaSel
-                                  'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                               (K1 R Term)
-                               x :: *)
-                            ~R#
-                            (Term :: *)))
+              case ds2 `cast` <Co:42> of { :*: ds3 ds4 ->
+              Add (ds3 `cast` <Co:23>) (ds4 `cast` <Co:23>)
               };
             R1 ds2 ->
-              case ds2
-                   `cast` (N:M1[0]
-                             <*>_N
-                             <C>_P
-                             <'MetaCons "Mul" 'PrefixI 'False>_P
-                             <M1
-                                S
-                                ('MetaSel
-                                   'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                                (K1 R Term)
-                              :*: M1
-                                    S
-                                    ('MetaSel
-                                       'Nothing
-                                       'NoSourceUnpackedness
-                                       'NoSourceStrictness
-                                       'DecidedLazy)
-                                    (K1 R Term)>_R <x>_N
-                           :: (M1
-                                 C
-                                 ('MetaCons "Mul" 'PrefixI 'False)
-                                 (M1
-                                    S
-                                    ('MetaSel
-                                       'Nothing
-                                       'NoSourceUnpackedness
-                                       'NoSourceStrictness
-                                       'DecidedLazy)
-                                    (K1 R Term)
-                                  :*: M1
-                                        S
-                                        ('MetaSel
-                                           'Nothing
-                                           'NoSourceUnpackedness
-                                           'NoSourceStrictness
-                                           'DecidedLazy)
-                                        (K1 R Term))
-                                 x :: *)
-                              ~R#
-                              ((:*:)
-                                 (M1
-                                    S
-                                    ('MetaSel
-                                       'Nothing
-                                       'NoSourceUnpackedness
-                                       'NoSourceStrictness
-                                       'DecidedLazy)
-                                    (K1 R Term))
-                                 (M1
-                                    S
-                                    ('MetaSel
-                                       'Nothing
-                                       'NoSourceUnpackedness
-                                       'NoSourceStrictness
-                                       'DecidedLazy)
-                                    (K1 R Term))
-                                 x :: *))
-              of
-              { :*: ds3 ds4 ->
-              Mul
-                (ds3
-                 `cast` (N:M1[0]
-                           <*>_N
-                           <S>_P
-                           <'MetaSel
-                              'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy>_P
-                           <K1 R Term>_R <x>_N
-                         ; N:K1[0] <*>_N <R>_P <Term>_R <x>_P
-                         :: (M1
-                               S
-                               ('MetaSel
-                                  'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                               (K1 R Term)
-                               x :: *)
-                            ~R#
-                            (Term :: *)))
-                (ds4
-                 `cast` (N:M1[0]
-                           <*>_N
-                           <S>_P
-                           <'MetaSel
-                              'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy>_P
-                           <K1 R Term>_R <x>_N
-                         ; N:K1[0] <*>_N <R>_P <Term>_R <x>_P
-                         :: (M1
-                               S
-                               ('MetaSel
-                                  'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                               (K1 R Term)
-                               x :: *)
-                            ~R#
-                            (Term :: *)))
+              case ds2 `cast` <Co:42> of { :*: ds3 ds4 ->
+              Mul (ds3 `cast` <Co:23>) (ds4 `cast` <Co:23>)
               }
           }
       }
@@ -1153,538 +808,20 @@ $fGenericTerm1
 $fGenericTerm1
   = \ (@ x) (x1 :: Term) ->
       case x1 of {
-        Lit g1 ->
-          L1
-            @ *
-            @ (M1
-                 C
-                 ('MetaCons "Lit" 'PrefixI 'False)
-                 (M1
-                    S
-                    ('MetaSel
-                       'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                    (K1 R Int)))
-            @ (M1
-                 C
-                 ('MetaCons "Add" 'PrefixI 'False)
-                 (M1
-                    S
-                    ('MetaSel
-                       'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                    (K1 R Term)
-                  :*: M1
-                        S
-                        ('MetaSel
-                           'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                        (K1 R Term))
-               :+: M1
-                     C
-                     ('MetaCons "Mul" 'PrefixI 'False)
-                     (M1
-                        S
-                        ('MetaSel
-                           'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                        (K1 R Term)
-                      :*: M1
-                            S
-                            ('MetaSel
-                               'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                            (K1 R Term)))
-            @ x
-            (g1
-             `cast` (Sym (N:K1[0] <*>_N <R>_P <Int>_R <x>_P)
-                     ; Sym
-                         (N:M1[0]
-                            <*>_N
-                            <S>_P
-                            <'MetaSel
-                               'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy>_P
-                            <K1 R Int>_R)
-                       ; Sym
-                           (N:M1[0]
-                              <*>_N
-                              <C>_P
-                              <'MetaCons "Lit" 'PrefixI 'False>_P
-                              <M1
-                                 S
-                                 ('MetaSel
-                                    'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                                 (K1 R Int)>_R) <x>_N
-                     :: (Int :: *)
-                        ~R#
-                        (M1
-                           C
-                           ('MetaCons "Lit" 'PrefixI 'False)
-                           (M1
-                              S
-                              ('MetaSel
-                                 'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                              (K1 R Int))
-                           x :: *)));
+        Lit g1 -> L1 (g1 `cast` <Co:50>);
         Add g1 g2 ->
           R1
-            @ *
-            @ (M1
-                 C
-                 ('MetaCons "Lit" 'PrefixI 'False)
-                 (M1
-                    S
-                    ('MetaSel
-                       'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                    (K1 R Int)))
-            @ (M1
-                 C
-                 ('MetaCons "Add" 'PrefixI 'False)
-                 (M1
-                    S
-                    ('MetaSel
-                       'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                    (K1 R Term)
-                  :*: M1
-                        S
-                        ('MetaSel
-                           'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                        (K1 R Term))
-               :+: M1
-                     C
-                     ('MetaCons "Mul" 'PrefixI 'False)
-                     (M1
-                        S
-                        ('MetaSel
-                           'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                        (K1 R Term)
-                      :*: M1
-                            S
-                            ('MetaSel
-                               'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                            (K1 R Term)))
-            @ x
             (L1
-               @ *
-               @ (M1
-                    C
-                    ('MetaCons "Add" 'PrefixI 'False)
-                    (M1
-                       S
-                       ('MetaSel
-                          'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                       (K1 R Term)
-                     :*: M1
-                           S
-                           ('MetaSel
-                              'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                           (K1 R Term)))
-               @ (M1
-                    C
-                    ('MetaCons "Mul" 'PrefixI 'False)
-                    (M1
-                       S
-                       ('MetaSel
-                          'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                       (K1 R Term)
-                     :*: M1
-                           S
-                           ('MetaSel
-                              'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                           (K1 R Term)))
-               @ x
-               ((:*:
-                   @ *
-                   @ (M1
-                        S
-                        ('MetaSel
-                           'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                        (K1 R Term))
-                   @ (M1
-                        S
-                        ('MetaSel
-                           'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                        (K1 R Term))
-                   @ x
-                   (g1
-                    `cast` (Sym (N:K1[0] <*>_N <R>_P <Term>_R <x>_P)
-                            ; Sym
-                                (N:M1[0]
-                                   <*>_N
-                                   <S>_P
-                                   <'MetaSel
-                                      'Nothing
-                                      'NoSourceUnpackedness
-                                      'NoSourceStrictness
-                                      'DecidedLazy>_P
-                                   <K1 R Term>_R) <x>_N
-                            :: (Term :: *)
-                               ~R#
-                               (M1
-                                  S
-                                  ('MetaSel
-                                     'Nothing
-                                     'NoSourceUnpackedness
-                                     'NoSourceStrictness
-                                     'DecidedLazy)
-                                  (K1 R Term)
-                                  x :: *)))
-                   (g2
-                    `cast` (Sym (N:K1[0] <*>_N <R>_P <Term>_R <x>_P)
-                            ; Sym
-                                (N:M1[0]
-                                   <*>_N
-                                   <S>_P
-                                   <'MetaSel
-                                      'Nothing
-                                      'NoSourceUnpackedness
-                                      'NoSourceStrictness
-                                      'DecidedLazy>_P
-                                   <K1 R Term>_R) <x>_N
-                            :: (Term :: *)
-                               ~R#
-                               (M1
-                                  S
-                                  ('MetaSel
-                                     'Nothing
-                                     'NoSourceUnpackedness
-                                     'NoSourceStrictness
-                                     'DecidedLazy)
-                                  (K1 R Term)
-                                  x :: *))))
-                `cast` (Sym
-                          (N:M1[0]
-                             <*>_N
-                             <C>_P
-                             <'MetaCons "Add" 'PrefixI 'False>_P
-                             <M1
-                                S
-                                ('MetaSel
-                                   'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                                (K1 R Term)
-                              :*: M1
-                                    S
-                                    ('MetaSel
-                                       'Nothing
-                                       'NoSourceUnpackedness
-                                       'NoSourceStrictness
-                                       'DecidedLazy)
-                                    (K1 R Term)>_R) <x>_N
-                        :: ((:*:)
-                              (M1
-                                 S
-                                 ('MetaSel
-                                    'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                                 (K1 R Term))
-                              (M1
-                                 S
-                                 ('MetaSel
-                                    'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                                 (K1 R Term))
-                              x :: *)
-                           ~R#
-                           (M1
-                              C
-                              ('MetaCons "Add" 'PrefixI 'False)
-                              (M1
-                                 S
-                                 ('MetaSel
-                                    'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                                 (K1 R Term)
-                               :*: M1
-                                     S
-                                     ('MetaSel
-                                        'Nothing
-                                        'NoSourceUnpackedness
-                                        'NoSourceStrictness
-                                        'DecidedLazy)
-                                     (K1 R Term))
-                              x :: *))));
+               ((:*: (g1 `cast` <Co:25>) (g2 `cast` <Co:25>)) `cast` <Co:43>));
         Mul g1 g2 ->
           R1
-            @ *
-            @ (M1
-                 C
-                 ('MetaCons "Lit" 'PrefixI 'False)
-                 (M1
-                    S
-                    ('MetaSel
-                       'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                    (K1 R Int)))
-            @ (M1
-                 C
-                 ('MetaCons "Add" 'PrefixI 'False)
-                 (M1
-                    S
-                    ('MetaSel
-                       'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                    (K1 R Term)
-                  :*: M1
-                        S
-                        ('MetaSel
-                           'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                        (K1 R Term))
-               :+: M1
-                     C
-                     ('MetaCons "Mul" 'PrefixI 'False)
-                     (M1
-                        S
-                        ('MetaSel
-                           'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                        (K1 R Term)
-                      :*: M1
-                            S
-                            ('MetaSel
-                               'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                            (K1 R Term)))
-            @ x
-            (R1
-               @ *
-               @ (M1
-                    C
-                    ('MetaCons "Add" 'PrefixI 'False)
-                    (M1
-                       S
-                       ('MetaSel
-                          'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                       (K1 R Term)
-                     :*: M1
-                           S
-                           ('MetaSel
-                              'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                           (K1 R Term)))
-               @ (M1
-                    C
-                    ('MetaCons "Mul" 'PrefixI 'False)
-                    (M1
-                       S
-                       ('MetaSel
-                          'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                       (K1 R Term)
-                     :*: M1
-                           S
-                           ('MetaSel
-                              'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                           (K1 R Term)))
-               @ x
-               ((:*:
-                   @ *
-                   @ (M1
-                        S
-                        ('MetaSel
-                           'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                        (K1 R Term))
-                   @ (M1
-                        S
-                        ('MetaSel
-                           'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                        (K1 R Term))
-                   @ x
-                   (g1
-                    `cast` (Sym (N:K1[0] <*>_N <R>_P <Term>_R <x>_P)
-                            ; Sym
-                                (N:M1[0]
-                                   <*>_N
-                                   <S>_P
-                                   <'MetaSel
-                                      'Nothing
-                                      'NoSourceUnpackedness
-                                      'NoSourceStrictness
-                                      'DecidedLazy>_P
-                                   <K1 R Term>_R) <x>_N
-                            :: (Term :: *)
-                               ~R#
-                               (M1
-                                  S
-                                  ('MetaSel
-                                     'Nothing
-                                     'NoSourceUnpackedness
-                                     'NoSourceStrictness
-                                     'DecidedLazy)
-                                  (K1 R Term)
-                                  x :: *)))
-                   (g2
-                    `cast` (Sym (N:K1[0] <*>_N <R>_P <Term>_R <x>_P)
-                            ; Sym
-                                (N:M1[0]
-                                   <*>_N
-                                   <S>_P
-                                   <'MetaSel
-                                      'Nothing
-                                      'NoSourceUnpackedness
-                                      'NoSourceStrictness
-                                      'DecidedLazy>_P
-                                   <K1 R Term>_R) <x>_N
-                            :: (Term :: *)
-                               ~R#
-                               (M1
-                                  S
-                                  ('MetaSel
-                                     'Nothing
-                                     'NoSourceUnpackedness
-                                     'NoSourceStrictness
-                                     'DecidedLazy)
-                                  (K1 R Term)
-                                  x :: *))))
-                `cast` (Sym
-                          (N:M1[0]
-                             <*>_N
-                             <C>_P
-                             <'MetaCons "Mul" 'PrefixI 'False>_P
-                             <M1
-                                S
-                                ('MetaSel
-                                   'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                                (K1 R Term)
-                              :*: M1
-                                    S
-                                    ('MetaSel
-                                       'Nothing
-                                       'NoSourceUnpackedness
-                                       'NoSourceStrictness
-                                       'DecidedLazy)
-                                    (K1 R Term)>_R) <x>_N
-                        :: ((:*:)
-                              (M1
-                                 S
-                                 ('MetaSel
-                                    'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                                 (K1 R Term))
-                              (M1
-                                 S
-                                 ('MetaSel
-                                    'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                                 (K1 R Term))
-                              x :: *)
-                           ~R#
-                           (M1
-                              C
-                              ('MetaCons "Mul" 'PrefixI 'False)
-                              (M1
-                                 S
-                                 ('MetaSel
-                                    'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                                 (K1 R Term)
-                               :*: M1
-                                     S
-                                     ('MetaSel
-                                        'Nothing
-                                        'NoSourceUnpackedness
-                                        'NoSourceStrictness
-                                        'DecidedLazy)
-                                     (K1 R Term))
-                              x :: *))))
+            (R1 ((:*: (g1 `cast` <Co:25>) (g2 `cast` <Co:25>)) `cast` <Co:43>))
       }
 
 -- RHS size: {terms: 3, types: 1, coercions: 130, joins: 0/0}
 $fGenericTerm :: Generic Term
 $fGenericTerm
-  = C:Generic
-      @ Term
-      ($fGenericTerm1
-       `cast` (forall (x :: <*>_N).
-               <Term>_R
-               -> Sym
-                    (N:M1[0]
-                       <*>_N
-                       <D>_P
-                       <'MetaData
-                          "Term"
-                          "Term.Type"
-                          "initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul"
-                          'False>_P
-                       <M1
-                          C
-                          ('MetaCons "Lit" 'PrefixI 'False)
-                          (M1
-                             S
-                             ('MetaSel
-                                'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                             (K1 R Int))
-                        :+: (M1
-                               C
-                               ('MetaCons "Add" 'PrefixI 'False)
-                               (M1
-                                  S
-                                  ('MetaSel
-                                     'Nothing
-                                     'NoSourceUnpackedness
-                                     'NoSourceStrictness
-                                     'DecidedLazy)
-                                  (K1 R Term)
-                                :*: M1
-                                      S
-                                      ('MetaSel
-                                         'Nothing
-                                         'NoSourceUnpackedness
-                                         'NoSourceStrictness
-                                         'DecidedLazy)
-                                      (K1 R Term))
-                             :+: M1
-                                   C
-                                   ('MetaCons "Mul" 'PrefixI 'False)
-                                   (M1
-                                      S
-                                      ('MetaSel
-                                         'Nothing
-                                         'NoSourceUnpackedness
-                                         'NoSourceStrictness
-                                         'DecidedLazy)
-                                      (K1 R Term)
-                                    :*: M1
-                                          S
-                                          ('MetaSel
-                                             'Nothing
-                                             'NoSourceUnpackedness
-                                             'NoSourceStrictness
-                                             'DecidedLazy)
-                                          (K1 R Term)))>_R)
-                  ; Sub (Sym Rep_Term[0]) <x>_N
-               :: ((forall x.
-                    Term
-                    -> (:+:)
-                         (M1
-                            C
-                            ('MetaCons "Lit" 'PrefixI 'False)
-                            (M1
-                               S
-                               ('MetaSel
-                                  'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                               (K1 R Int)))
-                         (M1
-                            C
-                            ('MetaCons "Add" 'PrefixI 'False)
-                            (M1
-                               S
-                               ('MetaSel
-                                  'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
-                               (K1 R Term)
-                             :*: M1
-                                   S
-                                   ('MetaSel
-                                      'Nothing
-                                      'NoSourceUnpackedness
-                                      'NoSourceStrictness
-                                      'DecidedLazy)
-                                   (K1 R Term))
-                          :+: M1
-                                C
-                                ('MetaCons "Mul" 'PrefixI 'False)
-                                (M1
-                                   S
-                                   ('MetaSel
-                                      'Nothing
-                                      'NoSourceUnpackedness
-                                      'NoSourceStrictness
-                                      'DecidedLazy)
-                                   (K1 R Term)
-                                 :*: M1
-                                       S
-                                       ('MetaSel
-                                          'Nothing
-                                          'NoSourceUnpackedness
-                                          'NoSourceStrictness
-                                          'DecidedLazy)
-                                       (K1 R Term)))
-                         x) :: *)
-                  ~R#
-                  ((forall x. Term -> Rep Term x) :: *)))
-      $fGenericTerm_$cto
+  = C:Generic ($fGenericTerm1 `cast` <Co:130>) $fGenericTerm_$cto
 
 Rec {
 -- RHS size: {terms: 22, types: 11, coercions: 0, joins: 0/0}
@@ -1702,10 +839,7 @@ end Rec }
 
 -- RHS size: {terms: 1, types: 0, coercions: 3, joins: 0/0}
 $fNFDataTerm :: NFData Term
-$fNFDataTerm
-  = $fNFDataTerm_$crnf
-    `cast` (Sym (N:NFData[0] <Term>_N)
-            :: ((Term -> ()) :: *) ~R# (NFData Term :: Constraint))
+$fNFDataTerm = $fNFDataTerm_$crnf `cast` <Co:3>
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 lvl :: Addr#
@@ -1726,64 +860,49 @@ $w$cshowsPrec
   = \ (ww :: Int#) (w :: Term) (w1 :: String) ->
       case w of {
         Lit b1 ->
-          case tagToEnum# @ Bool (>=# ww 11#) of {
+          case tagToEnum# (>=# ww 11#) of {
             False ->
               unpackAppendCString#
                 lvl2
                 (case b1 of { I# ww3 ->
-                 case $wshowSignedInt 11# ww3 w1 of { (# ww5, ww6 #) ->
-                 : @ Char ww5 ww6
-                 }
+                 case $wshowSignedInt 11# ww3 w1 of { (# ww5, ww6 #) -> : ww5 ww6 }
                  });
             True ->
-              : @ Char
-                $fShow(,)4
+              : $fShow(,)4
                 (unpackAppendCString#
                    lvl2
                    (case b1 of { I# ww3 ->
-                    case $wshowSignedInt 11# ww3 (: @ Char $fShow(,)2 w1) of
+                    case $wshowSignedInt 11# ww3 (: $fShow(,)2 w1) of
                     { (# ww5, ww6 #) ->
-                    : @ Char ww5 ww6
+                    : ww5 ww6
                     }
                     }))
           };
         Add b1 b2 ->
-          case tagToEnum# @ Bool (>=# ww 11#) of {
+          case tagToEnum# (>=# ww 11#) of {
             False ->
               unpackAppendCString#
                 lvl1
-                ($w$cshowsPrec
-                   11# b1 (: @ Char showSpace1 ($w$cshowsPrec 11# b2 w1)));
+                ($w$cshowsPrec 11# b1 (: showSpace1 ($w$cshowsPrec 11# b2 w1)));
             True ->
-              : @ Char
-                $fShow(,)4
+              : $fShow(,)4
                 (unpackAppendCString#
                    lvl1
                    ($w$cshowsPrec
-                      11#
-                      b1
-                      (: @ Char
-                         showSpace1
-                         ($w$cshowsPrec 11# b2 (: @ Char $fShow(,)2 w1)))))
+                      11# b1 (: showSpace1 ($w$cshowsPrec 11# b2 (: $fShow(,)2 w1)))))
           };
         Mul b1 b2 ->
-          case tagToEnum# @ Bool (>=# ww 11#) of {
+          case tagToEnum# (>=# ww 11#) of {
             False ->
               unpackAppendCString#
                 lvl
-                ($w$cshowsPrec
-                   11# b1 (: @ Char showSpace1 ($w$cshowsPrec 11# b2 w1)));
+                ($w$cshowsPrec 11# b1 (: showSpace1 ($w$cshowsPrec 11# b2 w1)));
             True ->
-              : @ Char
-                $fShow(,)4
+              : $fShow(,)4
                 (unpackAppendCString#
                    lvl
                    ($w$cshowsPrec
-                      11#
-                      b1
-                      (: @ Char
-                         showSpace1
-                         ($w$cshowsPrec 11# b2 (: @ Char $fShow(,)2 w1)))))
+                      11# b1 (: showSpace1 ($w$cshowsPrec 11# b2 (: $fShow(,)2 w1)))))
           }
       }
 end Rec }
@@ -1800,7 +919,7 @@ $fShowTerm2 = I# 0#
 
 -- RHS size: {terms: 5, types: 2, coercions: 0, joins: 0/0}
 $fShowTerm_$cshow :: Term -> String
-$fShowTerm_$cshow = \ (x :: Term) -> $w$cshowsPrec 0# x ([] @ Char)
+$fShowTerm_$cshow = \ (x :: Term) -> $w$cshowsPrec 0# x []
 
 -- RHS size: {terms: 6, types: 2, coercions: 0, joins: 0/0}
 $fShowTerm1 :: Term -> ShowS
@@ -1808,16 +927,13 @@ $fShowTerm1 = \ (w :: Term) (w1 :: String) -> $w$cshowsPrec 0# w w1
 
 -- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
 $fShowTerm_$cshowList :: [Term] -> ShowS
-$fShowTerm_$cshowList = showList__ @ Term $fShowTerm1
+$fShowTerm_$cshowList = showList__ $fShowTerm1
 
 -- RHS size: {terms: 4, types: 1, coercions: 0, joins: 0/0}
 $fShowTerm :: Show Term
 $fShowTerm
   = C:Show
-      @ Term
-      $fShowTerm_$cshowsPrec
-      $fShowTerm_$cshow
-      $fShowTerm_$cshowList
+      $fShowTerm_$cshowsPrec $fShowTerm_$cshow $fShowTerm_$cshowList
 
 Rec {
 -- RHS size: {terms: 45, types: 18, coercions: 0, joins: 0/0}
@@ -1862,7 +978,7 @@ $fEqTerm_$c/=
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $fEqTerm :: Eq Term
-$fEqTerm = C:Eq @ Term $fEqTerm_$c== $fEqTerm_$c/=
+$fEqTerm = C:Eq $fEqTerm_$c== $fEqTerm_$c/=
 
 Rec {
 -- RHS size: {terms: 51, types: 21, coercions: 0, joins: 0/0}
@@ -1978,7 +1094,6 @@ $fOrdTerm_$cmin
 $fOrdTerm :: Ord Term
 $fOrdTerm
   = C:Ord
-      @ Term
       $fEqTerm
       $fOrdTerm_$ccompare
       $fOrdTerm_$c<
@@ -1993,8 +1108,8 @@ _Lit1 :: Term -> Either Term Int
 _Lit1
   = \ (x :: Term) ->
       case x of wild {
-        __DEFAULT -> Left @ Term @ Int wild;
-        Lit y1 -> Right @ Term @ Int y1
+        __DEFAULT -> Left wild;
+        Lit y1 -> Right y1
       }
 
 -- RHS size: {terms: 29, types: 68, coercions: 0, joins: 0/2}
@@ -2008,32 +1123,25 @@ _Lit
         f1 :: p (Either Term Int) (Either Term (f Int)) -> p Term (f Term)
         f1
           = dimap
-              @ p
-              ($p1Choice @ p $dChoice)
-              @ Term
-              @ (Either Term Int)
-              @ (Either Term (f Int))
-              @ (f Term)
+              ($p1Choice $dChoice)
               _Lit1
               (let {
                  ds :: f Int -> f Term
-                 ds
-                   = fmap @ f ($p1Applicative @ f $dApplicative) @ Int @ Term Lit } in
+                 ds = fmap ($p1Applicative $dApplicative) Lit } in
                \ (ds1 :: Either Term (f Int)) ->
                  case ds1 of {
-                   Left x -> pure @ f $dApplicative @ Term x;
+                   Left x -> pure $dApplicative x;
                    Right y -> ds y
                  }) } in
-      \ (x :: p Int (f Int)) ->
-        f1 (right' @ p $dChoice @ Int @ (f Int) @ Term x)
+      \ (x :: p Int (f Int)) -> f1 (right' $dChoice x)
 
 -- RHS size: {terms: 11, types: 14, coercions: 0, joins: 0/0}
 _Add2 :: Term -> Either Term (Term, Term)
 _Add2
   = \ (x :: Term) ->
       case x of wild {
-        __DEFAULT -> Left @ Term @ (Term, Term) wild;
-        Add y1 y2 -> Right @ Term @ (Term, Term) (y1, y2)
+        __DEFAULT -> Left wild;
+        Add y1 y2 -> Right (y1, y2)
       }
 
 -- RHS size: {terms: 7, types: 8, coercions: 0, joins: 0/0}
@@ -2054,37 +1162,25 @@ _Add
              -> p Term (f Term)
         f1
           = dimap
-              @ p
-              ($p1Choice @ p $dChoice)
-              @ Term
-              @ (Either Term (Term, Term))
-              @ (Either Term (f (Term, Term)))
-              @ (f Term)
+              ($p1Choice $dChoice)
               _Add2
               (let {
                  ds :: f (Term, Term) -> f Term
-                 ds
-                   = fmap
-                       @ f
-                       ($p1Applicative @ f $dApplicative)
-                       @ (Term, Term)
-                       @ Term
-                       _Add1 } in
+                 ds = fmap ($p1Applicative $dApplicative) _Add1 } in
                \ (ds1 :: Either Term (f (Term, Term))) ->
                  case ds1 of {
-                   Left x -> pure @ f $dApplicative @ Term x;
+                   Left x -> pure $dApplicative x;
                    Right y -> ds y
                  }) } in
-      \ (x :: p (Term, Term) (f (Term, Term))) ->
-        f1 (right' @ p $dChoice @ (Term, Term) @ (f (Term, Term)) @ Term x)
+      \ (x :: p (Term, Term) (f (Term, Term))) -> f1 (right' $dChoice x)
 
 -- RHS size: {terms: 11, types: 14, coercions: 0, joins: 0/0}
 _Mul2 :: Term -> Either Term (Term, Term)
 _Mul2
   = \ (x :: Term) ->
       case x of wild {
-        __DEFAULT -> Left @ Term @ (Term, Term) wild;
-        Mul y1 y2 -> Right @ Term @ (Term, Term) (y1, y2)
+        __DEFAULT -> Left wild;
+        Mul y1 y2 -> Right (y1, y2)
       }
 
 -- RHS size: {terms: 7, types: 8, coercions: 0, joins: 0/0}
@@ -2105,29 +1201,17 @@ _Mul
              -> p Term (f Term)
         f1
           = dimap
-              @ p
-              ($p1Choice @ p $dChoice)
-              @ Term
-              @ (Either Term (Term, Term))
-              @ (Either Term (f (Term, Term)))
-              @ (f Term)
+              ($p1Choice $dChoice)
               _Mul2
               (let {
                  ds :: f (Term, Term) -> f Term
-                 ds
-                   = fmap
-                       @ f
-                       ($p1Applicative @ f $dApplicative)
-                       @ (Term, Term)
-                       @ Term
-                       _Mul1 } in
+                 ds = fmap ($p1Applicative $dApplicative) _Mul1 } in
                \ (ds1 :: Either Term (f (Term, Term))) ->
                  case ds1 of {
-                   Left x -> pure @ f $dApplicative @ Term x;
+                   Left x -> pure $dApplicative x;
                    Right y -> ds y
                  }) } in
-      \ (x :: p (Term, Term) (f (Term, Term))) ->
-        f1 (right' @ p $dChoice @ (Term, Term) @ (f (Term, Term)) @ Term x)
+      \ (x :: p (Term, Term) (f (Term, Term))) -> f1 (right' $dChoice x)
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -2152,7 +1236,7 @@ $trModule = Module $trModule3 $trModule1
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $krep :: KindRep
-$krep = KindRepTyConApp $tcInt ([] @ KindRep)
+$krep = KindRepTyConApp $tcInt []
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $tcTerm2 :: Addr#
@@ -2175,7 +1259,7 @@ $tcTerm
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 $krep1 :: KindRep
-$krep1 = KindRepTyConApp $tcTerm ([] @ KindRep)
+$krep1 = KindRepTyConApp $tcTerm []
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $tc'Lit1 :: KindRep
@@ -2306,39 +1390,34 @@ $trModule = Module $trModule3 $trModule1
 
 
 
-Preprocessing library 'initial-bp-mul-sig' for initial-bp-0.1.0.0..
-Building library 'initial-bp-mul-sig' instantiated with
-  Mul.Type = <Mul.Type>
-  Term.Type = <Term.Type>
-for initial-bp-0.1.0.0..
 Preprocessing library 'initial-bp-base-sig' for initial-bp-0.1.0.0..
 Building library 'initial-bp-base-sig' instantiated with
   Base.Type = <Base.Type>
   Term.Type = <Term.Type>
 for initial-bp-0.1.0.0..
-[1 of 2] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-sig/build/initial-bp-mul-sig/autogen/Term/Type.hsig, nothing )
-[1 of 2] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-sig/build/initial-bp-base-sig/autogen/Term/Type.hsig, nothing )
-[2 of 2] Compiling Mul.Type[sig]    ( initial-bp-mul-sig/Mul/Type.hsig, nothing )
-[2 of 2] Compiling Base.Type[sig]   ( initial-bp-base-sig/Base/Type.hsig, nothing )
-Configuring library 'initial-bp-mul-print' for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-mul' for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-base-print' for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-base' for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-mul-eval' for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-base-eval' for initial-bp-0.1.0.0..
-Preprocessing library 'initial-bp-mul' for initial-bp-0.1.0.0..
-Building library 'initial-bp-mul' instantiated with
+Preprocessing library 'initial-bp-mul-sig' for initial-bp-0.1.0.0..
+Building library 'initial-bp-mul-sig' instantiated with
   Mul.Type = <Mul.Type>
   Term.Type = <Term.Type>
 for initial-bp-0.1.0.0..
+[1 of 2] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-sig/build/initial-bp-base-sig/autogen/Term/Type.hsig, nothing )
+[1 of 2] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-sig/build/initial-bp-mul-sig/autogen/Term/Type.hsig, nothing )
+[2 of 2] Compiling Base.Type[sig]   ( initial-bp-base-sig/Base/Type.hsig, nothing )
+[2 of 2] Compiling Mul.Type[sig]    ( initial-bp-mul-sig/Mul/Type.hsig, nothing )
+Configuring library 'initial-bp-base-print' for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-base' for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-base-eval' for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-mul-eval' for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-mul' for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-mul-print' for initial-bp-0.1.0.0..
 Preprocessing library 'initial-bp-base' for initial-bp-0.1.0.0..
-Preprocessing library 'initial-bp-mul-print' for initial-bp-0.1.0.0..
 Building library 'initial-bp-base' instantiated with
   Base.Type = <Base.Type>
   Term.Type = <Term.Type>
 for initial-bp-0.1.0.0..
-Building library 'initial-bp-mul-print' instantiated with
-  Mul.Type = <Mul.Type>
+Preprocessing library 'initial-bp-base-eval' for initial-bp-0.1.0.0..
+Building library 'initial-bp-base-eval' instantiated with
+  Base.Type = <Base.Type>
   Term.Type = <Term.Type>
 for initial-bp-0.1.0.0..
 Preprocessing library 'initial-bp-mul-eval' for initial-bp-0.1.0.0..
@@ -2352,35 +1431,44 @@ Building library 'initial-bp-base-print' instantiated with
   Base.Type = <Base.Type>
   Term.Type = <Term.Type>
 for initial-bp-0.1.0.0..
-[1 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul/build/initial-bp-mul/autogen/Term/Type.hsig, nothing )
-Preprocessing library 'initial-bp-base-eval' for initial-bp-0.1.0.0..
-Building library 'initial-bp-base-eval' instantiated with
-  Base.Type = <Base.Type>
+Preprocessing library 'initial-bp-mul' for initial-bp-0.1.0.0..
+Building library 'initial-bp-mul' instantiated with
+  Mul.Type = <Mul.Type>
   Term.Type = <Term.Type>
 for initial-bp-0.1.0.0..
 [1 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base/build/initial-bp-base/autogen/Term/Type.hsig, nothing )
-[1 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/build/initial-bp-mul-print/autogen/Term/Type.hsig, nothing )
-[2 of 3] Compiling Mul.Type[sig]    ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul/build/initial-bp-mul/autogen/Mul/Type.hsig, nothing )
-[2 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base/build/initial-bp-base/autogen/Base/Type.hsig, nothing )
+[1 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/build/initial-bp-base-eval/autogen/Term/Type.hsig, nothing )
+Preprocessing library 'initial-bp-mul-print' for initial-bp-0.1.0.0..
+Building library 'initial-bp-mul-print' instantiated with
+  Mul.Type = <Mul.Type>
+  Term.Type = <Term.Type>
+for initial-bp-0.1.0.0..
 [1 of 4] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/build/initial-bp-mul-eval/autogen/Term/Type.hsig, nothing )
-[2 of 3] Compiling Mul.Type[sig]    ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/build/initial-bp-mul-print/autogen/Mul/Type.hsig, nothing )
+[2 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base/build/initial-bp-base/autogen/Base/Type.hsig, nothing )
+[2 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/build/initial-bp-base-eval/autogen/Base/Type.hsig, nothing )
 [1 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/build/initial-bp-base-print/autogen/Term/Type.hsig, nothing )
 [2 of 4] Compiling Mul.Type[sig]    ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/build/initial-bp-mul-eval/autogen/Mul/Type.hsig, nothing )
+[1 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul/build/initial-bp-mul/autogen/Term/Type.hsig, nothing )
 [2 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/build/initial-bp-base-print/autogen/Base/Type.hsig, nothing )
-[1 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/build/initial-bp-base-eval/autogen/Term/Type.hsig, nothing )
-[2 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/build/initial-bp-base-eval/autogen/Base/Type.hsig, nothing )
-[3 of 3] Compiling Mul              ( initial-bp-mul/Mul.hs, nothing )
+[1 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/build/initial-bp-mul-print/autogen/Term/Type.hsig, nothing )
+[2 of 3] Compiling Mul.Type[sig]    ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul/build/initial-bp-mul/autogen/Mul/Type.hsig, nothing )
+[2 of 3] Compiling Mul.Type[sig]    ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/build/initial-bp-mul-print/autogen/Mul/Type.hsig, nothing )
+[3 of 3] Compiling Base.Eval        ( initial-bp-base-eval/Base/Eval.hs, nothing )
 [3 of 3] Compiling Base             ( initial-bp-base/Base.hs, nothing )
-[3 of 3] Compiling Mul.Print        ( initial-bp-mul-print/Mul/Print.hs, nothing )
 [3 of 4] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/build/initial-bp-mul-eval/autogen/Base/Type.hsig, nothing )
 [4 of 4] Compiling Mul.Eval         ( initial-bp-mul-eval/Mul/Eval.hs, nothing )
 [3 of 3] Compiling Base.Print       ( initial-bp-base-print/Base/Print.hs, nothing )
-[3 of 3] Compiling Base.Eval        ( initial-bp-base-eval/Base/Eval.hs, nothing )
-Configuring library 'initial-bp-example-base' for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-mul-print' instantiated with
-  Mul.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Mul.Type
+[3 of 3] Compiling Mul              ( initial-bp-mul/Mul.hs, nothing )
+[3 of 3] Compiling Mul.Print        ( initial-bp-mul-print/Mul/Print.hs, nothing )
+Configuring library 'initial-bp-base-eval' instantiated with
+  Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Base.Type
+  Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Term.Type
+for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-base-eval' instantiated with
+  Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type
   Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
 for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-example-base' for initial-bp-0.1.0.0..
 Configuring library 'initial-bp-mul-eval' instantiated with
   Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type
   Mul.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Mul.Type
@@ -2394,65 +1482,408 @@ Configuring library 'initial-bp-base-print' instantiated with
   Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type
   Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
 for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-base-eval' instantiated with
+Configuring library 'initial-bp-mul-print' instantiated with
+  Mul.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Mul.Type
+  Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
+for initial-bp-0.1.0.0..
+Preprocessing library 'initial-bp-base-eval' for initial-bp-0.1.0.0..
+Building library 'initial-bp-base-eval' instantiated with
   Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Base.Type
   Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Term.Type
 for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-base-eval' instantiated with
+Preprocessing library 'initial-bp-base-eval' for initial-bp-0.1.0.0..
+Building library 'initial-bp-base-eval' instantiated with
   Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type
   Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
 for initial-bp-0.1.0.0..
+[1 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/autogen/Base/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/Base/Type.o )
 Preprocessing library 'initial-bp-example-base' for initial-bp-0.1.0.0..
 Building library 'initial-bp-example-base' instantiated with
   Base.Type = <Base.Type>
   Term.Type = <Term.Type>
 for initial-bp-0.1.0.0..
-Preprocessing library 'initial-bp-mul-print' for initial-bp-0.1.0.0..
-Building library 'initial-bp-mul-print' instantiated with
-  Mul.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Mul.Type
-  Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
-for initial-bp-0.1.0.0..
-[1 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-base/build/initial-bp-example-base/autogen/Term/Type.hsig, nothing )
 Preprocessing library 'initial-bp-mul-eval' for initial-bp-0.1.0.0..
 Building library 'initial-bp-mul-eval' instantiated with
   Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type
   Mul.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Mul.Type
   Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
 for initial-bp-0.1.0.0..
-[2 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-base/build/initial-bp-example-base/autogen/Base/Type.hsig, nothing )
-Preprocessing library 'initial-bp-base-print' for initial-bp-0.1.0.0..
+[1 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/autogen/Base/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/Base/Type.o )
 Preprocessing library 'initial-bp-base-print' for initial-bp-0.1.0.0..
 Building library 'initial-bp-base-print' instantiated with
   Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Base.Type
   Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Term.Type
 for initial-bp-0.1.0.0..
-Building library 'initial-bp-base-print' instantiated with
-  Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type
-  Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
-for initial-bp-0.1.0.0..
-[1 of 3] Compiling Mul.Type[sig]    ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/autogen/Mul/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/Mul/Type.o )
+[1 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-base/build/initial-bp-example-base/autogen/Term/Type.hsig, nothing )
 [1 of 4] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/autogen/Base/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/Base/Type.o )
-Preprocessing library 'initial-bp-base-eval' for initial-bp-0.1.0.0..
-Building library 'initial-bp-base-eval' instantiated with
+[2 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-base/build/initial-bp-example-base/autogen/Base/Type.hsig, nothing )
+Preprocessing library 'initial-bp-base-print' for initial-bp-0.1.0.0..
+Building library 'initial-bp-base-print' instantiated with
   Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type
   Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
 for initial-bp-0.1.0.0..
 [1 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/autogen/Base/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/Base/Type.o )
-[1 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/autogen/Base/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/Base/Type.o )
-Preprocessing library 'initial-bp-base-eval' for initial-bp-0.1.0.0..
-Building library 'initial-bp-base-eval' instantiated with
-  Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Base.Type
-  Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Term.Type
+Preprocessing library 'initial-bp-mul-print' for initial-bp-0.1.0.0..
+Building library 'initial-bp-mul-print' instantiated with
+  Mul.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Mul.Type
+  Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
 for initial-bp-0.1.0.0..
+[1 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/autogen/Base/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/Base/Type.o )
+[2 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/Term/Type.o )
 [3 of 3] Compiling Example.Base     ( initial-bp-example-base/Example/Base.hs, nothing )
-[1 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/autogen/Base/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/Base/Type.o )
-[1 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/autogen/Base/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/Base/Type.o )
-[2 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/Term/Type.o )
+[1 of 3] Compiling Mul.Type[sig]    ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/autogen/Mul/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/Mul/Type.o )
+[3 of 3] Compiling Base.Eval        ( initial-bp-base-eval/Base/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/Base/Eval.o )
+[2 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/Term/Type.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 46, types: 39, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 24, types: 19, coercions: 0, joins: 0/0}
+evalRules1 :: (Term -> Term) -> Term -> Maybe Term
+evalRules1
+  = \ (e :: Term -> Term) (tm :: Term) ->
+      case tm of {
+        Lit ipv -> Nothing;
+        Add y1 y2 ->
+          case e y1 of {
+            Lit y4 ->
+              case e y2 of {
+                Lit y5 -> Just (Lit ($fNumInt_$c+ y4 y5));
+                Add ipv ipv1 -> Nothing
+              };
+            Add ipv ipv1 -> Nothing
+          }
+      }
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+evalRules2 :: EvalRule Term
+evalRules2 = EvalRule evalRules1
+
+-- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
+evalRules :: [EvalRule Term]
+evalRules = : evalRules2 []
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4
+  = "initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Base.Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
+[3 of 3] Compiling Base.Eval        ( initial-bp-base-eval/Base/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/Base/Eval.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 46, types: 34, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 24, types: 14, coercions: 0, joins: 0/0}
+evalRules1 :: (Term -> Term) -> Term -> Maybe Term
+evalRules1
+  = \ (e :: Term -> Term) (tm :: Term) ->
+      case tm of {
+        __DEFAULT -> Nothing;
+        Add y1 y2 ->
+          case e y1 of {
+            __DEFAULT -> Nothing;
+            Lit y4 ->
+              case e y2 of {
+                __DEFAULT -> Nothing;
+                Lit y5 -> Just (Lit ($fNumInt_$c+ y4 y5))
+              }
+          }
+      }
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+evalRules2 :: EvalRule Term
+evalRules2 = EvalRule evalRules1
+
+-- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
+evalRules :: [EvalRule Term]
+evalRules = : evalRules2 []
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4
+  = "initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Base.Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
 [2 of 4] Compiling Mul.Type[sig]    ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/autogen/Mul/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/Mul/Type.o )
-[3 of 3] Compiling Mul.Print        ( initial-bp-mul-print/Mul/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/Mul/Print.o )
-[2 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/Term/Type.o )
 [2 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/Term/Type.o )
+[3 of 4] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/Term/Type.o )
+[3 of 3] Compiling Base.Print       ( initial-bp-base-print/Base/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/Base/Print.o )
+[4 of 4] Compiling Mul.Eval         ( initial-bp-mul-eval/Mul/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/Mul/Eval.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 78, types: 81, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+printRules7 :: Addr#
+printRules7 = "("#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+printRules6 :: Addr#
+printRules6 = " + "#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+printRules5 :: Addr#
+printRules5 = ")"#
+
+-- RHS size: {terms: 10, types: 10, coercions: 0, joins: 0/0}
+printRules9 :: (Term -> Maybe String) -> Term -> Maybe String
+printRules9
+  = \ _ (tm :: Term) ->
+      case tm of {
+        Lit y1 -> Just ($fShowInt_$cshow y1);
+        Add ipv ipv1 -> Nothing
+      }
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+printRules8 :: PrintRule Term
+printRules8 = PrintRule printRules9
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+printRules4 :: [Char]
+printRules4 = unpackCString# printRules5
+
+-- RHS size: {terms: 29, types: 29, coercions: 0, joins: 0/0}
+printRules3 :: (Term -> Maybe [Char]) -> Term -> Maybe [Char]
+printRules3
+  = \ (pr :: Term -> Maybe [Char]) (tm :: Term) ->
+      case tm of {
+        Lit ipv -> Nothing;
+        Add y1 y2 ->
+          case pr y1 of {
+            Nothing -> Nothing;
+            Just x ->
+              case pr y2 of {
+                Nothing -> Nothing;
+                Just x1 ->
+                  Just
+                    (unpackAppendCString#
+                       printRules7
+                       (++ x (unpackAppendCString# printRules6 (++ x1 printRules4))))
+              }
+          }
+      }
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+printRules2 :: PrintRule Term
+printRules2 = PrintRule printRules3
+
+-- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
+printRules1 :: [PrintRule Term]
+printRules1 = : printRules2 []
+
+-- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
+printRules :: [PrintRule Term]
+printRules = : printRules8 printRules1
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4
+  = "initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Base.Print"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 46, types: 34, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 24, types: 14, coercions: 0, joins: 0/0}
+evalRules1 :: (Term -> Term) -> Term -> Maybe Term
+evalRules1
+  = \ (e :: Term -> Term) (tm :: Term) ->
+      case tm of {
+        __DEFAULT -> Nothing;
+        Mul y1 y2 ->
+          case e y1 of {
+            __DEFAULT -> Nothing;
+            Lit y4 ->
+              case e y2 of {
+                __DEFAULT -> Nothing;
+                Lit y5 -> Just (Lit ($fNumInt_$c* y4 y5))
+              }
+          }
+      }
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+evalRules2 :: EvalRule Term
+evalRules2 = EvalRule evalRules1
+
+-- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
+evalRules :: [EvalRule Term]
+evalRules = : evalRules2 []
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4
+  = "initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Mul.Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
+[2 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/Term/Type.o )
 Configuring library 'initial-bp-example-mul' for initial-bp-0.1.0.0..
+[3 of 3] Compiling Base.Print       ( initial-bp-base-print/Base/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/Base/Print.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 78, types: 78, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+printRules7 :: Addr#
+printRules7 = "("#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+printRules6 :: Addr#
+printRules6 = " + "#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+printRules5 :: Addr#
+printRules5 = ")"#
+
+-- RHS size: {terms: 10, types: 8, coercions: 0, joins: 0/0}
+printRules9 :: (Term -> Maybe String) -> Term -> Maybe String
+printRules9
+  = \ _ (tm :: Term) ->
+      case tm of {
+        __DEFAULT -> Nothing;
+        Lit y1 -> Just ($fShowInt_$cshow y1)
+      }
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+printRules8 :: PrintRule Term
+printRules8 = PrintRule printRules9
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+printRules4 :: [Char]
+printRules4 = unpackCString# printRules5
+
+-- RHS size: {terms: 29, types: 28, coercions: 0, joins: 0/0}
+printRules3 :: (Term -> Maybe [Char]) -> Term -> Maybe [Char]
+printRules3
+  = \ (pr :: Term -> Maybe [Char]) (tm :: Term) ->
+      case tm of {
+        __DEFAULT -> Nothing;
+        Add y1 y2 ->
+          case pr y1 of {
+            Nothing -> Nothing;
+            Just x ->
+              case pr y2 of {
+                Nothing -> Nothing;
+                Just x1 ->
+                  Just
+                    (unpackAppendCString#
+                       printRules7
+                       (++ x (unpackAppendCString# printRules6 (++ x1 printRules4))))
+              }
+          }
+      }
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+printRules2 :: PrintRule Term
+printRules2 = PrintRule printRules3
+
+-- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
+printRules1 :: [PrintRule Term]
+printRules1 = : printRules2 []
+
+-- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
+printRules :: [PrintRule Term]
+printRules = : printRules8 printRules1
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4
+  = "initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Base.Print"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
+[2 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/Term/Type.o )
+[3 of 3] Compiling Mul.Print        ( initial-bp-mul-print/Mul/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-print/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-print+G7vqlwbi8qICy04tY6C9RY/Mul/Print.o )
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
@@ -2479,34 +1910,29 @@ printRules2 :: (Term -> Maybe [Char]) -> Term -> Maybe [Char]
 printRules2
   = \ (p :: Term -> Maybe [Char]) (tm :: Term) ->
       case tm of {
-        __DEFAULT -> Nothing @ [Char];
+        __DEFAULT -> Nothing;
         Mul y1 y2 ->
           case p y1 of {
-            Nothing -> Nothing @ [Char];
+            Nothing -> Nothing;
             Just x ->
               case p y2 of {
-                Nothing -> Nothing @ [Char];
+                Nothing -> Nothing;
                 Just x1 ->
                   Just
-                    @ [Char]
                     (unpackAppendCString#
                        printRules6
-                       (++
-                          @ Char
-                          x
-                          (unpackAppendCString# printRules5 (++ @ Char x1 printRules3))))
+                       (++ x (unpackAppendCString# printRules5 (++ x1 printRules3))))
               }
           }
       }
 
 -- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
 printRules1 :: PrintRule Term
-printRules1 = PrintRule @ Term printRules2
+printRules1 = PrintRule printRules2
 
 -- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
 printRules :: [PrintRule Term]
-printRules
-  = : @ (PrintRule Term) printRules1 ([] @ (PrintRule Term))
+printRules = : printRules1 []
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -2525,374 +1951,17 @@ $trModule2 = "Mul.Print"#
 $trModule1 :: TrName
 $trModule1 = TrNameS $trModule2
 
--- RHS size: {terms: 3, types:[3 of 4] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/Term/Type.o )
- 0, coercions: 0, joins: 0/0}
-$trModule :: Module
-$trModule = Module $trModule3 $trModule1
-
-
-
-[3 of 3] Compiling Base.Print       ( initial-bp-base-print/Base/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/Base/Print.o )
-[3 of 3] Compiling Base.Print       ( initial-bp-base-print/Base/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/Base/Print.o )
-[4 of 4] Compiling Mul.Eval         ( initial-bp-mul-eval/Mul/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/Mul/Eval.o )
-
-==================== Tidy Core ====================
-Result size of Tidy Core
-  = {terms: 78, types: 78, coercions: 0, joins: 0/0}
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-printRules7 :: Addr#
-printRules7 = "("#
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-printRules6 :: Addr#
-printRules6 = " + "#
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-printRules5 :: Addr#
-printRules5 = ")"#
-
--- RHS size: {terms: 10, types: 8, coercions: 0, joins: 0/0}
-printRules9 :: (Term -> Maybe String) -> Term -> Maybe String
-printRules9
-  = \ _ (tm :: Term) ->
-      case tm of {
-        __DEFAULT -> Nothing @ String;
-        Lit y1 -> Just @ String ($fShowInt_$cshow y1)
-      }
-
--- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
-printRules8 :: PrintRule Term
-printRules8 = PrintRule @ Term printRules9
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-printRules4 :: [Char]
-printRules4 = unpackCString# printRules5
-
--- RHS size: {terms: 29, types: 28, coercions: 0, joins: 0/0}
-printRules3 :: (Term -> Maybe [Char]) -> Term -> Maybe [Char]
-printRules3
-  = \ (pr :: Term -> Maybe [Char]) (tm :: Term) ->
-      case tm of {
-        __DEFAULT -> Nothing @ [Char];
-        Add y1 y2 ->
-          case pr y1 of {
-            Nothing -> Nothing @ [Char];
-            Just x ->
-              case pr y2 of {
-                Nothing -> Nothing @ [Char];
-                Just x1 ->
-                  Just
-                    @ [Char]
-                    (unpackAppendCString#
-                       printRules7
-                       (++
-                          @ Char
-                          x
-                          (unpackAppendCString# printRules6 (++ @ Char x1 printRules4))))
-              }
-          }
-      }
-
--- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
-printRules2 :: PrintRule Term
-printRules2 = PrintRule @ Term printRules3
-
--- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
-printRules1 :: [PrintRule Term]
-printRules1
-  = : @ (PrintRule Term) printRules2 ([] @ (PrintRule Term))
-
--- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
-printRules :: [PrintRule Term]
-printRules = : @ (PrintRule Term) printRules8 printRules1
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule4 :: Addr#
-$trModule4
-  = "initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule3 :: TrName
-$trModule3 = TrNameS $trModule4
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule2 :: Addr#
-$trModule2 = "Base.Print"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule1 :: TrName
-$trModule1 = TrNameS $trModule2
-
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 $trModule :: Module
 $trModule = Module $trModule3 $trModule1
 
 
 
-
-==================== Tidy Core ====================
-Result size of Tidy Core
-  = {terms: 78, types: 81, coercions: 0, joins: 0/0}
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-printRules7 :: Addr#
-printRules7 = "("#
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-printRules6 :: Addr#
-printRules6 = " + "#
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-printRules5 :: Addr#
-printRules5 = ")"#
-
--- RHS size: {terms: 10, types: 10, coercions: 0, joins: 0/0}
-printRules9 :: (Term -> Maybe String) -> Term -> Maybe String
-printRules9
-  = \ _ (tm :: Term) ->
-      case tm of {
-        Lit y1 -> Just @ String ($fShowInt_$cshow y1);
-        Add ipv ipv1 -> Nothing @ String
-      }
-
--- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
-printRules8 :: PrintRule Term
-printRules8 = PrintRule @ Term printRules9
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-printRules4 :: [Char]
-printRules4 = unpackCString# printRules5
-
--- RHS size: {terms: 29, types: 29, coercions: 0, joins: 0/0}
-printRules3 :: (Term -> Maybe [Char]) -> Term -> Maybe [Char]
-printRules3
-  = \ (pr :: Term -> Maybe [Char]) (tm :: Term) ->
-      case tm of {
-        Lit ipv -> Nothing @ [Char];
-        Add y1 y2 ->
-          case pr y1 of {
-            Nothing -> Nothing @ [Char];
-            Just x ->
-              case pr y2 of {
-                Nothing -> Nothing @ [Char];
-                Just x1 ->
-                  Just
-                    @ [Char]
-                    (unpackAppendCString#
-                       printRules7
-                       (++
-                          @ Char
-                          x
-                          (unpackAppendCString# printRules6 (++ @ Char x1 printRules4))))
-              }
-          }
-      }
-
--- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
-printRules2 :: PrintRule Term
-printRules2 = PrintRule @ Term printRules3
-
--- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
-printRules1 :: [PrintRule Term]
-printRules1
-  = : @ (PrintRule Term) printRules2 ([] @ (PrintRule Term))
-
--- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
-printRules :: [PrintRule Term]
-printRules = : @ (PrintRule Term) printRules8 printRules1
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule4 :: Addr#
-$trModule4
-  = "initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule3 :: TrName
-$trModule3 = TrNameS $trModule4
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule2 :: Addr#
-$trModule2 = "Base.Print"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule1 :: TrName
-$trModule1 = TrNameS $trModule2
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$trModule :: Module
-$trModule = Module $trModule3 $trModule1
-
-
-
-[2 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/Term/Type.o )
-
-==================== Tidy Core ====================
-Result size of Tidy Core
-  = {terms: 46, types: 34, coercions: 0, joins: 0/0}
-
--- RHS size: {terms: 24, types: 14, coercions: 0, joins: 0/0}
-evalRules1 :: (Term -> Term) -> Term -> Maybe Term
-evalRules1
-  = \ (e :: Term -> Term) (tm :: Term) ->
-      case tm of {
-        __DEFAULT -> Nothing @ Term;
-        Mul y1 y2 ->
-          case e y1 of {
-            __DEFAULT -> Nothing @ Term;
-            Lit y4 ->
-              case e y2 of {
-                __DEFAULT -> Nothing @ Term;
-                Lit y5 -> Just @ Term (Lit ($fNumInt_$c* y4 y5))
-              }
-          }
-      }
-
--- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
-evalRules2 :: EvalRule Term
-evalRules2 = EvalRule @ Term evalRules1
-
--- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
-evalRules :: [EvalRule Term]
-evalRules = : @ (EvalRule Term) evalRules2 ([] @ (EvalRule Term))
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule4 :: Addr#
-$trModule4
-  = "initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule3 :: TrName
-$trModule3 = TrNameS $trModule4
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule2 :: Addr#
-$trModule2 = "Mul.Eval"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule1 :: TrName
-$trModule1 = TrNameS $trModule2
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$trModule :: Module
-$trModule = Module $trModule3 $trModule1
-
-
-
-[2 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/Term/Type.o )
-[3 of 3] Compiling Base.Eval        ( initial-bp-base-eval/Base/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/Base/Eval.o )
-[3 of 3] Compiling Base.Eval        ( initial-bp-base-eval/Base/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/Base/Eval.o )
-
-==================== Tidy Core ====================
-Result size of Tidy Core
-  = {terms: 46, types: 34, coercions: 0, joins: 0/0}
-
--- RHS size: {terms: 24, types: 14, coercions: 0, joins: 0/0}
-evalRules1 :: (Term -> Term) -> Term -> Maybe Term
-evalRules1
-  = \ (e :: Term -> Term) (tm :: Term) ->
-      case tm of {
-        __DEFAULT -> Nothing @ Term;
-        Add y1 y2 ->
-          case e y1 of {
-            __DEFAULT -> Nothing @ Term;
-            Lit y4 ->
-              case e y2 of {
-                __DEFAULT -> Nothing @ Term;
-                Lit y5 -> Just @ Term (Lit ($fNumInt_$c+ y4 y5))
-              }
-          }
-      }
-
--- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
-evalRules2 :: EvalRule Term
-evalRules2 = EvalRule @ Term evalRules1
-
--- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
-evalRules :: [EvalRule Term]
-evalRules = : @ (EvalRule Term) evalRules2 ([] @ (EvalRule Term))
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule4 :: Addr#
-$trModule4
-  = "initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule3 :: TrName
-$trModule3 = TrNameS $trModule4
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule2 :: Addr#
-$trModule2 = "Base.Eval"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule1 :: TrName
-$trModule1 = TrNameS $trModule2
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$trModule :: Module
-$trModule = Module $trModule3 $trModule1
-
-
-
-
-==================== Tidy Core ====================
-Result size of Tidy Core
-  = {terms: 46, types: 39, coercions: 0, joins: 0/0}
-
--- RHS size: {terms: 24, types: 19, coercions: 0, joins: 0/0}
-evalRules1 :: (Term -> Term) -> Term -> Maybe Term
-evalRules1
-  = \ (e :: Term -> Term) (tm :: Term) ->
-      case tm of {
-        Lit ipv -> Nothing @ Term;
-        Add y1 y2 ->
-          case e y1 of {
-            Lit y4 ->
-              case e y2 of {
-                Lit y5 -> Just @ Term (Lit ($fNumInt_$c+ y4 y5));
-                Add ipv ipv1 -> Nothing @ Term
-              };
-            Add ipv ipv1 -> Nothing @ Term
-          }
-      }
-
--- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
-evalRules2 :: EvalRule Term
-evalRules2 = EvalRule @ Term evalRules1
-
--- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
-evalRules :: [EvalRule Term]
-evalRules = : @ (EvalRule Term) evalRules2 ([] @ (EvalRule Term))
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule4 :: Addr#
-$trModule4
-  = "initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule3 :: TrName
-$trModule3 = TrNameS $trModule4
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule2 :: Addr#
-$trModule2 = "Base.Eval"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule1 :: TrName
-$trModule1 = TrNameS $trModule2
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$trModule :: Module
-$trModule = Module $trModule3 $trModule1
-
-
-
-Configuring library 'initial-bp-example-term-base-mul-print' for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-example-term-base-print' for initial-bp-0.1.0.0..
-Configuring library for initial-bp-0.1.0.0..
-Configuring library 'initial-bp-example-term-base-mul-eval' for initial-bp-0.1.0.0..
 Configuring library 'initial-bp-example-term-base-eval' for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-example-term-base-mul-eval' for initial-bp-0.1.0.0..
+Configuring library for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-example-term-base-print' for initial-bp-0.1.0.0..
+Configuring library 'initial-bp-example-term-base-mul-print' for initial-bp-0.1.0.0..
 Preprocessing library 'initial-bp-example-mul' for initial-bp-0.1.0.0..
 Building library 'initial-bp-example-mul' instantiated with
   Base.Type = <Base.Type>
@@ -2903,33 +1972,66 @@ for initial-bp-0.1.0.0..
 [2 of 4] Compiling Mul.Type[sig]    ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-mul/build/initial-bp-example-mul/autogen/Mul/Type.hsig, nothing )
 [3 of 4] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-mul/build/initial-bp-example-mul/autogen/Base/Type.hsig, nothing )
 [4 of 4] Compiling Example.Mul      ( initial-bp-example-mul/Example/Mul.hs, nothing )
-Preprocessing library 'initial-bp-example-term-base-mul-print' for initial-bp-0.1.0.0..
-Building library 'initial-bp-example-term-base-mul-print' for initial-bp-0.1.0.0..
-Preprocessing library 'initial-bp-example-term-base-print' for initial-bp-0.1.0.0..
-Building library 'initial-bp-example-term-base-print' for initial-bp-0.1.0.0..
-[1 of 1] Compiling Term.Print       ( initial-bp-example-term-base-mul-print/Term/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base-mul-print/build/initial-bp-example-term-base-mul-print/Term/Print.o )
+Preprocessing library 'initial-bp-example-term-base-eval' for initial-bp-0.1.0.0..
+Building library 'initial-bp-example-term-base-eval' for initial-bp-0.1.0.0..
 Preprocessing library for initial-bp-0.1.0.0..
 Building library for initial-bp-0.1.0.0..
 Preprocessing library 'initial-bp-example-term-base-mul-eval' for initial-bp-0.1.0.0..
 Building library 'initial-bp-example-term-base-mul-eval' for initial-bp-0.1.0.0..
-[1 of 1] Compiling Term.Print       ( initial-bp-example-term-base-print/Term/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base-print/build/initial-bp-example-term-base-print/Term/Print.o )
+[1 of 1] Compiling Term.Eval        ( initial-bp-example-term-base-eval/Term/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base-eval/build/initial-bp-example-term-base-eval/Term/Eval.o )
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
-  = {terms: 21, types: 14, coercions: 0, joins: 0/0}
+  = {terms: 17, types: 8, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+evalTerm :: Term -> Term
+evalTerm = mkEval evalRules
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4
+  = "initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Term.Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
+Preprocessing library 'initial-bp-example-term-base-print' for initial-bp-0.1.0.0..
+Building library 'initial-bp-example-term-base-print' for initial-bp-0.1.0.0..
+[1 of 1] Compiling InitialBP.Bench  ( src/InitialBP/Bench.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/build/InitialBP/Bench.o )
+[1 of 1] Compiling Term.Eval        ( initial-bp-example-term-base-mul-eval/Term/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base-mul-eval/build/initial-bp-example-term-base-mul-eval/Term/Eval.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 21, types: 13, coercions: 0, joins: 0/0}
 
 -- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
-printTerm1 :: [PrintRule Term]
-printTerm1 = ++ @ (PrintRule Term) printRules printRules
+evalTerm1 :: [EvalRule Term]
+evalTerm1 = ++ evalRules evalRules
 
 -- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
-printTerm :: Term -> Maybe String
-printTerm = mkPrint @ Term printTerm1
+evalTerm :: Term -> Term
+evalTerm = mkEval evalTerm1
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
 $trModule4
-  = "initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul-print"#
+  = "initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul-eval"#
 
 -- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
 $trModule3 :: TrName
@@ -2937,7 +2039,7 @@ $trModule3 = TrNameS $trModule4
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule2 :: Addr#
-$trModule2 = "Term.Print"#
+$trModule2 = "Term.Eval"#
 
 -- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
 $trModule1 :: TrName
@@ -2949,42 +2051,6 @@ $trModule = Module $trModule3 $trModule1
 
 
 
-Preprocessing library 'initial-bp-example-term-base-eval' for initial-bp-0.1.0.0..
-Building library 'initial-bp-example-term-base-eval' for initial-bp-0.1.0.0..
-[1 of 1] Compiling InitialBP.Bench  ( src/InitialBP/Bench.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/build/InitialBP/Bench.o )
-
-==================== Tidy Core ====================
-Result size of Tidy Core
-  = {terms: 17, types: 9, coercions: 0, joins: 0/0}
-
--- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
-printTerm :: Term -> Maybe String
-printTerm = mkPrint @ Term printRules
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule4 :: Addr#
-$trModule4
-  = "initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-print"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule3 :: TrName
-$trModule3 = TrNameS $trModule4
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule2 :: Addr#
-$trModule2 = "Term.Print"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule1 :: TrName
-$trModule1 = TrNameS $trModule2
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$trModule :: Module
-$trModule = Module $trModule3 $trModule1
-
-
-
-[1 of 1] Compiling Term.Eval        ( initial-bp-example-term-base-mul-eval/Term/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base-mul-eval/build/initial-bp-example-term-base-mul-eval/Term/Eval.o )
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
@@ -2992,11 +2058,11 @@ Result size of Tidy Core
 
 -- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
 evalTerm1 :: [EvalRule Term]
-evalTerm1 = ++ @ (EvalRule Term) evalRules evalRules
+evalTerm1 = ++ evalRules evalRules
 
 -- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
 evalTerm :: Term -> Term
-evalTerm = mkEval @ Term evalTerm1
+evalTerm = mkEval evalTerm1
 
 -- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
 lit1 :: Int
@@ -3086,23 +2152,20 @@ $trModule = Module $trModule3 $trModule1
 
 
 
+[1 of 1] Compiling Term.Print       ( initial-bp-example-term-base-print/Term/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base-print/build/initial-bp-example-term-base-print/Term/Print.o )
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
-  = {terms: 21, types: 13, coercions: 0, joins: 0/0}
-
--- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
-evalTerm1 :: [EvalRule Term]
-evalTerm1 = ++ @ (EvalRule Term) evalRules evalRules
+  = {terms: 17, types: 9, coercions: 0, joins: 0/0}
 
 -- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
-evalTerm :: Term -> Term
-evalTerm = mkEval @ Term evalTerm1
+printTerm :: Term -> Maybe String
+printTerm = mkPrint printRules
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
 $trModule4
-  = "initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul-eval"#
+  = "initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-print"#
 
 -- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
 $trModule3 :: TrName
@@ -3110,7 +2173,7 @@ $trModule3 = TrNameS $trModule4
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule2 :: Addr#
-$trModule2 = "Term.Eval"#
+$trModule2 = "Term.Print"#
 
 -- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
 $trModule1 :: TrName
@@ -3122,20 +2185,26 @@ $trModule = Module $trModule3 $trModule1
 
 
 
-[1 of 1] Compiling Term.Eval        ( initial-bp-example-term-base-eval/Term/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base-eval/build/initial-bp-example-term-base-eval/Term/Eval.o )
+Preprocessing library 'initial-bp-example-term-base-mul-print' for initial-bp-0.1.0.0..
+Building library 'initial-bp-example-term-base-mul-print' for initial-bp-0.1.0.0..
+[1 of 1] Compiling Term.Print       ( initial-bp-example-term-base-mul-print/Term/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-term-base-mul-print/build/initial-bp-example-term-base-mul-print/Term/Print.o )
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
-  = {terms: 17, types: 8, coercions: 0, joins: 0/0}
+  = {terms: 21, types: 14, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
+printTerm1 :: [PrintRule Term]
+printTerm1 = ++ printRules printRules
 
 -- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
-evalTerm :: Term -> Term
-evalTerm = mkEval @ Term evalRules
+printTerm :: Term -> Maybe String
+printTerm = mkPrint printTerm1
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
 $trModule4
-  = "initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-eval"#
+  = "initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul-print"#
 
 -- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
 $trModule3 :: TrName
@@ -3143,7 +2212,7 @@ $trModule3 = TrNameS $trModule4
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule2 :: Addr#
-$trModule2 = "Term.Eval"#
+$trModule2 = "Term.Print"#
 
 -- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
 $trModule1 :: TrName

@@ -9,7 +9,6 @@ module Term (
 
 import Control.Lens
 
-import Control.DeepSeq (NFData)
 import GHC.Generics
 
 newtype Term f a = Term { unTerm :: f (Term f) a }

@@ -19,46 +19,19 @@ In order, the following will be built (use -v for more details):
  - final-bp-0.1.0.0 (lib:final-bp-example-mul with Base=final-bp-0.1.0.0-inplace-final-bp-base-eval:Base, Mul=final-bp-0.1.0.0-inplace-final-bp-mul-eval:Mul, Repr=final-bp-0.1.0.0-inplace-final-bp-eval:Repr) +dump (first run)
  - final-bp-0.1.0.0 (lib:final-bp-example-print) +dump (first run)
  - final-bp-0.1.0.0 (lib:final-bp-example-eval) +dump (first run)
-Configuring library 'final-bp-eval' for final-bp-0.1.0.0..
-Configuring library 'final-bp-print' for final-bp-0.1.0.0..
 Configuring library 'repr' for final-bp-0.1.0.0..
-Preprocessing library 'final-bp-eval' for final-bp-0.1.0.0..
-Building library 'final-bp-eval' for final-bp-0.1.0.0..
+Configuring library 'final-bp-print' for final-bp-0.1.0.0..
+Configuring library 'final-bp-eval' for final-bp-0.1.0.0..
 Preprocessing library 'final-bp-print' for final-bp-0.1.0.0..
 Preprocessing library 'repr' for final-bp-0.1.0.0..
 Building library 'final-bp-print' for final-bp-0.1.0.0..
 Building library 'repr' instantiated with Repr = <Repr>
 for final-bp-0.1.0.0..
-[1 of 1] Compiling Repr             ( final-bp-eval/Repr.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-eval/build/final-bp-eval/Repr.o )
-
-==================== Tidy Core ====================
-Result size of Tidy Core
-  = {terms: 14, types: 5, coercions: 0, joins: 0/0}
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule4 :: Addr#
-$trModule4 = "final-bp-0.1.0.0-inplace-final-bp-eval"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule3 :: TrName
-$trModule3 = TrNameS $trModule4
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule2 :: Addr#
-$trModule2 = "Repr"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule1 :: TrName
-$trModule1 = TrNameS $trModule2
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$trModule :: Module
-$trModule = Module $trModule3 $trModule1
-
-
-
+Preprocessing library 'final-bp-eval' for final-bp-0.1.0.0..
+Building library 'final-bp-eval' for final-bp-0.1.0.0..
 [1 of 1] Compiling Repr[sig]        ( repr/Repr.hsig, nothing )
 [1 of 1] Compiling Repr             ( final-bp-print/Repr.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-print/build/final-bp-print/Repr.o )
+[1 of 1] Compiling Repr             ( final-bp-eval/Repr.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-eval/build/final-bp-eval/Repr.o )
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
@@ -86,104 +59,65 @@ $trModule = Module $trModule3 $trModule1
 
 
 
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 14, types: 5, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-bp-0.1.0.0-inplace-final-bp-eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Repr"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
 Configuring library 'final-bp-mul' for final-bp-0.1.0.0..
 Configuring library 'final-bp-base' for final-bp-0.1.0.0..
+Configuring library 'final-bp-base-print' for final-bp-0.1.0.0..
+Configuring library 'final-bp-mul-print' for final-bp-0.1.0.0..
 Configuring library 'final-bp-mul-eval' for final-bp-0.1.0.0..
 Configuring library 'final-bp-base-eval' for final-bp-0.1.0.0..
-Configuring library 'final-bp-mul-print' for final-bp-0.1.0.0..
-Configuring library 'final-bp-base-print' for final-bp-0.1.0.0..
-Preprocessing library 'final-bp-mul' for final-bp-0.1.0.0..
-Building library 'final-bp-mul' instantiated with
-  Mul = <Mul>
-  Repr = <Repr>
-for final-bp-0.1.0.0..
 Preprocessing library 'final-bp-base' for final-bp-0.1.0.0..
 Building library 'final-bp-base' instantiated with
   Base = <Base>
   Repr = <Repr>
 for final-bp-0.1.0.0..
-[1 of 2] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-mul/build/final-bp-mul/autogen/Repr.hsig, nothing )
+Preprocessing library 'final-bp-mul' for final-bp-0.1.0.0..
+Building library 'final-bp-mul' instantiated with
+  Mul = <Mul>
+  Repr = <Repr>
+for final-bp-0.1.0.0..
 [1 of 2] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-base/build/final-bp-base/autogen/Repr.hsig, nothing )
-[2 of 2] Compiling Mul[sig]         ( final-bp-mul/Mul.hsig, nothing )
 [2 of 2] Compiling Base[sig]        ( final-bp-base/Base.hsig, nothing )
-Preprocessing library 'final-bp-mul-eval' for final-bp-0.1.0.0..
-Building library 'final-bp-mul-eval' for final-bp-0.1.0.0..
-Preprocessing library 'final-bp-base-eval' for final-bp-0.1.0.0..
-Building library 'final-bp-base-eval' for final-bp-0.1.0.0..
+[1 of 2] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-mul/build/final-bp-mul/autogen/Repr.hsig, nothing )
+[2 of 2] Compiling Mul[sig]         ( final-bp-mul/Mul.hsig, nothing )
 Preprocessing library 'final-bp-base-print' for final-bp-0.1.0.0..
 Building library 'final-bp-base-print' for final-bp-0.1.0.0..
-[1 of 1] Compiling Mul              ( final-bp-mul-eval/Mul.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-mul-eval/build/final-bp-mul-eval/Mul.o )
-
-==================== Tidy Core ====================
-Result size of Tidy Core
-  = {terms: 16, types: 8, coercions: 0, joins: 0/0}
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule4 :: Addr#
-$trModule4 = "final-bp-0.1.0.0-inplace-final-bp-mul-eval"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule3 :: TrName
-$trModule3 = TrNameS $trModule4
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule2 :: Addr#
-$trModule2 = "Mul"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule1 :: TrName
-$trModule1 = TrNameS $trModule2
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$trModule :: Module
-$trModule = Module $trModule3 $trModule1
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-[1 of 1] Compiling Base             ( final-bp-base-eval/Base.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-base-eval/build/final-bp-base-eval/Base.o )
-mul :: Int -> Int -> Int
-mul = $fNumInt_$c*
-
-
-
 Preprocessing library 'final-bp-mul-print' for final-bp-0.1.0.0..
 Building library 'final-bp-mul-print' for final-bp-0.1.0.0..
-[1 of 1] Compiling Base             ( final-bp-base-print/Base.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-base-print/build/final-bp-base-print/Base.o )
-
-==================== Tidy Core ====================
-Result size of Tidy Core
-  = {terms: 18, types: 11, coercions: 0, joins: 0/0}
-
--- RHS size: {terms: 1, types: 1, coercions: 0, joins: 0/0}
-lit :: Int -> Int
-lit = id @ Int
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule4 :: Addr#
-$trModule4 = "final-bp-0.1.0.0-inplace-final-bp-base-eval"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule3 :: TrName
-$trModule3 = TrNameS $trModule4
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$trModule2 :: Addr#
-$trModule2 = "Base"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$trModule1 :: TrName
-$trModule1 = TrNameS $trModule2
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$trModule :: Module
-$trModule = Module $trModule3 $trModule1
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-add :: Int -> Int -> Int
-add = $fNumInt_$c+
-
-
-
+Preprocessing library 'final-bp-base-eval' for final-bp-0.1.0.0..
+Building library 'final-bp-base-eval' for final-bp-0.1.0.0..
 Configuring library 'final-bp-example-base' for final-bp-0.1.0.0..
+Preprocessing library 'final-bp-mul-eval' for final-bp-0.1.0.0..
+Building library 'final-bp-mul-eval' for final-bp-0.1.0.0..
+[1 of 1] Compiling Base             ( final-bp-base-print/Base.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-base-print/build/final-bp-base-print/Base.o )
+[1 of 1] Compiling Mul              ( final-bp-mul-print/Mul.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-mul-print/build/final-bp-mul-print/Mul.o )
+[1 of 1] Compiling Base             ( final-bp-base-eval/Base.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-base-eval/build/final-bp-base-eval/Base.o )
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
@@ -210,7 +144,7 @@ add :: String -> String -> String
 add
   = \ (x :: String) (y :: String) ->
       unpackAppendCString#
-        add4 (++ @ Char x (unpackAppendCString# add3 (++ @ Char y add1)))
+        add4 (++ x (unpackAppendCString# add3 (++ y add1)))
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -238,7 +172,6 @@ lit = $fShowInt_$cshow
 
 
 
-[1 of 1] Compiling Mul              ( final-bp-mul-print/Mul.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-mul-print/build/final-bp-mul-print/Mul.o )
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
@@ -265,7 +198,7 @@ mul :: String -> String -> String
 mul
   = \ (x :: String) (y :: String) ->
       unpackAppendCString#
-        mul4 (++ @ Char x (unpackAppendCString# mul3 (++ @ Char y mul1)))
+        mul4 (++ x (unpackAppendCString# mul3 (++ y mul1)))
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -289,12 +222,79 @@ $trModule = Module $trModule3 $trModule1
 
 
 
-Configuring library 'final-bp-mul' instantiated with
-  Mul = final-bp-0.1.0.0-inplace-final-bp-mul-eval:Mul
-  Repr = final-bp-0.1.0.0-inplace-final-bp-eval:Repr
-for final-bp-0.1.0.0..
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 18, types: 11, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 1, coercions: 0, joins: 0/0}
+lit :: Int -> Int
+lit = id
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-bp-0.1.0.0-inplace-final-bp-base-eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Base"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+add :: Int -> Int -> Int
+add = $fNumInt_$c+
+
+
+
+[1 of 1] Compiling Mul              ( final-bp-mul-eval/Mul.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-mul-eval/build/final-bp-mul-eval/Mul.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 16, types: 8, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "final-bp-0.1.0.0-inplace-final-bp-mul-eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Mul"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+mul :: Int -> Int -> Int
+mul = $fNumInt_$c*
+
+
+
 Configuring library 'final-bp-base' instantiated with
   Base = final-bp-0.1.0.0-inplace-final-bp-base-eval:Base
+  Repr = final-bp-0.1.0.0-inplace-final-bp-eval:Repr
+for final-bp-0.1.0.0..
+Configuring library 'final-bp-mul' instantiated with
+  Mul = final-bp-0.1.0.0-inplace-final-bp-mul-eval:Mul
   Repr = final-bp-0.1.0.0-inplace-final-bp-eval:Repr
 for final-bp-0.1.0.0..
 Preprocessing library 'final-bp-example-base' for final-bp-0.1.0.0..
@@ -305,12 +305,17 @@ for final-bp-0.1.0.0..
 [1 of 3] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/build/final-bp-example-base/autogen/Repr.hsig, nothing )
 [2 of 3] Compiling Base[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/build/final-bp-example-base/autogen/Base.hsig, nothing )
 [3 of 3] Compiling Example.Base     ( final-bp-example-base/Example/Base.hs, nothing )
+Configuring library 'final-bp-example-mul' for final-bp-0.1.0.0..
 Configuring library 'final-bp-example-base' instantiated with
   Base = final-bp-0.1.0.0-inplace-final-bp-base-print:Base
   Repr = final-bp-0.1.0.0-inplace-final-bp-print:Repr
 for final-bp-0.1.0.0..
-Configuring library 'final-bp-example-mul' for final-bp-0.1.0.0..
 Configuring library 'final-bp-example-base' instantiated with
+  Base = final-bp-0.1.0.0-inplace-final-bp-base-eval:Base
+  Repr = final-bp-0.1.0.0-inplace-final-bp-eval:Repr
+for final-bp-0.1.0.0..
+Preprocessing library 'final-bp-base' for final-bp-0.1.0.0..
+Building library 'final-bp-base' instantiated with
   Base = final-bp-0.1.0.0-inplace-final-bp-base-eval:Base
   Repr = final-bp-0.1.0.0-inplace-final-bp-eval:Repr
 for final-bp-0.1.0.0..
@@ -319,21 +324,11 @@ Building library 'final-bp-mul' instantiated with
   Mul = final-bp-0.1.0.0-inplace-final-bp-mul-eval:Mul
   Repr = final-bp-0.1.0.0-inplace-final-bp-eval:Repr
 for final-bp-0.1.0.0..
-[1 of 2] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-mul/final-bp-0.1.0.0-inplace-final-bp-mul+7fLy7lkPLW6J7AGrTyeZEp/build/final-bp-0.1.0.0-inplace-final-bp-mul+7fLy7lkPLW6J7AGrTyeZEp/autogen/Repr.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-mul/final-bp-0.1.0.0-inplace-final-bp-mul+7fLy7lkPLW6J7AGrTyeZEp/build/final-bp-0.1.0.0-inplace-final-bp-mul+7fLy7lkPLW6J7AGrTyeZEp/Repr.o )
-Preprocessing library 'final-bp-base' for final-bp-0.1.0.0..
-Building library 'final-bp-base' instantiated with
-  Base = final-bp-0.1.0.0-inplace-final-bp-base-eval:Base
-  Repr = final-bp-0.1.0.0-inplace-final-bp-eval:Repr
-for final-bp-0.1.0.0..
 [1 of 2] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-base/final-bp-0.1.0.0-inplace-final-bp-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-base+2XuPNKz0qU7KGxJd49xi0c/autogen/Repr.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-base/final-bp-0.1.0.0-inplace-final-bp-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-base+2XuPNKz0qU7KGxJd49xi0c/Repr.o )
-[2 of 2] Compiling Mul[sig]         ( final-bp-mul/Mul.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-mul/final-bp-0.1.0.0-inplace-final-bp-mul+7fLy7lkPLW6J7AGrTyeZEp/build/final-bp-0.1.0.0-inplace-final-bp-mul+7fLy7lkPLW6J7AGrTyeZEp/Mul.o )
+[1 of 2] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-mul/final-bp-0.1.0.0-inplace-final-bp-mul+7fLy7lkPLW6J7AGrTyeZEp/build/final-bp-0.1.0.0-inplace-final-bp-mul+7fLy7lkPLW6J7AGrTyeZEp/autogen/Repr.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-mul/final-bp-0.1.0.0-inplace-final-bp-mul+7fLy7lkPLW6J7AGrTyeZEp/build/final-bp-0.1.0.0-inplace-final-bp-mul+7fLy7lkPLW6J7AGrTyeZEp/Repr.o )
 [2 of 2] Compiling Base[sig]        ( final-bp-base/Base.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-base/final-bp-0.1.0.0-inplace-final-bp-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-base+2XuPNKz0qU7KGxJd49xi0c/Base.o )
+[2 of 2] Compiling Mul[sig]         ( final-bp-mul/Mul.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-mul/final-bp-0.1.0.0-inplace-final-bp-mul+7fLy7lkPLW6J7AGrTyeZEp/build/final-bp-0.1.0.0-inplace-final-bp-mul+7fLy7lkPLW6J7AGrTyeZEp/Mul.o )
 Configuring library for final-bp-0.1.0.0..
-Preprocessing library 'final-bp-example-base' for final-bp-0.1.0.0..
-Building library 'final-bp-example-base' instantiated with
-  Base = final-bp-0.1.0.0-inplace-final-bp-base-print:Base
-  Repr = final-bp-0.1.0.0-inplace-final-bp-print:Repr
-for final-bp-0.1.0.0..
 Preprocessing library 'final-bp-example-mul' for final-bp-0.1.0.0..
 Building library 'final-bp-example-mul' instantiated with
   Base = <Base>
@@ -342,17 +337,24 @@ Building library 'final-bp-example-mul' instantiated with
 for final-bp-0.1.0.0..
 Preprocessing library 'final-bp-example-base' for final-bp-0.1.0.0..
 Building library 'final-bp-example-base' instantiated with
+  Base = final-bp-0.1.0.0-inplace-final-bp-base-print:Base
+  Repr = final-bp-0.1.0.0-inplace-final-bp-print:Repr
+for final-bp-0.1.0.0..
+Preprocessing library 'final-bp-example-base' for final-bp-0.1.0.0..
+Building library 'final-bp-example-base' instantiated with
   Base = final-bp-0.1.0.0-inplace-final-bp-base-eval:Base
   Repr = final-bp-0.1.0.0-inplace-final-bp-eval:Repr
 for final-bp-0.1.0.0..
-[1 of 3] Compiling Base[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/build/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/autogen/Base.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/build/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/Base.o )
 [1 of 4] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/build/final-bp-example-mul/autogen/Repr.hsig, nothing )
+[1 of 3] Compiling Base[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/build/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/autogen/Base.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/build/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/Base.o )
+[1 of 3] Compiling Base[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/autogen/Base.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/Base.o )
 [2 of 4] Compiling Mul[sig]         ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/build/final-bp-example-mul/autogen/Mul.hsig, nothing )
 [3 of 4] Compiling Base[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/build/final-bp-example-mul/autogen/Base.hsig, nothing )
 [4 of 4] Compiling Example.Mul      ( final-bp-example-mul/Example/Mul.hs, nothing )
-[1 of 3] Compiling Base[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/autogen/Base.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/Base.o )
 [2 of 3] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/build/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/autogen/Repr.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/build/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/Repr.o )
+[2 of 3] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/autogen/Repr.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/Repr.o )
 [3 of 3] Compiling Example.Base     ( final-bp-example-base/Example/Base.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/build/final-bp-0.1.0.0-inplace-final-bp-example-base+3MC5EwTupCy72A2xzHDwu8/Example/Base.o )
+[3 of 3] Compiling Example.Base     ( final-bp-example-base/Example/Base.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/Example/Base.o )
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
@@ -361,8 +363,8 @@ Result size of Tidy Core
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 term8 :: [Char]
 term8
-  = case $wshowSignedInt 0# 2# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) add1
+  = case $wshowSignedInt 0# 2# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) add1
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -372,8 +374,8 @@ term7 = unpackAppendCString# add3 term8
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 term6 :: [Char]
 term6
-  = case $wshowSignedInt 0# 1# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) term7
+  = case $wshowSignedInt 0# 1# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) term7
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -382,7 +384,7 @@ term5 = unpackAppendCString# add4 term6
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 term4 :: [Char]
-term4 = ++ @ Char term5 add1
+term4 = ++ term5 add1
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 term3 :: [Char]
@@ -391,8 +393,8 @@ term3 = unpackAppendCString# add3 term4
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 term2 :: [Char]
 term2
-  = case $wshowSignedInt 0# 8# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) term3
+  = case $wshowSignedInt 0# 8# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) term3
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -422,8 +424,6 @@ $trModule = Module $trModule3 $trModule1
 
 
 
-[2 of 3] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/autogen/Repr.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/Repr.o )
-[3 of 3] Compiling Example.Base     ( final-bp-example-base/Example/Base.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-base/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/build/final-bp-0.1.0.0-inplace-final-bp-example-base+2XuPNKz0qU7KGxJd49xi0c/Example/Base.o )
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
@@ -538,10 +538,10 @@ for final-bp-0.1.0.0..
 [1 of 4] Compiling Base[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/autogen/Base.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/Base.o )
 [1 of 4] Compiling Base[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/autogen/Base.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/Base.o )
 [2 of 4] Compiling Mul[sig]         ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/autogen/Mul.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/Mul.o )
-[2 of 4] Compiling Mul[sig]         ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/autogen/Mul.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/Mul.o )
 [3 of 4] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/autogen/Repr.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/Repr.o )
-[3 of 4] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/autogen/Repr.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/Repr.o )
+[2 of 4] Compiling Mul[sig]         ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/autogen/Mul.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/Mul.o )
 [4 of 4] Compiling Example.Mul      ( final-bp-example-mul/Example/Mul.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+3kBcPTnbVUlDbio0wW7eL8/Example/Mul.o )
+[3 of 4] Compiling Repr[sig]        ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/autogen/Repr.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/final-bp-0.1.0.0/c/final-bp-example-mul/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/build/final-bp-0.1.0.0-inplace-final-bp-example-mul+LMCbfyEXrwD5Vje3yxLfLY/Repr.o )
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
@@ -550,8 +550,8 @@ Result size of Tidy Core
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 term10 :: [Char]
 term10
-  = case $wshowSignedInt 0# 2# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) mul1
+  = case $wshowSignedInt 0# 2# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) mul1
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -561,8 +561,8 @@ term9 = unpackAppendCString# mul3 term10
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 term8 :: [Char]
 term8
-  = case $wshowSignedInt 0# 1# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) term9
+  = case $wshowSignedInt 0# 1# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) term9
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -571,7 +571,7 @@ term7 = unpackAppendCString# mul4 term8
 
 -- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
 term6 :: [Char]
-term6 = ++ @ Char term7 add1
+term6 = ++ term7 add1
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 term5 :: [Char]
@@ -580,8 +580,8 @@ term5 = unpackAppendCString# add3 term6
 -- RHS size: {terms: 11, types: 12, coercions: 0, joins: 0/0}
 term1 :: [Char]
 term1
-  = case $wshowSignedInt 0# 7# ([] @ Char) of { (# ww5, ww6 #) ->
-    ++ @ Char (: @ Char ww5 ww6) term5
+  = case $wshowSignedInt 0# 7# [] of { (# ww5, ww6 #) ->
+    ++ (: ww5 ww6) term5
     }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
@@ -591,9 +591,7 @@ term2 = unpackAppendCString# add4 term1
 -- RHS size: {terms: 9, types: 11, coercions: 0, joins: 0/0}
 term11 :: String
 term11
-  = case $wshowSignedInt 0# 7# ([] @ Char) of { (# ww5, ww6 #) ->
-    : @ Char ww5 ww6
-    }
+  = case $wshowSignedInt 0# 7# [] of { (# ww5, ww6 #) -> : ww5 ww6 }
 
 -- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
 term3 :: Repr

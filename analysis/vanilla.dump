@@ -1,0 +1,574 @@
+Resolving dependencies...
+In order, the following will be built (use -v for more details):
+ - vanilla-0.1.0.0 (lib) +dump (first run)
+Configuring library for vanilla-0.1.0.0..
+Preprocessing library for vanilla-0.1.0.0..
+Building library for vanilla-0.1.0.0..
+[1 of 4] Compiling Term             ( src/Term.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/vanilla-0.1.0.0/build/Term.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 371, types: 1,374, coercions: 716, joins: 0/0}
+
+-- RHS size: {terms: 24, types: 528, coercions: 347, joins: 0/0}
+$fGenericTerm_$cto :: forall x. Rep Term x -> Term
+$fGenericTerm_$cto
+  = \ (@ x) (ds :: Rep Term x) ->
+      case ds `cast` <Co:124> of {
+        L1 ds1 -> Lit (ds1 `cast` <Co:47>);
+        R1 ds1 ->
+          case ds1 of {
+            L1 ds2 ->
+              case ds2 `cast` <Co:42> of { :*: ds3 ds4 ->
+              Add (ds3 `cast` <Co:23>) (ds4 `cast` <Co:23>)
+              };
+            R1 ds2 ->
+              case ds2 `cast` <Co:42> of { :*: ds3 ds4 ->
+              Mul (ds3 `cast` <Co:23>) (ds4 `cast` <Co:23>)
+              }
+          }
+      }
+
+-- RHS size: {terms: 19, types: 577, coercions: 236, joins: 0/0}
+$fGenericTerm1
+  :: forall x.
+     Term
+     -> (:+:)
+          (M1
+             C
+             ('MetaCons "Lit" 'PrefixI 'False)
+             (M1
+                S
+                ('MetaSel
+                   'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
+                (K1 R Int)))
+          (M1
+             C
+             ('MetaCons "Add" 'PrefixI 'False)
+             (M1
+                S
+                ('MetaSel
+                   'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
+                (K1 R Term)
+              :*: M1
+                    S
+                    ('MetaSel
+                       'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
+                    (K1 R Term))
+           :+: M1
+                 C
+                 ('MetaCons "Mul" 'PrefixI 'False)
+                 (M1
+                    S
+                    ('MetaSel
+                       'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
+                    (K1 R Term)
+                  :*: M1
+                        S
+                        ('MetaSel
+                           'Nothing 'NoSourceUnpackedness 'NoSourceStrictness 'DecidedLazy)
+                        (K1 R Term)))
+          x
+$fGenericTerm1
+  = \ (@ x) (x1 :: Term) ->
+      case x1 of {
+        Lit g1 -> L1 (g1 `cast` <Co:50>);
+        Add g1 g2 ->
+          R1
+            (L1
+               ((:*: (g1 `cast` <Co:25>) (g2 `cast` <Co:25>)) `cast` <Co:43>));
+        Mul g1 g2 ->
+          R1
+            (R1 ((:*: (g1 `cast` <Co:25>) (g2 `cast` <Co:25>)) `cast` <Co:43>))
+      }
+
+-- RHS size: {terms: 3, types: 1, coercions: 130, joins: 0/0}
+$fGenericTerm :: Generic Term
+$fGenericTerm
+  = C:Generic ($fGenericTerm1 `cast` <Co:130>) $fGenericTerm_$cto
+
+Rec {
+-- RHS size: {terms: 22, types: 11, coercions: 0, joins: 0/0}
+$fNFDataTerm_$crnf :: Term -> ()
+$fNFDataTerm_$crnf
+  = \ (x :: Term) ->
+      case x of {
+        Lit g1 -> case g1 of { I# ipv -> () };
+        Add g1 g2 ->
+          case $fNFDataTerm_$crnf g1 of { () -> $fNFDataTerm_$crnf g2 };
+        Mul g1 g2 ->
+          case $fNFDataTerm_$crnf g1 of { () -> $fNFDataTerm_$crnf g2 }
+      }
+end Rec }
+
+-- RHS size: {terms: 1, types: 0, coercions: 3, joins: 0/0}
+$fNFDataTerm :: NFData Term
+$fNFDataTerm = $fNFDataTerm_$crnf `cast` <Co:3>
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+lvl :: Addr#
+lvl = "Mul "#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+lvl1 :: Addr#
+lvl1 = "Add "#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+lvl2 :: Addr#
+lvl2 = "Lit "#
+
+Rec {
+-- RHS size: {terms: 113, types: 49, coercions: 0, joins: 0/0}
+$w$cshowsPrec :: Int# -> Term -> String -> String
+$w$cshowsPrec
+  = \ (ww :: Int#) (w :: Term) (w1 :: String) ->
+      case w of {
+        Lit b1 ->
+          case tagToEnum# (>=# ww 11#) of {
+            False ->
+              unpackAppendCString#
+                lvl2
+                (case b1 of { I# ww3 ->
+                 case $wshowSignedInt 11# ww3 w1 of { (# ww5, ww6 #) -> : ww5 ww6 }
+                 });
+            True ->
+              : $fShow(,)4
+                (unpackAppendCString#
+                   lvl2
+                   (case b1 of { I# ww3 ->
+                    case $wshowSignedInt 11# ww3 (: $fShow(,)2 w1) of
+                    { (# ww5, ww6 #) ->
+                    : ww5 ww6
+                    }
+                    }))
+          };
+        Add b1 b2 ->
+          case tagToEnum# (>=# ww 11#) of {
+            False ->
+              unpackAppendCString#
+                lvl1
+                ($w$cshowsPrec 11# b1 (: showSpace1 ($w$cshowsPrec 11# b2 w1)));
+            True ->
+              : $fShow(,)4
+                (unpackAppendCString#
+                   lvl1
+                   ($w$cshowsPrec
+                      11# b1 (: showSpace1 ($w$cshowsPrec 11# b2 (: $fShow(,)2 w1)))))
+          };
+        Mul b1 b2 ->
+          case tagToEnum# (>=# ww 11#) of {
+            False ->
+              unpackAppendCString#
+                lvl
+                ($w$cshowsPrec 11# b1 (: showSpace1 ($w$cshowsPrec 11# b2 w1)));
+            True ->
+              : $fShow(,)4
+                (unpackAppendCString#
+                   lvl
+                   ($w$cshowsPrec
+                      11# b1 (: showSpace1 ($w$cshowsPrec 11# b2 (: $fShow(,)2 w1)))))
+          }
+      }
+end Rec }
+
+-- RHS size: {terms: 10, types: 5, coercions: 0, joins: 0/0}
+$fShowTerm_$cshowsPrec :: Int -> Term -> ShowS
+$fShowTerm_$cshowsPrec
+  = \ (w :: Int) (w1 :: Term) (w2 :: String) ->
+      case w of { I# ww1 -> $w$cshowsPrec ww1 w1 w2 }
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$fShowTerm2 :: Int
+$fShowTerm2 = I# 0#
+
+-- RHS size: {terms: 5, types: 2, coercions: 0, joins: 0/0}
+$fShowTerm_$cshow :: Term -> String
+$fShowTerm_$cshow = \ (x :: Term) -> $w$cshowsPrec 0# x []
+
+-- RHS size: {terms: 6, types: 2, coercions: 0, joins: 0/0}
+$fShowTerm1 :: Term -> ShowS
+$fShowTerm1 = \ (w :: Term) (w1 :: String) -> $w$cshowsPrec 0# w w1
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+$fShowTerm_$cshowList :: [Term] -> ShowS
+$fShowTerm_$cshowList = showList__ $fShowTerm1
+
+-- RHS size: {terms: 4, types: 1, coercions: 0, joins: 0/0}
+$fShowTerm :: Show Term
+$fShowTerm
+  = C:Show
+      $fShowTerm_$cshowsPrec $fShowTerm_$cshow $fShowTerm_$cshowList
+
+Rec {
+-- RHS size: {terms: 45, types: 18, coercions: 0, joins: 0/0}
+$fEqTerm_$c== :: Term -> Term -> Bool
+$fEqTerm_$c==
+  = \ (ds :: Term) (ds1 :: Term) ->
+      case ds of {
+        Lit a1 ->
+          case ds1 of {
+            __DEFAULT -> False;
+            Lit b1 -> eqInt a1 b1
+          };
+        Add a1 a2 ->
+          case ds1 of {
+            __DEFAULT -> False;
+            Add b1 b2 ->
+              case $fEqTerm_$c== a1 b1 of {
+                False -> False;
+                True -> $fEqTerm_$c== a2 b2
+              }
+          };
+        Mul a1 a2 ->
+          case ds1 of {
+            __DEFAULT -> False;
+            Mul b1 b2 ->
+              case $fEqTerm_$c== a1 b1 of {
+                False -> False;
+                True -> $fEqTerm_$c== a2 b2
+              }
+          }
+      }
+end Rec }
+
+-- RHS size: {terms: 10, types: 3, coercions: 0, joins: 0/0}
+$fEqTerm_$c/= :: Term -> Term -> Bool
+$fEqTerm_$c/=
+  = \ (a :: Term) (b :: Term) ->
+      case $fEqTerm_$c== a b of {
+        False -> True;
+        True -> False
+      }
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+$fEqTerm :: Eq Term
+$fEqTerm = C:Eq $fEqTerm_$c== $fEqTerm_$c/=
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "vanilla-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Term"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+$krep :: KindRep
+$krep = KindRepTyConApp $tcInt []
+
+-- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
+$tcTerm :: TyCon
+$tcTerm
+  = TyCon
+      8629467898741628768##
+      9951461721024085629##
+      $trModule
+      $trModule1
+      0#
+      krep$*
+
+-- RHS size: {terms: 3, types: 1, coercions: 0, joins: 0/0}
+$krep1 :: KindRep
+$krep1 = KindRepTyConApp $tcTerm []
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$tc'Lit1 :: KindRep
+$tc'Lit1 = KindRepFun $krep $krep1
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$tc'Lit3 :: Addr#
+$tc'Lit3 = "'Lit"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$tc'Lit2 :: TrName
+$tc'Lit2 = TrNameS $tc'Lit3
+
+-- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
+$tc'Lit :: TyCon
+$tc'Lit
+  = TyCon
+      2342378171150062080##
+      12472488204346948629##
+      $trModule
+      $tc'Lit2
+      0#
+      $tc'Lit1
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$krep2 :: KindRep
+$krep2 = KindRepFun $krep1 $krep1
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$tc'Add1 :: KindRep
+$tc'Add1 = KindRepFun $krep1 $krep2
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$tc'Add3 :: Addr#
+$tc'Add3 = "'Add"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$tc'Add2 :: TrName
+$tc'Add2 = TrNameS $tc'Add3
+
+-- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
+$tc'Add :: TyCon
+$tc'Add
+  = TyCon
+      174417796076596483##
+      11704673920255722318##
+      $trModule
+      $tc'Add2
+      0#
+      $tc'Add1
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$tc'Mul2 :: Addr#
+$tc'Mul2 = "'Mul"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$tc'Mul1 :: TrName
+$tc'Mul1 = TrNameS $tc'Mul2
+
+-- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
+$tc'Mul :: TyCon
+$tc'Mul
+  = TyCon
+      3199096669262240386##
+      17499016737731937603##
+      $trModule
+      $tc'Mul1
+      0#
+      $tc'Add1
+
+
+
+[2 of 4] Compiling Interpret.Print  ( src/Interpret/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/vanilla-0.1.0.0/build/Interpret/Print.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 56, types: 24, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "vanilla-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Interpret.Print"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+lvl :: Addr#
+lvl = ")"#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+lvl1 :: Addr#
+lvl1 = " * "#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+lvl2 :: Addr#
+lvl2 = "("#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+lvl3 :: Addr#
+lvl3 = " + "#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+lvl4 :: [Char]
+lvl4 = unpackCString# lvl
+
+Rec {
+-- RHS size: {terms: 30, types: 11, coercions: 0, joins: 0/0}
+printTerm :: Term -> String
+printTerm
+  = \ (ds :: Term) ->
+      case ds of {
+        Lit i -> $fShowInt_$cshow i;
+        Add tm1 tm2 ->
+          unpackAppendCString#
+            lvl2
+            (++
+               (printTerm tm1)
+               (unpackAppendCString# lvl3 (++ (printTerm tm2) lvl4)));
+        Mul tm1 tm2 ->
+          unpackAppendCString#
+            lvl2
+            (++
+               (printTerm tm1)
+               (unpackAppendCString# lvl1 (++ (printTerm tm2) lvl4)))
+      }
+end Rec }
+
+
+
+[3 of 4] Compiling Interpret.Eval   ( src/Interpret/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/vanilla-0.1.0.0/build/Interpret/Eval.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 54, types: 22, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "vanilla-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Interpret.Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+Rec {
+-- RHS size: {terms: 39, types: 15, coercions: 0, joins: 0/0}
+evalTerm :: Term -> Term
+evalTerm
+  = \ (tm :: Term) ->
+      case tm of wild {
+        Lit ipv -> wild;
+        Add tm1 tm2 ->
+          case evalTerm tm1 of {
+            __DEFAULT -> wild;
+            Lit i1 ->
+              case evalTerm tm2 of {
+                __DEFAULT -> wild;
+                Lit i2 -> Lit ($fNumInt_$c+ i1 i2)
+              }
+          };
+        Mul tm1 tm2 ->
+          case evalTerm tm1 of {
+            __DEFAULT -> wild;
+            Lit i1 ->
+              case evalTerm tm2 of {
+                __DEFAULT -> wild;
+                Lit i2 -> Lit ($fNumInt_$c* i1 i2)
+              }
+          }
+      }
+end Rec }
+
+
+
+[4 of 4] Compiling Vanilla.Bench    ( src/Vanilla/Bench.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/vanilla-0.1.0.0/build/Vanilla/Bench.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 86, types: 27, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+lit1 :: Int
+lit1 = I# 2#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+lit2 :: Term
+lit2 = Lit lit1
+
+-- RHS size: {terms: 5, types: 1, coercions: 0, joins: 0/0}
+evalAddSmall :: Term -> Term
+evalAddSmall = \ (tm :: Term) -> evalTerm (Add tm tm)
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+evalAddBig4 :: Int
+evalAddBig4 = I# 3#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+evalAddBig3 :: Term
+evalAddBig3 = Lit evalAddBig4
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+evalAddBig2 :: Int
+evalAddBig2 = I# 5#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+evalAddBig1 :: Term
+evalAddBig1 = Lit evalAddBig2
+
+-- RHS size: {terms: 7, types: 1, coercions: 0, joins: 0/0}
+evalAddMulSmall :: Term -> Term
+evalAddMulSmall
+  = \ (tm :: Term) -> evalTerm (Add (Mul tm evalAddBig3) evalAddBig1)
+
+-- RHS size: {terms: 9, types: 1, coercions: 0, joins: 0/0}
+evalAddBig :: Term -> Term
+evalAddBig
+  = \ (tm :: Term) ->
+      evalTerm (Add (Add tm evalAddBig3) (Add tm evalAddBig1))
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+evalAddMulBig4 :: Int
+evalAddMulBig4 = I# 7#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+evalAddMulBig3 :: Term
+evalAddMulBig3 = Lit evalAddMulBig4
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+evalAddMulBig2 :: Int
+evalAddMulBig2 = I# 11#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+evalAddMulBig1 :: Term
+evalAddMulBig1 = Lit evalAddMulBig2
+
+-- RHS size: {terms: 17, types: 1, coercions: 0, joins: 0/0}
+evalAddMulBig :: Term -> Term
+evalAddMulBig
+  = \ (tm :: Term) ->
+      evalTerm
+        (Add
+           (Mul (Add tm evalAddBig3) (Add tm evalAddBig1))
+           (Mul (Add tm evalAddMulBig3) (Add tm evalAddMulBig1)))
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4 = "vanilla-0.1.0.0-inplace"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Vanilla.Bench"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
