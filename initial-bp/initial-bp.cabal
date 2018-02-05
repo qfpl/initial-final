@@ -17,6 +17,7 @@ library initial-bp-eval
   hs-source-dirs:      initial-bp-eval
   exposed-modules:     Interpret.Eval
   build-depends:       base ^>=4.10
+                     , lens
   ghc-options:         -Wall -O
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes

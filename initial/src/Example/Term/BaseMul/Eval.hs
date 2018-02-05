@@ -11,7 +11,7 @@ import Example.Base
 import Example.Mul
 
 evalTerm :: Term TermF a -> Term TermF a
-evalTerm = mkEval $ B.evalRules ++ M.evalRules
+evalTerm = mkEval $ composeEvalRule B.addRule M.mulRule
 
 eval1 :: Term TermF a
 eval1 = evalTerm term1

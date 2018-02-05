@@ -1,0 +1,445 @@
+In order, the following will be built (use -v for more details):
+ - final-bp-0.1.0.0 (lib) +dump (first run)
+ - final-bp-0.1.0.0 (lib:final-bp-example-base with Base=final-bp-0.1.0.0-inplace-final-bp-base-eval:Base, Repr=final-bp-0.1.0.0-inplace-final-bp-eval:Repr) +dump (first run)
+ - final-bp-0.1.0.0 (lib:final-bp-example-base with Base=final-bp-0.1.0.0-inplace-final-bp-base-print:Base, Repr=final-bp-0.1.0.0-inplace-final-bp-print:Repr) +dump (first run)
+ - initial-bp-0.1.0.0 (lib:initial-bp-base-eval with Base.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type, Term.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type) +dump (first run)
+ - initial-bp-0.1.0.0 (lib:initial-bp-base-eval with Base.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Base.Type, Term.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Term.Type) +dump (first run)
+ - initial-bp-0.1.0.0 (lib:initial-bp-base-print with Base.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type, Term.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type) +dump (first run)
+ - initial-bp-0.1.0.0 (lib:initial-bp-base-print with Base.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Base.Type, Term.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Term.Type) +dump (first run)
+ - initial-bp-0.1.0.0 (lib:initial-bp-example-base) +dump (first run)
+ - initial-bp-0.1.0.0 (lib:initial-bp-mul-eval with Base.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type, Mul.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Mul.Type, Term.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type) +dump (first run)
+ - initial-bp-0.1.0.0 (lib:initial-bp-mul-print with Mul.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Mul.Type, Term.Type=initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type) +dump (first run)
+ - final-bp-0.1.0.0 (lib:final-bp-example-mul with Base=final-bp-0.1.0.0-inplace-final-bp-base-eval:Base, Mul=final-bp-0.1.0.0-inplace-final-bp-mul-eval:Mul, Repr=final-bp-0.1.0.0-inplace-final-bp-eval:Repr) +dump (first run)
+ - final-bp-0.1.0.0 (lib:final-bp-example-mul with Base=final-bp-0.1.0.0-inplace-final-bp-base-print:Base, Mul=final-bp-0.1.0.0-inplace-final-bp-mul-print:Mul, Repr=final-bp-0.1.0.0-inplace-final-bp-print:Repr) +dump (first run)
+ - initial-bp-0.1.0.0 (lib:initial-bp-example-term-base-eval) +dump (first run)
+ - initial-bp-0.1.0.0 (lib:initial-bp-example-term-base-print) +dump (first run)
+ - initial-bp-0.1.0.0 (lib:initial-bp-example-mul) +dump (first run)
+ - initial-bp-0.1.0.0 (lib:initial-bp-example-term-base-mul-eval) +dump (first run)
+ - initial-bp-0.1.0.0 (lib) +dump (first run)
+ - initial-bp-0.1.0.0 (lib:initial-bp-example-term-base-mul-print) +dump (first run)
+ - final-bp-0.1.0.0 (lib:final-bp-example-eval) +dump (first run)
+ - final-bp-0.1.0.0 (lib:final-bp-example-print) +dump (first run)
+ - initial-final-bench-0.1.0.0 (exe:bench) (first run)
+Preprocessing library for final-bp-0.1.0.0..
+Building library for final-bp-0.1.0.0..
+Preprocessing library 'final-bp-example-base' for final-bp-0.1.0.0..
+Building library 'final-bp-example-base' instantiated with
+  Base = final-bp-0.1.0.0-inplace-final-bp-base-eval:Base
+  Repr = final-bp-0.1.0.0-inplace-final-bp-eval:Repr
+for final-bp-0.1.0.0..
+Preprocessing library 'initial-bp-base-eval' for initial-bp-0.1.0.0..
+Building library 'initial-bp-base-eval' instantiated with
+  Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Base.Type
+  Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Term.Type
+for initial-bp-0.1.0.0..
+Preprocessing library 'final-bp-example-base' for final-bp-0.1.0.0..
+Configuring library 'initial-bp-example-base' for initial-bp-0.1.0.0..
+Building library 'final-bp-example-base' instantiated with
+  Base = final-bp-0.1.0.0-inplace-final-bp-base-print:Base
+  Repr = final-bp-0.1.0.0-inplace-final-bp-print:Repr
+for final-bp-0.1.0.0..
+Preprocessing library 'initial-bp-base-print' for initial-bp-0.1.0.0..
+Preprocessing library 'initial-bp-base-eval' for initial-bp-0.1.0.0..
+Building library 'initial-bp-base-print' instantiated with
+  Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type
+  Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
+for initial-bp-0.1.0.0..
+Building library 'initial-bp-base-eval' instantiated with
+  Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type
+  Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
+for initial-bp-0.1.0.0..
+Preprocessing library 'initial-bp-base-print' for initial-bp-0.1.0.0..
+Building library 'initial-bp-base-print' instantiated with
+  Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Base.Type
+  Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base:Term.Type
+for initial-bp-0.1.0.0..
+[3 of 3] Compiling Base.Eval        ( initial-bp-base-eval/Base/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK/Base/Eval.o )
+[3 of 3] Compiling Base.Eval        ( initial-bp-base-eval/Base/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-eval/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP/Base/Eval.o )
+[1 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/autogen/Base/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/Base/Type.o )
+[1 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/autogen/Base/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/Base/Type.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 51, types: 45, coercions: 6, joins: 0/0}
+
+-- RHS size: {terms: 30, types: 21, coercions: 0, joins: 0/0}
+addRule1
+  :: forall r.
+     (Term -> Term) -> (Term -> r) -> (Term -> r) -> Term -> r
+addRule1
+  = \ (@ r)
+      (e :: Term -> Term)
+      (good :: Term -> r)
+      (bad :: Term -> r)
+      (tm :: Term) ->
+      case tm of wild {
+        Lit ipv -> bad wild;
+        Add y1 y2 ->
+          case e y1 of {
+            Lit y4 ->
+              case e y2 of {
+                Lit y5 -> good (Lit ($fNumInt_$c+ y4 y5));
+                Add ipv ipv1 -> bad wild
+              };
+            Add ipv ipv1 -> bad wild
+          }
+      }
+
+-- RHS size: {terms: 1, types: 0, coercions: 3, joins: 0/0}
+addRule :: EvalRule Term
+addRule = addRule1 `cast` <Co:3>
+
+-- RHS size: {terms: 3, types: 4, coercions: 3, joins: 0/0}
+evalRules :: [EvalRule Term]
+evalRules = : (addRule1 `cast` <Co:3>) []
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4
+  = "initial-bp-0.1.0.0-inplace-initial-bp-base-eval+CrWoJKfZaH70LMmcO19YK"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Base.Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 51, types: 40, coercions: 6, joins: 0/0}
+
+-- RHS size: {terms: 30, types: 16, coercions: 0, joins: 0/0}
+addRule1
+  :: forall r.
+     (Term -> Term) -> (Term -> r) -> (Term -> r) -> Term -> r
+addRule1
+  = \ (@ r)
+      (e :: Term -> Term)
+      (good :: Term -> r)
+      (bad :: Term -> r)
+      (tm :: Term) ->
+      case tm of wild {
+        __DEFAULT -> bad wild;
+        Add y1 y2 ->
+          case e y1 of {
+            __DEFAULT -> bad wild;
+            Lit dt ->
+              case e y2 of {
+                __DEFAULT -> bad wild;
+                Lit dt1 -> good (Lit (+# dt dt1))
+              }
+          }
+      }
+
+-- RHS size: {terms: 1, types: 0, coercions: 3, joins: 0/0}
+addRule :: EvalRule Term
+addRule = addRule1 `cast` <Co:3>
+
+-- RHS size: {terms: 3, types: 4, coercions: 3, joins: 0/0}
+evalRules :: [EvalRule Term]
+evalRules = : (addRule1 `cast` <Co:3>) []
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4
+  = "initial-bp-0.1.0.0-inplace-initial-bp-base-eval+5x0SUPDSVDaA4gvRrnNuSP"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Base.Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
+[2 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/Term/Type.o )
+[3 of 3] Compiling Base.Print       ( initial-bp-base-print/Base/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP/Base/Print.o )
+[2 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/Term/Type.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 85, types: 89, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+printRules7 :: Addr#
+printRules7 = "("#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+printRules6 :: Addr#
+printRules6 = " + "#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+printRules5 :: Addr#
+printRules5 = ")"#
+
+-- RHS size: {terms: 17, types: 19, coercions: 0, joins: 0/0}
+printRules9 :: (Term -> Maybe String) -> Term -> Maybe String
+printRules9
+  = \ _ (tm :: Term) ->
+      case tm of {
+        __DEFAULT -> Nothing;
+        Lit dt ->
+          Just
+            (case $wshowSignedInt 0# dt [] of { (# ww5, ww6 #) -> : ww5 ww6 })
+      }
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+printRules8 :: PrintRule Term
+printRules8 = PrintRule printRules9
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+printRules4 :: [Char]
+printRules4 = unpackCString# printRules5
+
+-- RHS size: {terms: 29, types: 28, coercions: 0, joins: 0/0}
+printRules3 :: (Term -> Maybe [Char]) -> Term -> Maybe [Char]
+printRules3
+  = \ (pr :: Term -> Maybe [Char]) (tm :: Term) ->
+      case tm of {
+        __DEFAULT -> Nothing;
+        Add y1 y2 ->
+          case pr y1 of {
+            Nothing -> Nothing;
+            Just x ->
+              case pr y2 of {
+                Nothing -> Nothing;
+                Just x1 ->
+                  Just
+                    (unpackAppendCString#
+                       printRules7
+                       (++ x (unpackAppendCString# printRules6 (++ x1 printRules4))))
+              }
+          }
+      }
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+printRules2 :: PrintRule Term
+printRules2 = PrintRule printRules3
+
+-- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
+printRules1 :: [PrintRule Term]
+printRules1 = : printRules2 []
+
+-- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
+printRules :: [PrintRule Term]
+printRules = : printRules8 printRules1
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4
+  = "initial-bp-0.1.0.0-inplace-initial-bp-base-print+5x0SUPDSVDaA4gvRrnNuSP"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Base.Print"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
+Configuring library 'initial-bp-mul-eval' instantiated with
+  Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type
+  Mul.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Mul.Type
+  Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
+for initial-bp-0.1.0.0..
+[3 of 3] Compiling Base.Print       ( initial-bp-base-print/Base/Print.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-base-print/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/build/initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK/Base/Print.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 78, types: 81, coercions: 0, joins: 0/0}
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+printRules7 :: Addr#
+printRules7 = "("#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+printRules6 :: Addr#
+printRules6 = " + "#
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+printRules5 :: Addr#
+printRules5 = ")"#
+
+-- RHS size: {terms: 10, types: 10, coercions: 0, joins: 0/0}
+printRules9 :: (Term -> Maybe String) -> Term -> Maybe String
+printRules9
+  = \ _ (tm :: Term) ->
+      case tm of {
+        Lit y1 -> Just ($fShowInt_$cshow y1);
+        Add ipv ipv1 -> Nothing
+      }
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+printRules8 :: PrintRule Term
+printRules8 = PrintRule printRules9
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+printRules4 :: [Char]
+printRules4 = unpackCString# printRules5
+
+-- RHS size: {terms: 29, types: 29, coercions: 0, joins: 0/0}
+printRules3 :: (Term -> Maybe [Char]) -> Term -> Maybe [Char]
+printRules3
+  = \ (pr :: Term -> Maybe [Char]) (tm :: Term) ->
+      case tm of {
+        Lit ipv -> Nothing;
+        Add y1 y2 ->
+          case pr y1 of {
+            Nothing -> Nothing;
+            Just x ->
+              case pr y2 of {
+                Nothing -> Nothing;
+                Just x1 ->
+                  Just
+                    (unpackAppendCString#
+                       printRules7
+                       (++ x (unpackAppendCString# printRules6 (++ x1 printRules4))))
+              }
+          }
+      }
+
+-- RHS size: {terms: 2, types: 1, coercions: 0, joins: 0/0}
+printRules2 :: PrintRule Term
+printRules2 = PrintRule printRules3
+
+-- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
+printRules1 :: [PrintRule Term]
+printRules1 = : printRules2 []
+
+-- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
+printRules :: [PrintRule Term]
+printRules = : printRules8 printRules1
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4
+  = "initial-bp-0.1.0.0-inplace-initial-bp-base-print+CrWoJKfZaH70LMmcO19YK"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Base.Print"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+
+Preprocessing library 'initial-bp-example-base' for initial-bp-0.1.0.0..
+Building library 'initial-bp-example-base' instantiated with
+  Base.Type = <Base.Type>
+  Term.Type = <Term.Type>
+for initial-bp-0.1.0.0..
+[1 of 3] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-base/build/initial-bp-example-base/autogen/Term/Type.hsig, nothing )
+[2 of 3] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-example-base/build/initial-bp-example-base/autogen/Base/Type.hsig, nothing )
+[3 of 3] Compiling Example.Base     ( initial-bp-example-base/Example/Base.hs, nothing )
+Preprocessing library 'initial-bp-mul-eval' for initial-bp-0.1.0.0..
+Building library 'initial-bp-mul-eval' instantiated with
+  Base.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Base.Type
+  Mul.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Mul.Type
+  Term.Type = initial-bp-0.1.0.0-inplace-initial-bp-example-term-base-mul:Term.Type
+for initial-bp-0.1.0.0..
+[1 of 4] Compiling Base.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/autogen/Base/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/Base/Type.o )
+[2 of 4] Compiling Mul.Type[sig]    ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/autogen/Mul/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/Mul/Type.o )
+[3 of 4] Compiling Term.Type[sig]   ( /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/autogen/Term/Type.hsig, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/Term/Type.o )
+[4 of 4] Compiling Mul.Eval         ( initial-bp-mul-eval/Mul/Eval.hs, /home/dave/work/github.com/dalaing/initial-final/dist-newstyle/build/x86_64-linux/ghc-8.2.2/initial-bp-0.1.0.0/c/initial-bp-mul-eval/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/build/initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh/Mul/Eval.o )
+
+==================== Tidy Core ====================
+Result size of Tidy Core
+  = {terms: 51, types: 40, coercions: 6, joins: 0/0}
+
+-- RHS size: {terms: 30, types: 16, coercions: 0, joins: 0/0}
+evalRules1
+  :: forall r.
+     (Term -> Term) -> (Term -> r) -> (Term -> r) -> Term -> r
+evalRules1
+  = \ (@ r)
+      (e :: Term -> Term)
+      (good :: Term -> r)
+      (bad :: Term -> r)
+      (tm :: Term) ->
+      case tm of wild {
+        __DEFAULT -> bad wild;
+        Mul y1 y2 ->
+          case e y1 of {
+            __DEFAULT -> bad wild;
+            Lit dt ->
+              case e y2 of {
+                __DEFAULT -> bad wild;
+                Lit dt1 -> good (Lit (*# dt dt1))
+              }
+          }
+      }
+
+-- RHS size: {terms: 1, types: 0, coercions: 3, joins: 0/0}
+mulRule :: EvalRule Term
+mulRule = evalRules1 `cast` <Co:3>
+
+-- RHS size: {terms: 3, types: 4, coercions: 3, joins: 0/0}
+evalRules :: [EvalRule Term]
+evalRules = : (evalRules1 `cast` <Co:3>) []
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule4 :: Addr#
+$trModule4
+  = "initial-bp-0.1.0.0-inplace-initial-bp-mul-eval+DN6a746NDooFN5IuVw0eQh"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule3 :: TrName
+$trModule3 = TrNameS $trModule4
+
+-- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
+$trModule2 :: Addr#
+$trModule2 = "Mul.Eval"#
+
+-- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
+$trModule1 :: TrName
+$trModule1 = TrNameS $trModule2
+
+-- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
+$trModule :: Module
+$trModule = Module $trModule3 $trModule1
+
+
+

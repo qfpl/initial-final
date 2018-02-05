@@ -1,3 +1,4 @@
+Resolving dependencies...
 In order, the following will be built (use -v for more details):
  - initial-0.1.0.0 (lib) +dump (first run)
 Configuring library for initial-0.1.0.0..
@@ -7,31 +8,48 @@ Building library for initial-0.1.0.0..
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
-  = {terms: 101, types: 63, coercions: 0, joins: 1/2}
+  = {terms: 67, types: 80, coercions: 18, joins: 0/2}
 
--- RHS size: {terms: 29, types: 34, coercions: 0, joins: 1/2}
-mkEval :: forall tm. [EvalRule tm] -> tm -> tm
+-- RHS size: {terms: 14, types: 16, coercions: 4, joins: 0/0}
+composeEvalRule1
+  :: forall tm.
+     EvalRule tm
+     -> EvalRule tm
+     -> forall r. (tm -> tm) -> (tm -> r) -> (tm -> r) -> tm -> r
+composeEvalRule1
+  = \ (@ tm)
+      (ds :: EvalRule tm)
+      (ds1 :: EvalRule tm)
+      (@ r)
+      (e :: tm -> tm)
+      (good :: tm -> r)
+      (bad :: tm -> r) ->
+      (ds `cast` <Co:2>) e good ((ds1 `cast` <Co:2>) e good bad)
+
+-- RHS size: {terms: 1, types: 0, coercions: 12, joins: 0/0}
+composeEvalRule
+  :: forall tm. EvalRule tm -> EvalRule tm -> EvalRule tm
+composeEvalRule = composeEvalRule1 `cast` <Co:12>
+
+-- RHS size: {terms: 3, types: 4, coercions: 0, joins: 0/0}
+mkEval1 :: forall tm. tm -> Maybe tm
+mkEval1 = \ (@ tm) _ -> Nothing
+
+-- RHS size: {terms: 18, types: 17, coercions: 2, joins: 0/2}
+mkEval :: forall tm. EvalRule tm -> tm -> tm
 mkEval
-  = \ (@ tm) (rules :: [EvalRule tm]) (eta :: tm) ->
+  = \ (@ tm) (ds :: EvalRule tm) ->
       letrec {
+        step :: tm -> Maybe tm
+        step = (ds `cast` <Co:2>) eval Just mkEval1;
         eval :: tm -> tm
         eval
           = \ (tm1 :: tm) ->
-              joinrec {
-                go :: [EvalRule tm] -> tm
-                go (ds :: [EvalRule tm])
-                  = case ds of {
-                      [] -> tm1;
-                      : y ys ->
-                        case y of { EvalRule f ->
-                        case f eval tm1 of {
-                          Nothing -> jump go ys;
-                          Just ipv -> eval ipv
-                        }
-                        }
-                    }; } in
-              jump go rules; } in
-      eval eta
+              case step tm1 of {
+                Nothing -> tm1;
+                Just tm' -> eval tm'
+              }; } in
+      eval
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -53,30 +71,6 @@ $trModule1 = TrNameS $trModule2
 $trModule :: Module
 $trModule = Module $trModule3 $trModule1
 
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$krep :: KindRep
-$krep = KindRepVar 0#
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$krep1 :: KindRep
-$krep1 = KindRepFun $krep $krep
-
--- RHS size: {terms: 3, types: 2, coercions: 0, joins: 0/0}
-$krep2 :: [KindRep]
-$krep2 = : $krep []
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$krep3 :: KindRep
-$krep3 = KindRepTyConApp $tcMaybe $krep2
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$krep4 :: KindRep
-$krep4 = KindRepFun $krep $krep3
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$krep5 :: KindRep
-$krep5 = KindRepFun $krep1 $krep4
-
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $tcEvalRule2 :: Addr#
 $tcEvalRule2 = "EvalRule"#
@@ -95,33 +89,6 @@ $tcEvalRule
       $tcEvalRule1
       0#
       krep$*Arr*
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$krep6 :: KindRep
-$krep6 = KindRepTyConApp $tcEvalRule $krep2
-
--- RHS size: {terms: 3, types: 0, coercions: 0, joins: 0/0}
-$tc'EvalRule1 :: KindRep
-$tc'EvalRule1 = KindRepFun $krep5 $krep6
-
--- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
-$tc'EvalRule3 :: Addr#
-$tc'EvalRule3 = "'EvalRule"#
-
--- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
-$tc'EvalRule2 :: TrName
-$tc'EvalRule2 = TrNameS $tc'EvalRule3
-
--- RHS size: {terms: 7, types: 0, coercions: 0, joins: 0/0}
-$tc'EvalRule :: TyCon
-$tc'EvalRule
-  = TyCon
-      10608724785699535600##
-      7970352128635118612##
-      $trModule
-      $tc'EvalRule2
-      1#
-      $tc'EvalRule1
 
 
 
@@ -2030,7 +1997,7 @@ $tcHasBaseF
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
-  = {terms: 115, types: 411, coercions: 1,014, joins: 0/1}
+  = {terms: 128, types: 432, coercions: 1,037, joins: 0/0}
 
 -- RHS size: {terms: 7, types: 17, coercions: 12, joins: 0/0}
 lvl
@@ -2072,14 +2039,6 @@ $s$fApplicativeConst
       (lvl `cast` <Co:27>)
       (lvl `cast` <Co:27>)
 
--- RHS size: {terms: 4, types: 25, coercions: 0, joins: 0/0}
-poly_$dApplicative
-  :: forall (f :: (* -> *) -> * -> *) a.
-     Applicative (Const (First (Term f a, Term f a)))
-poly_$dApplicative
-  = \ (@ (f :: (* -> *) -> * -> *)) (@ a) ->
-      $fApplicativeConst $fMonoidFirst
-
 -- RHS size: {terms: 10, types: 27, coercions: 48, joins: 0/0}
 lvl3
   :: forall (f :: (* -> *) -> * -> *) a.
@@ -2091,7 +2050,68 @@ lvl3
         TmAdd ipv ipv1 -> Nothing `cast` <Co:14>
       }
 
--- RHS size: {terms: 52, types: 183, coercions: 806, joins: 0/1}
+-- RHS size: {terms: 4, types: 25, coercions: 0, joins: 0/0}
+lvl4
+  :: forall (f :: (* -> *) -> * -> *) a.
+     Applicative (Const (First (Term f a, Term f a)))
+lvl4
+  = \ (@ (f :: (* -> *) -> * -> *)) (@ a) ->
+      $fApplicativeConst $fMonoidFirst
+
+-- RHS size: {terms: 53, types: 128, coercions: 806, joins: 0/0}
+mulRule1
+  :: forall (f :: (* -> *) -> * -> *) a.
+     (HasBaseF f, HasMulF f) =>
+     forall r.
+     (Term f a -> Term f a)
+     -> (Term f a -> r) -> (Term f a -> r) -> Term f a -> r
+mulRule1
+  = \ (@ (f :: (* -> *) -> * -> *))
+      (@ a)
+      ($dHasBaseF :: HasBaseF f)
+      ($dHasMulF :: HasMulF f)
+      (@ r)
+      (e :: Term f a -> Term f a)
+      (good :: Term f a -> r)
+      (bad :: Term f a -> r)
+      (tm :: Term f a) ->
+      case (_Mul $dHasMulF $fChoice(->) lvl4 (Just `cast` <Co:45>) tm)
+           `cast` <Co:32>
+      of {
+        Nothing -> bad tm;
+        Just x ->
+          case x of { (tm1, tm2) ->
+          case (($dHasBaseF `cast` <Co:2>)
+                  $fChoice(->) $s$fApplicativeConst lvl3 ((e tm1) `cast` <Co:26>))
+               `cast` <Co:48>
+          of {
+            Nothing -> bad tm;
+            Just x1 ->
+              case (($dHasBaseF `cast` <Co:2>)
+                      $fChoice(->) $s$fApplicativeConst lvl3 ((e tm2) `cast` <Co:26>))
+                   `cast` <Co:48>
+              of {
+                Nothing -> bad tm;
+                Just x2 ->
+                  good
+                    ((($dHasBaseF `cast` <Co:2>)
+                        $fChoiceTagged
+                        $fApplicativeIdentity
+                        ((TmLit ($fNumInt_$c* x1 x2)) `cast` <Co:45>))
+                     `cast` <Co:530>)
+              }
+          }
+          }
+      }
+
+-- RHS size: {terms: 1, types: 0, coercions: 23, joins: 0/0}
+mulRule
+  :: forall (f :: (* -> *) -> * -> *) a.
+     (HasBaseF f, HasMulF f) =>
+     EvalRule (Term f a)
+mulRule = mulRule1 `cast` <Co:23>
+
+-- RHS size: {terms: 9, types: 24, coercions: 0, joins: 0/0}
 evalRules
   :: forall (f :: (* -> *) -> * -> *) a.
      (HasBaseF f, HasMulF f) =>
@@ -2101,41 +2121,7 @@ evalRules
       (@ a)
       ($dHasBaseF :: HasBaseF f)
       ($dHasMulF :: HasMulF f) ->
-      let {
-        lvl4
-          :: ((Term f a, Term f a)
-              -> Const (First (Term f a, Term f a)) (Term f a, Term f a))
-             -> Term f a -> Const (First (Term f a, Term f a)) (Term f a)
-        lvl4 = _Mul $dHasMulF $fChoice(->) poly_$dApplicative } in
-      : (EvalRule
-           (\ (e :: Term f a -> Term f a) (tm :: Term f a) ->
-              case (lvl4 (Just `cast` <Co:45>) tm) `cast` <Co:32> of {
-                Nothing -> Nothing;
-                Just x ->
-                  case x of { (tm1, tm2) ->
-                  case (($dHasBaseF `cast` <Co:2>)
-                          $fChoice(->) $s$fApplicativeConst lvl3 ((e tm1) `cast` <Co:26>))
-                       `cast` <Co:48>
-                  of {
-                    Nothing -> Nothing;
-                    Just x1 ->
-                      case (($dHasBaseF `cast` <Co:2>)
-                              $fChoice(->) $s$fApplicativeConst lvl3 ((e tm2) `cast` <Co:26>))
-                           `cast` <Co:48>
-                      of {
-                        Nothing -> Nothing;
-                        Just x2 ->
-                          Just
-                            ((($dHasBaseF `cast` <Co:2>)
-                                $fChoiceTagged
-                                $fApplicativeIdentity
-                                ((TmLit ($fNumInt_$c* x1 x2)) `cast` <Co:45>))
-                             `cast` <Co:530>)
-                      }
-                  }
-                  }
-              }))
-        []
+      : (mulRule $dHasBaseF $dHasMulF) []
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -2935,7 +2921,7 @@ $trModule = Module $trModule3 $trModule1
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
-  = {terms: 124, types: 435, coercions: 1,157, joins: 0/0}
+  = {terms: 137, types: 492, coercions: 1,177, joins: 0/0}
 
 -- RHS size: {terms: 7, types: 17, coercions: 12, joins: 0/0}
 lvl
@@ -2977,14 +2963,6 @@ $s$fApplicativeConst
       (lvl `cast` <Co:27>)
       (lvl `cast` <Co:27>)
 
--- RHS size: {terms: 4, types: 25, coercions: 0, joins: 0/0}
-poly_$dApplicative
-  :: forall (f :: (* -> *) -> * -> *) a.
-     Applicative (Const (First (Term f a, Term f a)))
-poly_$dApplicative
-  = \ (@ (f :: (* -> *) -> * -> *)) (@ a) ->
-      $fApplicativeConst $fMonoidFirst
-
 -- RHS size: {terms: 10, types: 27, coercions: 48, joins: 0/0}
 lvl3
   :: forall (f :: (* -> *) -> * -> *) a.
@@ -2996,19 +2974,80 @@ lvl3
         TmAdd ipv ipv1 -> Nothing `cast` <Co:14>
       }
 
--- RHS size: {terms: 12, types: 45, coercions: 108, joins: 0/0}
+-- RHS size: {terms: 4, types: 25, coercions: 0, joins: 0/0}
 lvl4
+  :: forall (f :: (* -> *) -> * -> *) a.
+     Applicative (Const (First (Term f a, Term f a)))
+lvl4
+  = \ (@ (f :: (* -> *) -> * -> *)) (@ a) ->
+      $fApplicativeConst $fMonoidFirst
+
+-- RHS size: {terms: 12, types: 45, coercions: 108, joins: 0/0}
+lvl5
   :: forall (f :: (* -> *) -> * -> *) a.
      BaseF (Term f) a
      -> Const (First (Term f a, Term f a)) (BaseF (Term f) a)
-lvl4
+lvl5
   = \ (@ (f :: (* -> *) -> * -> *)) (@ a) (x :: BaseF (Term f) a) ->
       case x of {
         TmLit y1 -> Nothing `cast` <Co:26>;
         TmAdd y1 y2 -> (Just (y1, y2)) `cast` <Co:82>
       }
 
--- RHS size: {terms: 48, types: 135, coercions: 841, joins: 0/0}
+-- RHS size: {terms: 51, types: 122, coercions: 841, joins: 0/0}
+addRule1
+  :: forall (f :: (* -> *) -> * -> *) a.
+     HasBaseF f =>
+     forall r.
+     (Term f a -> Term f a)
+     -> (Term f a -> r) -> (Term f a -> r) -> Term f a -> r
+addRule1
+  = \ (@ (f :: (* -> *) -> * -> *))
+      (@ a)
+      ($dHasBaseF :: HasBaseF f)
+      (@ r)
+      (e :: Term f a -> Term f a)
+      (good :: Term f a -> r)
+      (bad :: Term f a -> r)
+      (tm :: Term f a) ->
+      case (($dHasBaseF `cast` <Co:2>)
+              $fChoice(->) lvl4 lvl5 (tm `cast` <Co:38>))
+           `cast` <Co:72>
+      of {
+        Nothing -> bad tm;
+        Just x ->
+          case x of { (tm1, tm2) ->
+          case (($dHasBaseF `cast` <Co:2>)
+                  $fChoice(->) $s$fApplicativeConst lvl3 ((e tm1) `cast` <Co:26>))
+               `cast` <Co:48>
+          of {
+            Nothing -> bad tm;
+            Just x1 ->
+              case (($dHasBaseF `cast` <Co:2>)
+                      $fChoice(->) $s$fApplicativeConst lvl3 ((e tm2) `cast` <Co:26>))
+                   `cast` <Co:48>
+              of {
+                Nothing -> bad tm;
+                Just x2 ->
+                  good
+                    ((($dHasBaseF `cast` <Co:2>)
+                        $fChoiceTagged
+                        $fApplicativeIdentity
+                        ((TmLit ($fNumInt_$c+ x1 x2)) `cast` <Co:45>))
+                     `cast` <Co:530>)
+              }
+          }
+          }
+      }
+
+-- RHS size: {terms: 1, types: 0, coercions: 20, joins: 0/0}
+addRule
+  :: forall (f :: (* -> *) -> * -> *) a.
+     HasBaseF f =>
+     EvalRule (Term f a)
+addRule = addRule1 `cast` <Co:20>
+
+-- RHS size: {terms: 7, types: 22, coercions: 0, joins: 0/0}
 evalRules
   :: forall (f :: (* -> *) -> * -> *) a.
      HasBaseF f =>
@@ -3017,38 +3056,7 @@ evalRules
   = \ (@ (f :: (* -> *) -> * -> *))
       (@ a)
       ($dHasBaseF :: HasBaseF f) ->
-      : (EvalRule
-           (\ (e :: Term f a -> Term f a) (tm :: Term f a) ->
-              case (($dHasBaseF `cast` <Co:2>)
-                      $fChoice(->) poly_$dApplicative lvl4 (tm `cast` <Co:38>))
-                   `cast` <Co:72>
-              of {
-                Nothing -> Nothing;
-                Just x ->
-                  case x of { (tm1, tm2) ->
-                  case (($dHasBaseF `cast` <Co:2>)
-                          $fChoice(->) $s$fApplicativeConst lvl3 ((e tm1) `cast` <Co:26>))
-                       `cast` <Co:48>
-                  of {
-                    Nothing -> Nothing;
-                    Just x1 ->
-                      case (($dHasBaseF `cast` <Co:2>)
-                              $fChoice(->) $s$fApplicativeConst lvl3 ((e tm2) `cast` <Co:26>))
-                           `cast` <Co:48>
-                      of {
-                        Nothing -> Nothing;
-                        Just x2 ->
-                          Just
-                            ((($dHasBaseF `cast` <Co:2>)
-                                $fChoiceTagged
-                                $fApplicativeIdentity
-                                ((TmLit ($fNumInt_$c+ x1 x2)) `cast` <Co:45>))
-                             `cast` <Co:530>)
-                      }
-                  }
-                  }
-              }))
-        []
+      : (addRule $dHasBaseF) []
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -3153,7 +3161,7 @@ $trModule = Module $trModule3 $trModule1
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
-  = {terms: 270, types: 685, coercions: 14,055, joins: 0/0}
+  = {terms: 244, types: 545, coercions: 14,223, joins: 1/1}
 
 Rec {
 -- RHS size: {terms: 29, types: 46, coercions: 3, joins: 0/0}
@@ -3178,93 +3186,63 @@ end Rec }
 $fNFDataTerm :: forall a. NFData (Term TermF a)
 $fNFDataTerm = $fNFDataTerm_$crnf `cast` <Co:8>
 
--- RHS size: {terms: 41, types: 107, coercions: 605, joins: 0/0}
-evalTerm6
-  :: forall a.
-     (Term TermF a -> Term TermF a)
-     -> Term TermF a -> Maybe (Term TermF a)
-evalTerm6
-  = \ (@ a)
-      (e :: Term TermF a -> Term TermF a)
-      (tm :: Term TermF a) ->
-      case tm `cast` <Co:38> of {
+Rec {
+-- RHS size: {terms: 77, types: 163, coercions: 1,343, joins: 1/1}
+evalTerm :: forall a. Term TermF a -> Term TermF a
+evalTerm
+  = \ (@ a) (tm1 :: Term TermF a) ->
+      join {
+        $j :: Term TermF a
+        $j
+          = case tm1 `cast` <Co:3> of wild {
+              BMBase ipv -> wild `cast` <Co:4>;
+              BMMul y1 ->
+                case y1 of { TmMul x1 x2 ->
+                case (evalTerm x1) `cast` <Co:26> of {
+                  BMBase y2 ->
+                    case y2 of {
+                      TmLit y3 ->
+                        case (evalTerm x2) `cast` <Co:26> of {
+                          BMBase y4 ->
+                            case y4 of {
+                              TmLit y5 ->
+                                evalTerm ((BMBase (TmLit ($fNumInt_$c* y3 y5))) `cast` <Co:515>);
+                              TmAdd ipv ipv1 -> wild `cast` <Co:4>
+                            };
+                          BMMul ipv -> wild `cast` <Co:4>
+                        };
+                      TmAdd ipv ipv1 -> wild `cast` <Co:4>
+                    };
+                  BMMul ipv -> wild `cast` <Co:4>
+                }
+                }
+            } } in
+      case tm1 `cast` <Co:38> of wild {
         BMBase y1 ->
           case y1 of {
-            TmLit y2 -> Nothing;
+            TmLit y2 -> jump $j;
             TmAdd y2 y3 ->
-              case (e y2) `cast` <Co:26> of {
+              case (evalTerm y2) `cast` <Co:26> of {
                 BMBase y4 ->
                   case y4 of {
                     TmLit y5 ->
-                      case (e y3) `cast` <Co:26> of {
+                      case (evalTerm y3) `cast` <Co:26> of {
                         BMBase y6 ->
                           case y6 of {
                             TmLit y7 ->
-                              Just ((BMBase (TmLit ($fNumInt_$c+ y5 y7))) `cast` <Co:515>);
-                            TmAdd ipv ipv1 -> Nothing
+                              evalTerm ((BMBase (TmLit ($fNumInt_$c+ y5 y7))) `cast` <Co:515>);
+                            TmAdd ipv ipv1 -> wild `cast` <Co:37>
                           };
-                        BMMul ipv -> Nothing
+                        BMMul ipv -> wild `cast` <Co:37>
                       };
-                    TmAdd ipv ipv1 -> Nothing
+                    TmAdd ipv ipv1 -> wild `cast` <Co:37>
                   };
-                BMMul ipv -> Nothing
+                BMMul ipv -> wild `cast` <Co:37>
               }
           };
-        BMMul ipv -> Nothing
+        BMMul ipv -> jump $j
       }
-
--- RHS size: {terms: 3, types: 6, coercions: 0, joins: 0/0}
-evalTerm5 :: forall a. EvalRule (Term TermF a)
-evalTerm5 = \ (@ a) -> EvalRule evalTerm6
-
--- RHS size: {terms: 39, types: 103, coercions: 570, joins: 0/0}
-evalTerm4
-  :: forall a.
-     (Term TermF a -> Term TermF a)
-     -> Term TermF a -> Maybe (Term TermF a)
-evalTerm4
-  = \ (@ a)
-      (e :: Term TermF a -> Term TermF a)
-      (tm :: Term TermF a) ->
-      case tm `cast` <Co:3> of {
-        BMBase ipv -> Nothing;
-        BMMul y1 ->
-          case y1 of { TmMul x1 x2 ->
-          case (e x1) `cast` <Co:26> of {
-            BMBase y2 ->
-              case y2 of {
-                TmLit y3 ->
-                  case (e x2) `cast` <Co:26> of {
-                    BMBase y4 ->
-                      case y4 of {
-                        TmLit y5 ->
-                          Just ((BMBase (TmLit ($fNumInt_$c* y3 y5))) `cast` <Co:515>);
-                        TmAdd ipv ipv1 -> Nothing
-                      };
-                    BMMul ipv -> Nothing
-                  };
-                TmAdd ipv ipv1 -> Nothing
-              };
-            BMMul ipv -> Nothing
-          }
-          }
-      }
-
--- RHS size: {terms: 3, types: 6, coercions: 0, joins: 0/0}
-evalTerm3 :: forall a. EvalRule (Term TermF a)
-evalTerm3 = \ (@ a) -> EvalRule evalTerm4
-
--- RHS size: {terms: 4, types: 11, coercions: 0, joins: 0/0}
-evalTerm2 :: forall a. [EvalRule (Term TermF a)]
-evalTerm2 = \ (@ a) -> : evalTerm3 []
-
--- RHS size: {terms: 4, types: 8, coercions: 0, joins: 0/0}
-evalTerm1 :: forall a. [EvalRule (Term TermF a)]
-evalTerm1 = \ (@ a) -> : evalTerm5 evalTerm2
-
--- RHS size: {terms: 3, types: 6, coercions: 0, joins: 0/0}
-evalTerm :: forall a. Term TermF a -> Term TermF a
-evalTerm = \ (@ a) -> mkEval evalTerm1
+end Rec }
 
 -- RHS size: {terms: 2, types: 0, coercions: 0, joins: 0/0}
 lit4 :: Int
@@ -3563,41 +3541,27 @@ print1 = mkPrint print4 (print2 `cast` <Co:880>)
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
-  = {terms: 68, types: 164, coercions: 3,702, joins: 0/0}
+  = {terms: 53, types: 95, coercions: 3,813, joins: 0/0}
 
--- RHS size: {terms: 25, types: 59, coercions: 666, joins: 0/0}
-eval6
-  :: forall a.
-     (Term TermF a -> Term TermF a)
-     -> Term TermF a -> Maybe (Term TermF a)
-eval6
-  = \ (@ a)
-      (e :: Term TermF a -> Term TermF a)
-      (tm :: Term TermF a) ->
-      case tm `cast` <Co:38> of {
-        TmLit y1 -> Nothing;
+Rec {
+-- RHS size: {terms: 24, types: 44, coercions: 777, joins: 0/0}
+evalTerm :: forall a. Term TermF a -> Term TermF a
+evalTerm
+  = \ (@ a) (tm1 :: Term TermF a) ->
+      case tm1 `cast` <Co:38> of wild {
+        TmLit y1 -> wild `cast` <Co:37>;
         TmAdd y1 y2 ->
-          case (e y1) `cast` <Co:26> of {
+          case (evalTerm y1) `cast` <Co:26> of {
             TmLit y4 ->
-              case (e y2) `cast` <Co:26> of {
-                TmLit y5 -> Just ((TmLit ($fNumInt_$c+ y4 y5)) `cast` <Co:576>);
-                TmAdd ipv ipv1 -> Nothing
+              case (evalTerm y2) `cast` <Co:26> of {
+                TmLit y5 ->
+                  evalTerm ((TmLit ($fNumInt_$c+ y4 y5)) `cast` <Co:576>);
+                TmAdd ipv ipv1 -> wild `cast` <Co:37>
               };
-            TmAdd ipv ipv1 -> Nothing
+            TmAdd ipv ipv1 -> wild `cast` <Co:37>
           }
       }
-
--- RHS size: {terms: 3, types: 6, coercions: 0, joins: 0/0}
-eval5 :: forall a. EvalRule (Term TermF a)
-eval5 = \ (@ a) -> EvalRule eval6
-
--- RHS size: {terms: 4, types: 11, coercions: 0, joins: 0/0}
-eval4 :: forall a. [EvalRule (Term TermF a)]
-eval4 = \ (@ a) -> : eval5 []
-
--- RHS size: {terms: 3, types: 6, coercions: 0, joins: 0/0}
-evalTerm :: forall a. Term TermF a -> Term TermF a
-evalTerm = \ (@ a) -> mkEval eval4
+end Rec }
 
 -- RHS size: {terms: 4, types: 9, coercions: 1,152, joins: 0/0}
 eval3 :: forall a. BaseF (Term TermF) a
@@ -3609,9 +3573,9 @@ eval2 :: forall a. BaseF (Term TermF) a
 eval2
   = \ (@ a) -> TmAdd (term7 `cast` <Co:576>) (eval3 `cast` <Co:654>)
 
--- RHS size: {terms: 4, types: 7, coercions: 654, joins: 0/0}
+-- RHS size: {terms: 3, types: 4, coercions: 654, joins: 0/0}
 eval1 :: forall a. Term TermF a
-eval1 = \ (@ a) -> mkEval eval4 (eval2 `cast` <Co:654>)
+eval1 = \ (@ a) -> evalTerm (eval2 `cast` <Co:654>)
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#
@@ -3880,95 +3844,65 @@ print3 = mkPrint print11 (print20 `cast` <Co:855>)
 
 ==================== Tidy Core ====================
 Result size of Tidy Core
-  = {terms: 202, types: 555, coercions: 8,310, joins: 0/0}
+  = {terms: 173, types: 406, coercions: 8,478, joins: 1/1}
 
--- RHS size: {terms: 41, types: 107, coercions: 605, joins: 0/0}
-eval16
-  :: forall a.
-     (Term TermF a -> Term TermF a)
-     -> Term TermF a -> Maybe (Term TermF a)
-eval16
-  = \ (@ a)
-      (e :: Term TermF a -> Term TermF a)
-      (tm :: Term TermF a) ->
-      case tm `cast` <Co:38> of {
+Rec {
+-- RHS size: {terms: 77, types: 163, coercions: 1,343, joins: 1/1}
+evalTerm :: forall a. Term TermF a -> Term TermF a
+evalTerm
+  = \ (@ a) (tm1 :: Term TermF a) ->
+      join {
+        $j :: Term TermF a
+        $j
+          = case tm1 `cast` <Co:3> of wild {
+              BMBase ipv -> wild `cast` <Co:4>;
+              BMMul y1 ->
+                case y1 of { TmMul x1 x2 ->
+                case (evalTerm x1) `cast` <Co:26> of {
+                  BMBase y2 ->
+                    case y2 of {
+                      TmLit y3 ->
+                        case (evalTerm x2) `cast` <Co:26> of {
+                          BMBase y4 ->
+                            case y4 of {
+                              TmLit y5 ->
+                                evalTerm ((BMBase (TmLit ($fNumInt_$c* y3 y5))) `cast` <Co:515>);
+                              TmAdd ipv ipv1 -> wild `cast` <Co:4>
+                            };
+                          BMMul ipv -> wild `cast` <Co:4>
+                        };
+                      TmAdd ipv ipv1 -> wild `cast` <Co:4>
+                    };
+                  BMMul ipv -> wild `cast` <Co:4>
+                }
+                }
+            } } in
+      case tm1 `cast` <Co:38> of wild {
         BMBase y1 ->
           case y1 of {
-            TmLit y2 -> Nothing;
+            TmLit y2 -> jump $j;
             TmAdd y2 y3 ->
-              case (e y2) `cast` <Co:26> of {
+              case (evalTerm y2) `cast` <Co:26> of {
                 BMBase y4 ->
                   case y4 of {
                     TmLit y5 ->
-                      case (e y3) `cast` <Co:26> of {
+                      case (evalTerm y3) `cast` <Co:26> of {
                         BMBase y6 ->
                           case y6 of {
                             TmLit y7 ->
-                              Just ((BMBase (TmLit ($fNumInt_$c+ y5 y7))) `cast` <Co:515>);
-                            TmAdd ipv ipv1 -> Nothing
+                              evalTerm ((BMBase (TmLit ($fNumInt_$c+ y5 y7))) `cast` <Co:515>);
+                            TmAdd ipv ipv1 -> wild `cast` <Co:37>
                           };
-                        BMMul ipv -> Nothing
+                        BMMul ipv -> wild `cast` <Co:37>
                       };
-                    TmAdd ipv ipv1 -> Nothing
+                    TmAdd ipv ipv1 -> wild `cast` <Co:37>
                   };
-                BMMul ipv -> Nothing
+                BMMul ipv -> wild `cast` <Co:37>
               }
           };
-        BMMul ipv -> Nothing
+        BMMul ipv -> jump $j
       }
-
--- RHS size: {terms: 3, types: 6, coercions: 0, joins: 0/0}
-eval15 :: forall a. EvalRule (Term TermF a)
-eval15 = \ (@ a) -> EvalRule eval16
-
--- RHS size: {terms: 39, types: 103, coercions: 570, joins: 0/0}
-eval14
-  :: forall a.
-     (Term TermF a -> Term TermF a)
-     -> Term TermF a -> Maybe (Term TermF a)
-eval14
-  = \ (@ a)
-      (e :: Term TermF a -> Term TermF a)
-      (tm :: Term TermF a) ->
-      case tm `cast` <Co:3> of {
-        BMBase ipv -> Nothing;
-        BMMul y1 ->
-          case y1 of { TmMul x1 x2 ->
-          case (e x1) `cast` <Co:26> of {
-            BMBase y2 ->
-              case y2 of {
-                TmLit y3 ->
-                  case (e x2) `cast` <Co:26> of {
-                    BMBase y4 ->
-                      case y4 of {
-                        TmLit y5 ->
-                          Just ((BMBase (TmLit ($fNumInt_$c* y3 y5))) `cast` <Co:515>);
-                        TmAdd ipv ipv1 -> Nothing
-                      };
-                    BMMul ipv -> Nothing
-                  };
-                TmAdd ipv ipv1 -> Nothing
-              };
-            BMMul ipv -> Nothing
-          }
-          }
-      }
-
--- RHS size: {terms: 3, types: 6, coercions: 0, joins: 0/0}
-eval13 :: forall a. EvalRule (Term TermF a)
-eval13 = \ (@ a) -> EvalRule eval14
-
--- RHS size: {terms: 4, types: 11, coercions: 0, joins: 0/0}
-eval12 :: forall a. [EvalRule (Term TermF a)]
-eval12 = \ (@ a) -> : eval13 []
-
--- RHS size: {terms: 4, types: 8, coercions: 0, joins: 0/0}
-eval11 :: forall a. [EvalRule (Term TermF a)]
-eval11 = \ (@ a) -> : eval15 eval12
-
--- RHS size: {terms: 3, types: 6, coercions: 0, joins: 0/0}
-evalTerm :: forall a. Term TermF a -> Term TermF a
-evalTerm = \ (@ a) -> mkEval eval11
+end Rec }
 
 -- RHS size: {terms: 3, types: 7, coercions: 0, joins: 0/0}
 eval10 :: forall a. TermF (Term TermF) a
@@ -4000,58 +3934,58 @@ eval5
 eval4 :: forall a. TermF (Term TermF) a
 eval4 = \ (@ a) -> BMBase eval5
 
--- RHS size: {terms: 4, types: 7, coercions: 563, joins: 0/0}
+-- RHS size: {terms: 3, types: 4, coercions: 563, joins: 0/0}
 eval1 :: forall a. Term TermF a
-eval1 = \ (@ a) -> mkEval eval11 (eval4 `cast` <Co:563>)
+eval1 = \ (@ a) -> evalTerm (eval4 `cast` <Co:563>)
 
 -- RHS size: {terms: 3, types: 7, coercions: 0, joins: 0/0}
-eval23 :: forall a. TermF (Term TermF) a
-eval23 = \ (@ a) -> BMBase term9
+eval17 :: forall a. TermF (Term TermF) a
+eval17 = \ (@ a) -> BMBase term9
 
 -- RHS size: {terms: 3, types: 7, coercions: 0, joins: 0/0}
-eval22 :: forall a. TermF (Term TermF) a
-eval22 = \ (@ a) -> BMBase term7
+eval16 :: forall a. TermF (Term TermF) a
+eval16 = \ (@ a) -> BMBase term7
 
 -- RHS size: {terms: 3, types: 7, coercions: 0, joins: 0/0}
-eval21 :: forall a. TermF (Term TermF) a
-eval21 = \ (@ a) -> BMBase term5
+eval15 :: forall a. TermF (Term TermF) a
+eval15 = \ (@ a) -> BMBase term5
 
 -- RHS size: {terms: 4, types: 7, coercions: 1,030, joins: 0/0}
-eval20 :: forall a. MulF (Term TermF) a
-eval20
+eval14 :: forall a. MulF (Term TermF) a
+eval14
   = \ (@ a) ->
-      TmMul (eval22 `cast` <Co:515>) (eval21 `cast` <Co:515>)
+      TmMul (eval16 `cast` <Co:515>) (eval15 `cast` <Co:515>)
 
 -- RHS size: {terms: 3, types: 6, coercions: 0, joins: 0/0}
-eval19 :: forall a. TermF (Term TermF) a
-eval19 = \ (@ a) -> BMMul eval20
+eval13 :: forall a. TermF (Term TermF) a
+eval13 = \ (@ a) -> BMMul eval14
 
 -- RHS size: {terms: 4, types: 7, coercions: 1,154, joins: 0/0}
-eval18 :: forall a. BaseF (Term TermF) a
-eval18
+eval12 :: forall a. BaseF (Term TermF) a
+eval12
   = \ (@ a) ->
-      TmAdd (eval23 `cast` <Co:515>) (eval19 `cast` <Co:639>)
+      TmAdd (eval17 `cast` <Co:515>) (eval13 `cast` <Co:639>)
 
 -- RHS size: {terms: 3, types: 6, coercions: 0, joins: 0/0}
-eval17 :: forall a. TermF (Term TermF) a
-eval17 = \ (@ a) -> BMBase eval18
+eval11 :: forall a. TermF (Term TermF) a
+eval11 = \ (@ a) -> BMBase eval12
 
--- RHS size: {terms: 4, types: 7, coercions: 563, joins: 0/0}
+-- RHS size: {terms: 3, types: 4, coercions: 563, joins: 0/0}
 eval2 :: forall a. Term TermF a
-eval2 = \ (@ a) -> mkEval eval11 (eval17 `cast` <Co:563>)
+eval2 = \ (@ a) -> evalTerm (eval11 `cast` <Co:563>)
 
 -- RHS size: {terms: 4, types: 7, coercions: 1,078, joins: 0/0}
-eval25 :: forall a. MulF (Term TermF) a
-eval25
-  = \ (@ a) -> TmMul (eval23 `cast` <Co:515>) (eval4 `cast` <Co:563>)
+eval19 :: forall a. MulF (Term TermF) a
+eval19
+  = \ (@ a) -> TmMul (eval17 `cast` <Co:515>) (eval4 `cast` <Co:563>)
 
 -- RHS size: {terms: 3, types: 6, coercions: 0, joins: 0/0}
-eval24 :: forall a. TermF (Term TermF) a
-eval24 = \ (@ a) -> BMMul eval25
+eval18 :: forall a. TermF (Term TermF) a
+eval18 = \ (@ a) -> BMMul eval19
 
--- RHS size: {terms: 4, types: 7, coercions: 639, joins: 0/0}
+-- RHS size: {terms: 3, types: 4, coercions: 639, joins: 0/0}
 eval3 :: forall a. Term TermF a
-eval3 = \ (@ a) -> mkEval eval11 (eval24 `cast` <Co:639>)
+eval3 = \ (@ a) -> evalTerm (eval18 `cast` <Co:639>)
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}
 $trModule4 :: Addr#

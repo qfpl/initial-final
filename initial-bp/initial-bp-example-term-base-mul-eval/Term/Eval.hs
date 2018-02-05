@@ -8,4 +8,4 @@ import qualified Mul.Eval as ME
 import Interpret.Eval
 
 evalTerm :: Term -> Term
-evalTerm = mkEval $ BE.evalRules ++ ME.evalRules
+evalTerm = mkEval $ composeEvalRule BE.addRule ME.mulRule

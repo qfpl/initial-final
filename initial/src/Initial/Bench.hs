@@ -16,7 +16,7 @@ instance NFData (Term TermF a)
 
 evalTerm :: Term TermF a -> Term TermF a
 evalTerm =
-  mkEval $ B.evalRules ++ M.evalRules
+  mkEval (composeEvalRule B.addRule M.mulRule)
 
 lit2 :: Term TermF a
 lit2 =

@@ -6,7 +6,7 @@ module Term (
 import Control.DeepSeq (NFData)
 import GHC.Generics
 
-data Term = 
+data Term =
     Lit Int
   | Add Term Term
   | Mul Term Term
