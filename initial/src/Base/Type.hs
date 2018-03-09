@@ -10,8 +10,8 @@ import Control.DeepSeq (NFData)
 import GHC.Generics
 
 data BaseF f a =
-    TmLit Int
-  | TmAdd (f a) (f a)
+    TmLit !Int
+  | TmAdd !(f a) !(f a)
   deriving (Eq, Ord, Show, Generic)
 
 makePrisms ''BaseF

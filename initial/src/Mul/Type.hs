@@ -10,7 +10,7 @@ import Control.DeepSeq (NFData)
 import GHC.Generics
 
 data MulF f a =
-    TmMul (f a) (f a)
+    TmMul !(f a) !(f a)
   deriving (Eq, Ord, Show, Generic)
 
 makePrisms ''MulF

@@ -14,58 +14,58 @@ flag dump
     default: False
 
 library repr
-  hs-source-dirs:      repr
   signatures:          Repr
   build-depends:       base ^>=4.10
-  ghc-options:         -Wall -O
+  hs-source-dirs:      repr
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
 
 library final-bp-eval
-  hs-source-dirs:      final-bp-eval
   exposed-modules:     Repr
   build-depends:       base ^>=4.10
-  ghc-options:         -Wall -O
+  hs-source-dirs:      final-bp-eval
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
 
 library final-bp-print
-  hs-source-dirs:      final-bp-print
   exposed-modules:     Repr
   build-depends:       base ^>=4.10
-  ghc-options:         -Wall -O
+  hs-source-dirs:      final-bp-print
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
 
 library final-bp-base
-  hs-source-dirs:      final-bp-base
   signatures:          Base
   build-depends:       base ^>=4.10
                      , repr
-  ghc-options:         -Wall -O
+  hs-source-dirs:      final-bp-base
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
 
 library final-bp-mul
-  hs-source-dirs:      final-bp-mul
   signatures:          Mul
   build-depends:       base ^>=4.10
                      , repr
-  ghc-options:         -Wall -O
+  hs-source-dirs:      final-bp-mul
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
 
 library final-bp-base-eval
-  hs-source-dirs:      final-bp-base-eval
   exposed-modules:     Base
   build-depends:       base ^>=4.10
                      , final-bp-eval
-  ghc-options:         -Wall -O
+  hs-source-dirs:      final-bp-base-eval
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -75,17 +75,17 @@ library final-bp-base-print
   exposed-modules:     Base
   build-depends:       base ^>=4.10
                      , final-bp-print
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
 
 library final-bp-mul-eval
-  hs-source-dirs:      final-bp-mul-eval
   exposed-modules:     Mul
   build-depends:       base ^>=4.10
                      , final-bp-eval
-  ghc-options:         -Wall -O
+  hs-source-dirs:      final-bp-mul-eval
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -95,35 +95,34 @@ library final-bp-mul-print
   exposed-modules:     Mul
   build-depends:       base ^>=4.10
                      , final-bp-print
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
 
 library final-bp-example-base
-  hs-source-dirs:      final-bp-example-base
   exposed-modules:     Example.Base
   build-depends:       base ^>=4.10
                      , final-bp-base
-  ghc-options:         -Wall -O
+  hs-source-dirs:      final-bp-example-base
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
 
 library final-bp-example-mul
-  hs-source-dirs:      final-bp-example-mul
   exposed-modules:     Example.Mul
   build-depends:       base ^>=4.10
                      , final-bp-base
                      , final-bp-mul
                      , final-bp-example-base
-  ghc-options:         -Wall -O
+  hs-source-dirs:      final-bp-example-mul
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
 
 library final-bp-example-eval
-  hs-source-dirs:      final-bp-example-eval
   exposed-modules:     Example.Eval
   build-depends:       base ^>=4.10
                      , final-bp-eval
@@ -131,7 +130,8 @@ library final-bp-example-eval
                      , final-bp-mul-eval
                      , final-bp-example-base
                      , final-bp-example-mul
-  ghc-options:         -Wall -O
+  hs-source-dirs:      final-bp-example-eval
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -145,7 +145,7 @@ library final-bp-example-print
                      , final-bp-mul-print
                      , final-bp-example-base
                      , final-bp-example-mul
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -159,7 +159,7 @@ library
                      , final-bp-eval
                      , final-bp-base-eval
                      , final-bp-mul-eval
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010

@@ -18,7 +18,7 @@ library initial-bp-eval
   exposed-modules:     Interpret.Eval
   build-depends:       base ^>=4.10
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -27,7 +27,7 @@ library initial-bp-print
   hs-source-dirs:      initial-bp-print
   exposed-modules:     Interpret.Print
   build-depends:       base ^>=4.10
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -36,7 +36,7 @@ library initial-bp-term
   hs-source-dirs:      initial-bp-term
   signatures:          Term.Type
   build-depends:       base ^>=4.10
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -47,7 +47,7 @@ library initial-bp-base-sig
   build-depends:       base ^>=4.10
                      , initial-bp-term 
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -58,7 +58,7 @@ library initial-bp-base
   build-depends:       base ^>=4.10
                      , initial-bp-base-sig
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -71,7 +71,7 @@ library initial-bp-base-eval
                      , initial-bp-term
                      , initial-bp-eval
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -84,7 +84,7 @@ library initial-bp-base-print
                      , initial-bp-term
                      , initial-bp-print
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -95,7 +95,7 @@ library initial-bp-mul-sig
   build-depends:       base ^>=4.10
                      , initial-bp-term 
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -106,7 +106,7 @@ library initial-bp-mul
   build-depends:       base ^>=4.10
                      , initial-bp-mul-sig
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -120,7 +120,7 @@ library initial-bp-mul-eval
                      , initial-bp-mul-sig
                      , initial-bp-eval
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -133,7 +133,7 @@ library initial-bp-mul-print
                      , initial-bp-mul-sig
                      , initial-bp-print
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -144,7 +144,7 @@ library initial-bp-example-base
   build-depends:       base ^>=4.10
                      , initial-bp-base
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -157,7 +157,7 @@ library initial-bp-example-mul
                      , initial-bp-base
                      , initial-bp-mul
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -168,7 +168,7 @@ library initial-bp-example-term-base
                      , Base.Type
   build-depends:       base ^>=4.10
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -180,7 +180,7 @@ library initial-bp-example-term-base-eval
                      , initial-bp-example-term-base
                      , initial-bp-eval
                      , initial-bp-base-eval
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -192,7 +192,7 @@ library initial-bp-example-term-base-print
                      , initial-bp-example-term-base
                      , initial-bp-print
                      , initial-bp-base-print
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -205,7 +205,7 @@ library initial-bp-example-term-base-mul
   build-depends:       base ^>=4.10
                      , lens
                      , deepseq
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -219,7 +219,7 @@ library initial-bp-example-term-base-mul-eval
                      , initial-bp-base-eval
                      , initial-bp-mul-eval
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -233,7 +233,7 @@ library initial-bp-example-term-base-mul-print
                      , initial-bp-base-print
                      , initial-bp-mul-print
                      , lens
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
@@ -246,7 +246,7 @@ library
                      , initial-bp-eval
                      , initial-bp-base-eval
                      , initial-bp-mul-eval
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010

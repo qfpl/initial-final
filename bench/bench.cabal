@@ -10,7 +10,7 @@ cabal-version:       >=1.10
 
 executable bench
   main-is:             Main.hs
-  ghc-options:         -Wall -O
+  ghc-options:         -Wall -O2
   build-depends:       base
                      , criterion
                      , vanilla
