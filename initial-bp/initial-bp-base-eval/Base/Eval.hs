@@ -22,3 +22,4 @@ addRule =
 evalRules :: [EvalRule Term]
 evalRules =
     [ addRule ]
+{-# INLINE evalRules #-}

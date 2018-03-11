@@ -23,3 +23,4 @@ mulRule =
 evalRules :: [EvalRule Term]
 evalRules =
     [ mulRule ]
+{-# INLINE evalRules #-}

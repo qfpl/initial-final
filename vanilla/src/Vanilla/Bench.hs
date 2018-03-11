@@ -22,4 +22,5 @@ evalAddBig tm =
 
 evalAddMulBig :: Term -> Term
 evalAddMulBig tm =
-  evalTerm $ Add (Mul (Add tm (Lit 3)) (Add tm (Lit 5))) (Mul (Add tm (Lit 7)) (Add tm (Lit 11)))
+  evalTerm $ Add (Mul (Add tm (Lit 3)) (Add tm (Lit 5)))
+                 (Mul (Add tm (Lit 7)) (Add tm (Lit 11)))

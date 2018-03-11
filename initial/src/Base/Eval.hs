@@ -21,3 +21,4 @@ addRule =
 evalRules :: HasBaseF f => [EvalRule (Term f a)]
 evalRules =
     [ addRule ]
+{-# INLINE evalRules #-}

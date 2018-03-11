@@ -22,3 +22,4 @@ mulRule =
 evalRules :: (HasBaseF f, HasMulF f) => [EvalRule (Term f a)]
 evalRules =
     [ mulRule ]
+{-# INLINE evalRules #-}
