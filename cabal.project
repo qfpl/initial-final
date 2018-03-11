@@ -1,7 +1,8 @@
 packages:
   vanilla/
-  initial/
   final/
-  initial-bp/
   final-bp/
+  initial-compose/
+  initial-fuse/
+  initial-bp/
   bench/

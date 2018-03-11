@@ -12,16 +12,16 @@ newtype EvalRule tm =
 newtype EvalRuleK tm =
   EvalRuleK (forall r. (tm -> tm) -> (tm -> r) -> (tm -> r) -> tm -> r)
 
-toEvalK :: EvalRule tm -> EvalRuleK tm
-toEvalK (EvalRule f) =
-  EvalRuleK $ \e good bad tm ->
-    maybe (bad tm) good . f e $ tm
-
 instance Monoid (EvalRuleK tm) where
   mempty =
     EvalRuleK $ \_ _ bad -> bad
   mappend (EvalRuleK r1) (EvalRuleK r2) =
     EvalRuleK $ \e good bad -> r1 e good (r2 e good bad)
+
+toEvalK :: EvalRule tm -> EvalRuleK tm
+toEvalK (EvalRule f) =
+  EvalRuleK $ \e good bad tm ->
+    maybe (bad tm) good . f e $ tm
 
 mkEval :: EvalRuleK tm -> tm -> tm
 mkEval (EvalRuleK f) =

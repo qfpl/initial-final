@@ -1,10 +1,37 @@
 % The expression problem with Backpack
 
-### The problem
+# The problem
 
-### The solutions
+Imagine that we want to build a data type to describe some kind of expression, and we want to write several interpreters for those expressions.
 
-#### Final encoding with tagless-final
+We also want to be able to add new constructors to the data type and to be able to add new interpreters, and we want to be able to do these things while making no changes to our existing code.
+
+In our case we were going to start with an expression type:
+```haskell
+data Term =
+    Lit
+  | Add Term Term
+```
+and an evaluator;
+```haskell
+evalTerm :: Term -> Term
+```
+
+We are then going to change the requirements so that we need an extra constructor:
+```haskell
+data Term =
+  ...
+  | Mul Term Term
+  ...
+```
+and so that we are able to pretty print terms:
+```haskell
+printTerm :: Term -> String
+```
+
+# The solutions
+
+## Final encoding with tagless-final
 
 One of the common solutions to this kind of problem is the [tagless-final style](http://okmij.org/ftp/tagless-final/index.html).
 
@@ -18,7 +45,7 @@ class ExpBase repr where
   add :: repr -> repr -> repr
 ```
 
-We write interpreters as instances of this typeclass.
+Our interpreters will be instances of this typeclass.
 
 The evaluator is straighforward:
 ```haskell
@@ -33,7 +60,7 @@ instance ExpBase String where
   add x y = mconcat ["(", x, " + ", y, ")"]
 ```
 
-We can also add to our virtual data type by writing addition typeclass:
+We can also add constructors to our virtual data type by writing addition typeclass:
 ```haskell
 class ExpMul repr where
   mul :: repr -> repr -> repr
@@ -80,11 +107,11 @@ instance ExpMul Eval where
 where we may have wanted to split things up a bit more.
 
 The other slight drawback is that while we don't have to create explicit tags to mark out which types support which interpreters, we are paying the cost for the implicit tagging that we are doing.
-This happens because we are passing typeclass dictionaries all over the place.
+This happens because we are passing typeclass dictionaries all over the place, although this may not actually effect you if your code is simple and/or if you compile with optimisations turned up.
 
-#### Final encoding with Backpack
+## Final encoding with Backpack
 
-We're going to use Backpack to get around that problem.
+We're now going to solve the problem again using Backpack, partly to address these problems and partly just to play around with Backpack a little.
 This isn't my idea at all -- I learned about it during a conversation with Ed Kmett about his use of this trick in `coda`.
 
 It's going to make some very simple uses of Backpack, but it's pretty neat.  The best source I've found for reasoning about how to make use of Backpack is [this](https://github.com/ezyang/ghc-proposals/blob/backpack/proposals/0000-backpack.rst), in case you wanted to follow along. You'll need GHC 8.2 and Cabal 2.0 or greater to play along.
@@ -147,6 +174,7 @@ library final-bp-example-base
   exposed-modules:     Example.Base
   build-depends:       final-bp-base
 ```
+although we won't be able to use them until we supply an implementation for `Repr`.
 
 That's all well and good, but we need to be able to interpret these things.
 
@@ -244,37 +272,44 @@ library final-bp-mul-eval
 
 Now we _really_ have no tags, and we're breaking things up like we don't have a care in the world.
 
-#### An initial encoding that isn't extendable
+## An initial encoding that isn't extendable
 
 If we really want to be able to play with values of our term, we can write a data type for our terms:
 ```haskell
 data Term =
-    Lit Int
-  | Add Term Term
-  | Mul Term Term
+    Lit !Int
+  | Add !Term !Term
+  | Mul !Term !Term
   deriving (Eq, Ord, Show) 
 ```
 although we can't extend it easily.
+
+I'm only mentioning this here because I'll be using it as a benchmark when I poke around with performance related stuff later on.
+That is also why I have the strictness annotation on the various constructors.
 
 We can create and manipulate values of this type, and we can write as many interpreters for it as we like:
 ```haskell
 evalTerm :: Term -> Term
 evalTerm tm@(Add tm1 tm2) =
-  case (evalTerm tm1, evalTerm tm2) of
-    (Lit i1, Lit i2) -> Lit (i1 + i2)
+  case evalTerm tm1 of
+    Lit i1 ->
+      case evalTerm tm2 of
+        Lit i2 -> Lit (i1 + i2)
+        _ -> tm
     _ -> tm
 evalTerm tm@(Mul tm1 tm2) =
-  case (evalTerm tm1, evalTerm tm2) of
-    (Lit i1, Lit i2) -> Lit (i1 * i2)
+  case evalTerm tm1 of
+    Lit i1 ->
+      case evalTerm tm2 of
+        Lit i2 -> Lit (i1 * i2)
+        _ -> tm
     _ -> tm
 evalTerm tm =
   tm
 ```
 although we'll be paying a price for building up and tearing down the value.
 
-I'm only mentioning this here because I'll be using it as a benchmark when I poke around with performance related stuff later on.
-
-#### Initial encoding with classy `Prism`s
+## Initial encoding with classy `Prism`s
 
 ```haskell
 newtype Term f a = Term { unTerm :: f (Term f) a }
@@ -297,12 +332,15 @@ class HasBaseF tm where
 
   _Lit :: Prism' (Term tm a) Int
   _Lit = _Wrapped . _BaseF . _TmLit
+  {-# INLINE _Lit #-}
 
   _Add :: Prism' (Term tm a) (Term tm a, Term tm a)
   _Add = _Wrapped . _BaseF . _TmAdd
+  {-# INLINE _Add #-}
 
 instance HasBaseF BaseF where
   _BaseF = id
+  {-# INLINE _BaseF #-}
 ```
 
 ```haskell
@@ -311,6 +349,15 @@ lit = review _Lit
 
 add :: HasBaseF tm => Term tm a -> Term tm a -> Term tm a
 add tm1 tm2 = review _Add (tm1, tm2)
+```
+
+```haskell
+addRule :: HasBaseF tm => EvalRule (Term tm a)
+addRule = EvalRule $ \e tm -> do
+  (tm1, tm2) <- preview _Add tm
+  i1 <- preview _Lit (e tm1)
+  i2 <- preview _Lit (e tm2)
+  pure $ review _Lit (i1 + i2)
 ```
 
 ```haskell
@@ -327,9 +374,11 @@ class HasMulF tm where
 
   _Mul :: Prism' (Term tm a) (Term tm a, Term tm a)
   _Mul = _Wrapped . _MulF . _TmMul
+  {-# INLINE _Mul #-}
 
 instance HasMulF MulF where
   _MulF = id
+  {-# INLINE _MulF #-}
 ```
 
 ```haskell
@@ -337,7 +386,74 @@ mul :: HasMulF tm => Term tm a -> Term tm a -> Term tm a
 mul tm1 tm2 = review _Mul (tm1, tm2)
 ```
 
-#### Initial encoding with Backpack
+```haskell
+mulRule :: (HasBaseF tm, HasMulF tm) => EvalRule (Term tm a)
+mulRule = EvalRule $ \e tm -> do
+  (tm1, tm2) <- preview _Mul tm
+  i1 <- preview _Lit (e tm1)
+  i2 <- preview _Lit (e tm2)
+  pure $ review _Lit (i1 * i2)
+```
+
+```haskell
+data TermF f a =
+    BMBase !(BaseF f a)
+  | BMMul !(MulF f a)
+  deriving (Eq, Ord, Show)
+
+makePrisms ''TermF
+```
+
+```haskell
+instance HasBaseF TermF where
+  _BaseF = _BMBase
+  {-# INLINE _BaseF #-}
+```
+
+```haskell
+instance HasMulF TermF where
+  _MulF = _BMMul
+  {-# INLINE _MulF #-}
+```
+
+## Initial encoding with classy `Prism`s - another approach
+
+```haskell
+class HasBase tm where
+  _Lit :: Prism' (Term tm a) Int
+  _Add :: Prism' (Term tm a) (Term tm a, Term tm a)
+```
+
+```haskell
+class HasMul tm where
+  _Mul :: Prism' (Term tm a) (Term tm a, Term tm a)
+```
+
+```haskell
+data TermF f a =
+    BMLit !Int
+  | BMAdd !(f a) !(f a)
+  | BMMul !(f a) !(f a)
+  deriving (Eq, Ord, Show)
+
+makePrisms ''TermF
+```
+
+```haskell
+instance HasBase TermF where
+  _Lit = _Wrapped . _BMLit
+  {-# INLINE _Lit #-}
+  _Add = _Wrapped . _BMAdd
+  {-# INLINE _Add #-}
+```
+
+```haskell
+instance HasMul TermF where
+  _Mul = _Wrapped . _BMMul
+  {-# INLINE _Mul #-}
+```
+
+## Initial encoding with Backpack
 
 ```haskell
 -- initial-bp-term-sig
@@ -381,8 +497,8 @@ module Term.Type where
 import Control.Lens
 
 data Term =
-    Lit Int
-  | Add Term Term
+    Lit !Int
+  | Add !Term !Term
   deriving (Eq, Ord, Show)
 
 makePrisms ''Term
@@ -429,9 +545,9 @@ module Term.Type where
 import Control.Lens
 
 data Term =
-    Lit Int
-  | Add Term Term
-  | Mul Term Term
+    Lit !Int
+  | Add !Term !Term
+  | Mul !Term !Term
   deriving (Eq, Ord, Show)
 
 makePrisms ''Term
@@ -456,93 +572,79 @@ module Mul.Type (
 import Term.Type
 ```
 
-### Benchmarking the code
+# Benchmarking the code
 
-### Looking at the core
+The code was benchmarked using `criterion`.
 
-#### Vanilla
+There were a number of benchmarks that were used, but I'll be focusing on this one:
+```haskell
+evalAddMulBig tm =
+  evalTerm $ 
+    add (mul (add tm (lit 3)) 
+             (add tm (lit 5))) 
+        (mul (add tm (lit 7)) 
+             (add tm (lit 11)))
+```
+where the benchmark itself looks something like:
+```haskell
+  nf evalAddMulBig (lit 2)
+```
 
-lit1 :: Int
-lit1 = I# 2#
+The tagless final approach on `Int`
+```
+TODO
+```
+and on a newtype wrapping `Int`
+```
+TODO
+```
+and the version using Backpack
+```
+TODO
+```
+were all very similar.
 
-lit2 :: Term
-lit2 = Lit lit1
+The vanilla initial encoding was slower that the final encodings
+```
+TODO
+```
+which makes sense, since it needed to build up and tear down values for the expressions.
 
-evalAddSmall :: Term -> Term
-evalAddSmall = \ (tm :: Term) -> evalTerm (Add tm tm)
+The versions using classy `Prism`s
+```
+TODO
+```
+and Backpack
+```
+TODO
+```
+were similar, although the version using classy `Prism`s via the convenience types for the various pieces:
+```haskell
+data TermF f a =
+    BMBase !(BaseF f a)
+  | BMMul  !(MulF f a)
+```
+fared a bit worse:
+```
+TODO
+```
 
-evalAddBig4 :: Int
-evalAddBig4 = I# 3#
+# Looking at the core
 
-evalAddBig3 :: Term
-evalAddBig3 = Lit evalAddBig4
+## Final encoding
 
-evalAddBig2 :: Int
-evalAddBig2 = I# 5#
-
-evalAddBig1 :: Term
-evalAddBig1 = Lit evalAddBig2
-
-evalAddMulSmall :: Term -> Term
-evalAddMulSmall
-  = \ (tm :: Term) -> evalTerm (Add (Mul tm evalAddBig3) evalAddBig1)
-
-evalAddBig :: Term -> Term
-evalAddBig
-  = \ (tm :: Term) ->
-      evalTerm (Add (Add tm evalAddBig3) (Add tm evalAddBig1))
-
-evalAddMulBig4 :: Int
-evalAddMulBig4 = I# 7#
-
-evalAddMulBig3 :: Term
-evalAddMulBig3 = Lit evalAddMulBig4
-
-evalAddMulBig2 :: Int
-evalAddMulBig2 = I# 11#
-
-evalAddMulBig1 :: Term
-evalAddMulBig1 = Lit evalAddMulBig2
-
-evalAddMulBig :: Term -> Term
+final int
+```
+evalAddMulBig :: Int -> Int
 evalAddMulBig
-  = \ (tm :: Term) ->
-      evalTerm
-        (Add
-           (Mul (Add tm evalAddBig3) (Add tm evalAddBig1))
-           (Mul (Add tm evalAddMulBig3) (Add tm evalAddMulBig1)))
-#### Final
+  = \ (tm :: Int) ->
+      case tm of { I# x ->
+      I# (+# (*# (+# x 3#) (+# x 5#)) (*# (+# x 7#) (+# x 11#)))
+      }
+```
 
-lit1 :: Int
-lit1 = I# 2#
-
-lit2 :: Eval
-lit2 = lit1 `cast` <Co:2>
-
-evalAddSmall1 :: Eval -> Int
-evalAddSmall1
-  = \ (tm :: Eval) ->
-      $fNumInt_$c+ (tm `cast` <Co:12>) (tm `cast` <Co:13>)
-
-evalAddSmall :: Eval -> Eval
-evalAddSmall = evalAddSmall1 `cast` <Co:18>
-
-evalAddMulSmall1 :: Eval -> Int
-evalAddMulSmall1
-  = \ (tm :: Eval) ->
-      case tm `cast` <Co:12> of { I# x -> I# (+# (*# x 3#) 5#) }
-
-evalAddMulSmall :: Eval -> Eval
-evalAddMulSmall = evalAddMulSmall1 `cast` <Co:18>
-
-evalAddBig1 :: Eval -> Int
-evalAddBig1
-  = \ (tm :: Eval) ->
-      case tm `cast` <Co:12> of { I# x -> I# (+# (+# x 3#) (+# x 5#)) }
-
-evalAddBig :: Eval -> Eval
-evalAddBig = evalAddBig1 `cast` <Co:18>
-
+final eval
+```
 evalAddMulBig1 :: Eval -> Int
 evalAddMulBig1
   = \ (tm :: Eval) ->
@@ -552,31 +654,191 @@ evalAddMulBig1
 
 evalAddMulBig :: Eval -> Eval
 evalAddMulBig = evalAddMulBig1 `cast` <Co:18>
+```
 
-#### Final with Backpack
-
-lit2 :: Repr
-lit2 = I# 2#
-
-evalAddSmall :: Repr -> Repr
-evalAddSmall = \ (tm :: Repr) -> $fNumInt_$c+ tm tm
-
-evalAddMulSmall :: Repr -> Repr
-evalAddMulSmall
-  = \ (tm :: Repr) -> case tm of { I# x -> I# (+# (*# x 3#) 5#) }
-
-evalAddBig :: Repr -> Repr
-evalAddBig
-  = \ (tm :: Repr) ->
-      case tm of { I# x -> I# (+# (+# x 3#) (+# x 5#)) }
-
+final bp
+```
 evalAddMulBig :: Repr -> Repr
 evalAddMulBig
   = \ (tm :: Repr) ->
       case tm of { I# x ->
       I# (+# (*# (+# x 3#) (+# x 5#)) (*# (+# x 7#) (+# x 11#)))
       }
+```
 
-#### Initial
+## Initial encodings
 
-#### Initial with Backpack
+vanilla
+```
+Rec {
+evalTerm :: Term -> Term
+evalTerm
+  = \ (tm :: Term) ->
+      case tm of wild {
+        Lit ipv -> wild;
+        Add tm1 tm2 ->
+          case evalTerm tm1 of {
+            __DEFAULT -> wild;
+            Lit dt ->
+              case evalTerm tm2 of {
+                __DEFAULT -> wild;
+                Lit dt1 -> Lit (+# dt dt1)
+              }
+          };
+        Mul tm1 tm2 ->
+          case evalTerm tm1 of {
+            __DEFAULT -> wild;
+            Lit dt ->
+              case evalTerm tm2 of {
+                __DEFAULT -> wild;
+                Lit dt1 -> Lit (*# dt dt1)
+              }
+          }
+      }
+end Rec }
+```
+
+initial bp
+```
+Rec {
+-- RHS size: {terms: 39, types: 15, coercions: 0, joins: 0/0}
+evalTerm :: Term -> Term
+evalTerm
+  = \ (tm1 :: Term) ->
+      case tm1 of wild {
+        Lit ipv -> wild;
+        Add y1 y2 ->
+          case evalTerm y1 of {
+            __DEFAULT -> wild;
+            Lit dt ->
+              case evalTerm y2 of {
+                __DEFAULT -> wild;
+                Lit dt1 -> Lit (+# dt dt1)
+              }
+          };
+        Mul y1 y2 ->
+          case evalTerm y1 of {
+            __DEFAULT -> wild;
+            Lit dt ->
+              case evalTerm y2 of {
+                __DEFAULT -> wild;
+                Lit dt1 -> Lit (*# dt dt1)
+              }
+          }
+      }
+end Rec }
+```
+
+fuse
+```
+Rec {
+evalTerm :: forall a. Term TermF a -> Term TermF a
+evalTerm
+  = \ (@ a) (tm1 :: Term TermF a) ->
+      case tm1 `cast` <Co:3> of wild {
+        BMLit ipv -> wild `cast` <Co:4>;
+        BMAdd y1 y2 ->
+          case (evalTerm y1) `cast` <Co:3> of {
+            __DEFAULT -> wild `cast` <Co:4>;
+            BMLit dt ->
+              case (evalTerm y2) `cast` <Co:3> of {
+                __DEFAULT -> wild `cast` <Co:4>;
+                BMLit dt1 -> (BMLit (+# dt dt1)) `cast` <Co:4>
+              }
+          };
+        BMMul y1 y2 ->
+          case (evalTerm y1) `cast` <Co:3> of {
+            __DEFAULT -> wild `cast` <Co:4>;
+            BMLit dt ->
+              case (evalTerm y2) `cast` <Co:3> of {
+                __DEFAULT -> wild `cast` <Co:4>;
+                BMLit dt1 -> (BMLit (*# dt dt1)) `cast` <Co:4>
+              }
+          }
+      }
+end Rec }
+```
+
+compose
+```
+Rec {
+evalTerm :: forall a. Term TermF a -> Term TermF a
+evalTerm
+  = \ (@ a) (tm1 :: Term TermF a) ->
+      case tm1 `cast` <Co:3> of wild {
+        BMLit ipv -> wild `cast` <Co:4>;
+        BMAdd y1 y2 ->
+          case (evalTerm y1) `cast` <Co:3> of {
+            __DEFAULT -> wild `cast` <Co:4>;
+            BMLit dt ->
+              case (evalTerm y2) `cast` <Co:3> of {
+                __DEFAULT -> wild `cast` <Co:4>;
+                BMLit dt1 -> (BMLit (+# dt dt1)) `cast` <Co:4>
+              }
+          };
+        BMMul y1 y2 ->
+          case (evalTerm y1) `cast` <Co:3> of {
+            __DEFAULT -> wild `cast` <Co:4>;
+            BMLit dt ->
+              case (evalTerm y2) `cast` <Co:3> of {
+                __DEFAULT -> wild `cast` <Co:4>;
+                BMLit dt1 -> (BMLit (*# dt dt1)) `cast` <Co:4>
+              }
+          }
+      }
+end Rec }
+```
+
+vanilla
+```
+evalAddBig2 :: Term
+evalAddBig2 = Lit 3#
+
+evalAddBig1 :: Term
+evalAddBig1 = Lit 5#
+
+evalAddMulBig2 :: Term
+evalAddMulBig2 = Lit 7#
+
+evalAddMulBig1 :: Term
+evalAddMulBig1 = Lit 11#
+
+evalAddMulBig :: Term -> Term
+evalAddMulBig
+  = \ (tm :: Term) ->
+      case tm of dt { __DEFAULT ->
+      evalTerm
+        (Add
+           (Mul (Add dt evalAddBig2) (Add dt evalAddBig1))
+           (Mul (Add dt evalAddMulBig2) (Add dt evalAddMulBig1)))
+      }
+```
+
+initial bp
+```
+evalAddBig2 :: Term
+evalAddBig2 = Lit 3#
+
+evalAddBig1 :: Term
+evalAddBig1 = Lit 5#
+
+evalAddMulBig2 :: Term
+evalAddMulBig2 = Lit 7#
+
+evalAddMulBig1 :: Term
+evalAddMulBig1 = Lit 11#
+
+evalAddMulBig :: (Term -> Term) -> Term -> Term
+evalAddMulBig
+  = \ (eval :: Term -> Term) (tm :: Term) ->
+      eval
+        (case tm of dt { __DEFAULT ->
+         Add
+           (Mul (Add dt evalAddBig2) (Add dt evalAddBig1))
+           (Mul (Add dt evalAddMulBig2) (Add dt evalAddMulBig1))
+         })
+```
+
+fuse
+
+compose

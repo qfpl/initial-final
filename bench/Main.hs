@@ -10,7 +10,8 @@ module Main (
   ) where
 
 import qualified Vanilla.Bench as Vanilla
-import qualified Initial.Bench as Initial
+import qualified Initial.Bench.Compose as InitialCompose
+import qualified Initial.Bench.Fuse as InitialFuse
 import qualified Final.Bench.Int as FinalInt
 import qualified Final.Bench.Eval as FinalEval
 import qualified InitialBP.Bench as InitialBP
@@ -21,40 +22,80 @@ import Criterion.Main
 main :: IO ()
 main =
   let
-    initialEval = let e = Initial.evalTerm  in seq e e
-    initialBPEval = let e = InitialBP.evalTerm  in seq e e
+    vl = let l = Vanilla.lit2 in seq l l
+    fil = let l = FinalInt.lit2 in seq l l
+    fel = let l = FinalEval.lit2 in seq l l
+    fbpl = let l = FinalBP.lit2 in seq l l
+    icl = let l = InitialCompose.lit2 in seq l l
+    ifl = let l = InitialFuse.lit2 in seq l l
+    ibpl = let l = InitialBP.lit2 in seq l l
+    icEval = let e = InitialCompose.evalTerm in seq e e
+    ifEval = let e = InitialFuse.evalTerm in seq e e
+    ibpEval = let e = InitialBP.evalTerm in seq e e
   in
   defaultMain [
     bgroup "add - small" [
-      bench "vanilla" $ whnf Vanilla.evalAddSmall Vanilla.lit2
-    , bench "final (Int)" $ whnf FinalInt.evalAddSmall FinalInt.lit2
-    , bench "final (Eval)" $ whnf FinalEval.evalAddSmall FinalEval.lit2
-    , bench "final-bp" $ whnf FinalBP.evalAddSmall FinalBP.lit2
-    , bench "initial" $ whnf (Initial.evalAddSmall initialEval) Initial.lit2
-    , bench "initial-bp" $ whnf (InitialBP.evalAddSmall initialBPEval) InitialBP.lit2
+      bench "vanilla" $ 
+        nf Vanilla.evalAddSmall vl
+    , bench "final (int)" $ 
+        nf FinalInt.evalAddSmall fil
+    , bench "final (eval)" $ 
+        nf FinalEval.evalAddSmall fel
+    , bench "final-bp" $ 
+        nf FinalBP.evalAddSmall fbpl
+    , bench "initial (compose)" $ 
+        nf (InitialCompose.evalAddSmall icEval) icl
+    , bench "initial (fuse)" $ 
+        nf (InitialFuse.evalAddSmall ifEval) ifl
+    , bench "initial-bp" $ 
+        nf (InitialBP.evalAddSmall ibpEval) ibpl
     ]
   , bgroup "add and mul - small" [
-      bench "vanilla" $ whnf Vanilla.evalAddMulSmall Vanilla.lit2
-    , bench "final (Int)" $ whnf FinalInt.evalAddMulSmall FinalInt.lit2
-    , bench "final (Eval)" $ whnf FinalEval.evalAddMulSmall FinalEval.lit2
-    , bench "final-bp" $ whnf FinalBP.evalAddMulSmall FinalBP.lit2
-    , bench "initial" $ whnf (Initial.evalAddMulSmall initialEval) Initial.lit2
-    , bench "initial-bp" $ whnf (InitialBP.evalAddMulSmall initialBPEval) InitialBP.lit2
+      bench "vanilla" $ 
+        nf Vanilla.evalAddMulSmall vl
+    , bench "final (int)" $ 
+        nf FinalInt.evalAddMulSmall fil
+    , bench "final (eval)" $ 
+        nf FinalEval.evalAddMulSmall fel
+    , bench "final-bp" $ 
+        nf FinalBP.evalAddMulSmall fbpl
+    , bench "initial (compose)" $ 
+        nf (InitialCompose.evalAddMulSmall icEval) icl
+    , bench "initial (fuse)" $ 
+        nf (InitialFuse.evalAddMulSmall ifEval) ifl
+    , bench "initial-bp" $ 
+        nf (InitialBP.evalAddMulSmall ibpEval) ibpl
     ]
   , bgroup "add - big" [
-      bench "vanilla" $ whnf Vanilla.evalAddBig Vanilla.lit2
-    , bench "final (Int)" $ whnf FinalInt.evalAddBig FinalInt.lit2
-    , bench "final (Eval)" $ whnf FinalEval.evalAddBig FinalEval.lit2
-    , bench "final-bp" $ whnf FinalBP.evalAddBig FinalBP.lit2
-    , bench "initial" $ whnf (Initial.evalAddBig initialEval) Initial.lit2
-    , bench "initial-bp" $ whnf (InitialBP.evalAddBig initialBPEval) InitialBP.lit2
+      bench "vanilla" $ 
+        nf Vanilla.evalAddBig vl
+    , bench "final (int)" $ 
+        nf FinalInt.evalAddBig fil
+    , bench "final (eval)" $ 
+        nf FinalEval.evalAddBig fel
+    , bench "final-bp" $ 
+        nf FinalBP.evalAddBig fbpl
+    , bench "initial (compose)" $ 
+        nf (InitialCompose.evalAddBig icEval) icl
+    , bench "initial (fuse)" $ 
+        nf (InitialFuse.evalAddBig ifEval) ifl
+    , bench "initial-bp" $ 
+        nf (InitialBP.evalAddBig ibpEval) ibpl
     ]
   , bgroup "add and mul - big" [
-      bench "vanilla" $ whnf Vanilla.evalAddMulBig Vanilla.lit2
-    , bench "final (Int)" $ whnf FinalInt.evalAddMulBig FinalInt.lit2
-    , bench "final (Eval)" $ whnf FinalEval.evalAddMulBig FinalEval.lit2
-    , bench "final-bp" $ whnf FinalBP.evalAddMulBig FinalBP.lit2
-    , bench "initial" $ whnf (Initial.evalAddMulBig initialEval) Initial.lit2
-    , bench "initial-bp" $ whnf (InitialBP.evalAddMulBig initialBPEval) InitialBP.lit2
+      bench "vanilla" $ 
+        nf Vanilla.evalAddMulBig vl
+    , bench "final (int)" $ 
+        nf FinalInt.evalAddMulBig fil
+    , bench "final (eval)" $ 
+        nf FinalEval.evalAddMulBig fel
+    , bench "final-bp" $ 
+        nf FinalBP.evalAddMulBig fbpl
+    , bench "initial (compose)" $ 
+        nf (InitialCompose.evalAddMulBig icEval) icl
+    , bench "initial (fuse)" $ 
+        nf (InitialFuse.evalAddMulBig ifEval) ifl
+    , bench "initial-bp" $ 
+        nf (InitialBP.evalAddMulBig ibpEval) ibpl
     ]
   ]

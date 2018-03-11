@@ -14,7 +14,8 @@ executable bench
   build-depends:       base
                      , criterion
                      , vanilla
-                     , initial
+                     , initial-fuse
+                     , initial-compose
                      , final
                      , initial-bp
                      , final-bp
