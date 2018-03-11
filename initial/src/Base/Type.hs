@@ -23,9 +23,13 @@ class HasBaseF tm where
 
 instance HasBaseF BaseF where
   _BaseF = id
+  {-# INLINE _BaseF #-}
 
 _Lit :: HasBaseF tm => Prism' (Term tm a) Int
 _Lit = _Wrapped . _BaseF . _TmLit
+{-# INLINE _Lit #-}
 
 _Add :: HasBaseF tm => Prism' (Term tm a) (Term tm a, Term tm a)
 _Add = _Wrapped . _BaseF . _TmAdd
+{-# INLINE _Add #-}
+

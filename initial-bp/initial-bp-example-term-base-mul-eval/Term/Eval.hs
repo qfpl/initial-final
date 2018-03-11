@@ -8,4 +8,4 @@ import qualified Mul.Eval as ME
 import Interpret.Eval
 
 evalTerm :: Term -> Term
-evalTerm = mkEval $ mappend BE.addRule ME.mulRule
+evalTerm = mkEval $ mappend BE.evalRules ME.evalRules

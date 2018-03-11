@@ -1,22 +1,33 @@
 {-# LANGUAGE RankNTypes #-}
 module Interpret.Eval (
     EvalRule(..)
+  , EvalRuleK(..)
+  , toEvalK
   , mkEval
   ) where
 
 newtype EvalRule tm =
-  EvalRule (forall r. (tm -> tm) -> (tm -> r) -> (tm -> r) -> tm -> r)
+  EvalRule ((tm -> tm) -> tm -> Maybe tm)
 
-instance Monoid (EvalRule tm) where
+newtype EvalRuleK tm =
+  EvalRuleK (forall r. (tm -> tm) -> (tm -> r) -> (tm -> r) -> tm -> r)
+
+toEvalK :: EvalRule tm -> EvalRuleK tm
+toEvalK (EvalRule f) =
+  EvalRuleK $ \e good bad tm ->
+    maybe (bad tm) good . f e $ tm
+{-# INLINE toEvalK #-}
+
+instance Monoid (EvalRuleK tm) where
   mempty =
-    EvalRule $ \_ _ bad -> bad
+    EvalRuleK $ \_ _ bad -> bad
   {-# INLINE mempty #-}
-  mappend (EvalRule r1) (EvalRule r2) =
-    EvalRule $ \e good bad -> r1 e good (r2 e good bad)
+  mappend (EvalRuleK r1) (EvalRuleK r2) =
+    EvalRuleK $ \e good bad -> r1 e good (r2 e good bad)
   {-# INLINE mappend #-}
 
-mkEval :: EvalRule tm -> tm -> tm
-mkEval (EvalRule f) =
+mkEval :: EvalRuleK tm -> tm -> tm
+mkEval (EvalRuleK f) =
   let
     step = f eval Just (const Nothing)
     eval tm = case step tm of

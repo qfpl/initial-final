@@ -22,7 +22,11 @@ class HasMulF tm where
 
 instance HasMulF MulF where
   _MulF = id
+  {-# INLINE _MulF #-}
 
 _Mul :: HasMulF tm => Prism' (Term tm a) (Term tm a, Term tm a)
 _Mul = _Wrapped . _MulF . _TmMul
+{-# INLINE _Mul #-}
+
+
 

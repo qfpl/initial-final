@@ -6,4 +6,4 @@ import Base.Eval
 import Interpret.Eval
 
 evalTerm :: Term -> Term
-evalTerm = mkEval addRule
+evalTerm = mkEval evalRules
