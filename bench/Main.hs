@@ -29,9 +29,6 @@ main =
     icl = let l = InitialCompose.lit2 in seq l l
     ifl = let l = InitialFuse.lit2 in seq l l
     ibpl = let l = InitialBP.lit2 in seq l l
-    icEval = let e = InitialCompose.evalTerm in seq e e
-    ifEval = let e = InitialFuse.evalTerm in seq e e
-    ibpEval = let e = InitialBP.evalTerm in seq e e
   in
   defaultMain [
     bgroup "add - small" [
@@ -44,11 +41,11 @@ main =
     , bench "final-bp" $ 
         nf FinalBP.evalAddSmall fbpl
     , bench "initial (compose)" $ 
-        nf (InitialCompose.evalAddSmall icEval) icl
+        nf InitialCompose.evalAddSmall icl
     , bench "initial (fuse)" $ 
-        nf (InitialFuse.evalAddSmall ifEval) ifl
+        nf InitialFuse.evalAddSmall ifl
     , bench "initial-bp" $ 
-        nf (InitialBP.evalAddSmall ibpEval) ibpl
+        nf InitialBP.evalAddSmall ibpl
     ]
   , bgroup "add and mul - small" [
       bench "vanilla" $ 
@@ -60,11 +57,11 @@ main =
     , bench "final-bp" $ 
         nf FinalBP.evalAddMulSmall fbpl
     , bench "initial (compose)" $ 
-        nf (InitialCompose.evalAddMulSmall icEval) icl
+        nf InitialCompose.evalAddMulSmall icl
     , bench "initial (fuse)" $ 
-        nf (InitialFuse.evalAddMulSmall ifEval) ifl
+        nf InitialFuse.evalAddMulSmall ifl
     , bench "initial-bp" $ 
-        nf (InitialBP.evalAddMulSmall ibpEval) ibpl
+        nf InitialBP.evalAddMulSmall ibpl
     ]
   , bgroup "add - big" [
       bench "vanilla" $ 
@@ -76,11 +73,11 @@ main =
     , bench "final-bp" $ 
         nf FinalBP.evalAddBig fbpl
     , bench "initial (compose)" $ 
-        nf (InitialCompose.evalAddBig icEval) icl
+        nf InitialCompose.evalAddBig icl
     , bench "initial (fuse)" $ 
-        nf (InitialFuse.evalAddBig ifEval) ifl
+        nf InitialFuse.evalAddBig ifl
     , bench "initial-bp" $ 
-        nf (InitialBP.evalAddBig ibpEval) ibpl
+        nf InitialBP.evalAddBig ibpl
     ]
   , bgroup "add and mul - big" [
       bench "vanilla" $ 
@@ -92,10 +89,10 @@ main =
     , bench "final-bp" $ 
         nf FinalBP.evalAddMulBig fbpl
     , bench "initial (compose)" $ 
-        nf (InitialCompose.evalAddMulBig icEval) icl
+        nf InitialCompose.evalAddMulBig icl
     , bench "initial (fuse)" $ 
-        nf (InitialFuse.evalAddMulBig ifEval) ifl
+        nf InitialFuse.evalAddMulBig ifl
     , bench "initial-bp" $ 
-        nf (InitialBP.evalAddMulBig ibpEval) ibpl
+        nf InitialBP.evalAddMulBig ibpl
     ]
   ]

@@ -312,15 +312,15 @@ although we'll be paying a price for building up and tearing down the value.
 ## Initial encoding with classy `Prism`s
 
 ```haskell
-newtype Term f a = Term { unTerm :: f (Term f) a }
+newtype Term f = Term { unTerm :: f (Term f) }
 
 makeWrapped ''Term
 ```
 
 ```haskell
-data BaseF f a =
-    TmLit Int
-  | TmAdd (f a) (f a)
+data BaseF f =
+    TmLit !Int
+  | TmAdd !f !f
   deriving (Eq, Ord, Show)
 
 makePrisms ''BaseF
@@ -328,13 +328,13 @@ makePrisms ''BaseF
 
 ```haskell
 class HasBaseF tm where
-  _BaseF :: Prism' (tm f a) (BaseF f a)
+  _BaseF :: Prism' (tm f) (BaseF f)
 
-  _Lit :: Prism' (Term tm a) Int
+  _Lit :: Prism' (Term tm) Int
   _Lit = _Wrapped . _BaseF . _TmLit
   {-# INLINE _Lit #-}
 
-  _Add :: Prism' (Term tm a) (Term tm a, Term tm a)
+  _Add :: Prism' (Term tm) (Term tm, Term tm)
   _Add = _Wrapped . _BaseF . _TmAdd
   {-# INLINE _Add #-}
 
@@ -344,15 +344,15 @@ instance HasBaseF BaseF where
 ```
 
 ```haskell
-lit :: HasBaseF tm => Int -> Term tm a
+lit :: HasBaseF tm => Int -> Term tm
 lit = review _Lit
 
-add :: HasBaseF tm => Term tm a -> Term tm a -> Term tm a
+add :: HasBaseF tm => Term tm -> Term tm -> Term tm
 add tm1 tm2 = review _Add (tm1, tm2)
 ```
 
 ```haskell
-addRule :: HasBaseF tm => EvalRule (Term tm a)
+addRule :: HasBaseF tm => EvalRule (Term tm)
 addRule = EvalRule $ \e tm -> do
   (tm1, tm2) <- preview _Add tm
   i1 <- preview _Lit (e tm1)
@@ -361,8 +361,8 @@ addRule = EvalRule $ \e tm -> do
 ```
 
 ```haskell
-data MulF f a =
-    TmMul (f a) (f a)
+data MulF f =
+    TmMul !f !f
   deriving (Eq, Ord, Show)
 
 makePrisms ''MulF
@@ -370,9 +370,9 @@ makePrisms ''MulF
 
 ```haskell
 class HasMulF tm where
-  _MulF :: Prism' (tm f a) (MulF f  a)
+  _MulF :: Prism' (tm f) (MulF f)
 
-  _Mul :: Prism' (Term tm a) (Term tm a, Term tm a)
+  _Mul :: Prism' (Term tm) (Term tm, Term tm)
   _Mul = _Wrapped . _MulF . _TmMul
   {-# INLINE _Mul #-}
 
@@ -382,12 +382,12 @@ instance HasMulF MulF where
 ```
 
 ```haskell
-mul :: HasMulF tm => Term tm a -> Term tm a -> Term tm a
+mul :: HasMulF tm => Term tm -> Term tm -> Term tm
 mul tm1 tm2 = review _Mul (tm1, tm2)
 ```
 
 ```haskell
-mulRule :: (HasBaseF tm, HasMulF tm) => EvalRule (Term tm a)
+mulRule :: (HasBaseF tm, HasMulF tm) => EvalRule (Term tm)
 mulRule = EvalRule $ \e tm -> do
   (tm1, tm2) <- preview _Mul tm
   i1 <- preview _Lit (e tm1)
@@ -396,9 +396,9 @@ mulRule = EvalRule $ \e tm -> do
 ```
 
 ```haskell
-data TermF f a =
-    BMBase !(BaseF f a)
-  | BMMul !(MulF f a)
+data TermF f =
+    BMBase !(BaseF f)
+  | BMMul !(MulF f)
   deriving (Eq, Ord, Show)
 
 makePrisms ''TermF
@@ -420,20 +420,20 @@ instance HasMulF TermF where
 
 ```haskell
 class HasBase tm where
-  _Lit :: Prism' (Term tm a) Int
-  _Add :: Prism' (Term tm a) (Term tm a, Term tm a)
+  _Lit :: Prism' (Term tm) Int
+  _Add :: Prism' (Term tm) (Term tm, Term tm)
 ```
 
 ```haskell
 class HasMul tm where
-  _Mul :: Prism' (Term tm a) (Term tm a, Term tm a)
+  _Mul :: Prism' (Term tm) (Term tm, Term tm)
 ```
 
 ```haskell
-data TermF f a =
+data TermF f =
     BMLit !Int
-  | BMAdd !(f a) !(f a)
-  | BMMul !(f a) !(f a)
+  | BMAdd !f !f
+  | BMMul !f !f
   deriving (Eq, Ord, Show)
 
 makePrisms ''TermF
@@ -592,41 +592,64 @@ where the benchmark itself looks something like:
 
 The tagless final approach on `Int`
 ```
-TODO
+time                 4.914 ns   (4.846 ns .. 4.981 ns)
+                     0.999 R²   (0.999 R² .. 0.999 R²)
+mean                 4.887 ns   (4.843 ns .. 4.931 ns)
+std dev              147.4 ps   (128.8 ps .. 170.5 ps)
 ```
 and on a newtype wrapping `Int`
 ```
-TODO
+time                 4.504 ns   (4.438 ns .. 4.568 ns)
+                     0.999 R²   (0.998 R² .. 0.999 R²)
+mean                 4.518 ns   (4.470 ns .. 4.575 ns)
+std dev              174.0 ps   (144.2 ps .. 222.0 ps)
 ```
 and the version using Backpack
 ```
-TODO
+time                 4.941 ns   (4.891 ns .. 4.998 ns)
+                     0.999 R²   (0.997 R² .. 0.999 R²)
+mean                 4.999 ns   (4.936 ns .. 5.145 ns)
+std dev              295.7 ps   (161.1 ps .. 593.6 ps)
 ```
 were all very similar.
 
 The vanilla initial encoding was slower that the final encodings
 ```
-TODO
+time                 79.14 ns   (77.89 ns .. 80.63 ns)
+                     0.998 R²   (0.997 R² .. 0.999 R²)
+mean                 79.04 ns   (78.17 ns .. 80.08 ns)
+std dev              3.335 ns   (2.678 ns .. 4.213 ns)
 ```
 which makes sense, since it needed to build up and tear down values for the expressions.
 
 The versions using classy `Prism`s
 ```
-TODO
+time                 78.82 ns   (77.89 ns .. 79.91 ns)
+                     0.999 R²   (0.998 R² .. 0.999 R²)
+mean                 79.24 ns   (78.40 ns .. 80.21 ns)
+std dev              3.210 ns   (2.656 ns .. 4.498 ns)
 ```
 and Backpack
 ```
-TODO
+time                 74.67 ns   (74.20 ns .. 75.26 ns)
+                     0.999 R²   (0.999 R² .. 1.000 R²)
+mean                 75.52 ns   (74.79 ns .. 76.56 ns)
+std dev              2.982 ns   (2.371 ns .. 4.149 ns)
 ```
-were similar, although the version using classy `Prism`s via the convenience types for the various pieces:
+were similar to the vanilla version.
+
+The version using classy `Prism`s via the convenience types for the various pieces:
 ```haskell
-data TermF f a =
-    BMBase !(BaseF f a)
-  | BMMul  !(MulF f a)
+data TermF f =
+    BMBase !(BaseF f)
+  | BMMul  !(MulF f)
 ```
 fared a bit worse:
 ```
-TODO
+time                 126.1 ns   (124.8 ns .. 127.5 ns)
+                     0.999 R²   (0.998 R² .. 0.999 R²)
+mean                 126.8 ns   (125.4 ns .. 128.5 ns)
+std dev              5.051 ns   (4.087 ns .. 6.742 ns)
 ```
 
 # Looking at the core
@@ -732,27 +755,27 @@ end Rec }
 fuse
 ```
 Rec {
-evalTerm :: forall a. Term TermF a -> Term TermF a
+evalTerm :: Term TermF -> Term TermF
 evalTerm
-  = \ (@ a) (tm1 :: Term TermF a) ->
-      case tm1 `cast` <Co:3> of wild {
-        BMLit ipv -> wild `cast` <Co:4>;
+  = \ (tm1 :: Term TermF) ->
+      case tm1 `cast` <Co:2> of wild {
+        BMLit ipv -> wild `cast` <Co:3>;
         BMAdd y1 y2 ->
-          case (evalTerm y1) `cast` <Co:3> of {
-            __DEFAULT -> wild `cast` <Co:4>;
+          case (evalTerm y1) `cast` <Co:2> of {
+            __DEFAULT -> wild `cast` <Co:3>;
             BMLit dt ->
-              case (evalTerm y2) `cast` <Co:3> of {
-                __DEFAULT -> wild `cast` <Co:4>;
-                BMLit dt1 -> (BMLit (+# dt dt1)) `cast` <Co:4>
+              case (evalTerm y2) `cast` <Co:2> of {
+                __DEFAULT -> wild `cast` <Co:3>;
+                BMLit dt1 -> (BMLit (+# dt dt1)) `cast` <Co:3>
               }
           };
         BMMul y1 y2 ->
-          case (evalTerm y1) `cast` <Co:3> of {
-            __DEFAULT -> wild `cast` <Co:4>;
+          case (evalTerm y1) `cast` <Co:2> of {
+            __DEFAULT -> wild `cast` <Co:3>;
             BMLit dt ->
-              case (evalTerm y2) `cast` <Co:3> of {
-                __DEFAULT -> wild `cast` <Co:4>;
-                BMLit dt1 -> (BMLit (*# dt dt1)) `cast` <Co:4>
+              case (evalTerm y2) `cast` <Co:2> of {
+                __DEFAULT -> wild `cast` <Co:3>;
+                BMLit dt1 -> (BMLit (*# dt dt1)) `cast` <Co:3>
               }
           }
       }
@@ -762,28 +785,50 @@ end Rec }
 compose
 ```
 Rec {
-evalTerm :: forall a. Term TermF a -> Term TermF a
+-- RHS size: {terms: 67, types: 102, coercions: 43, joins: 0/0}
+evalTerm :: Term TermF -> Term TermF
 evalTerm
-  = \ (@ a) (tm1 :: Term TermF a) ->
-      case tm1 `cast` <Co:3> of wild {
-        BMLit ipv -> wild `cast` <Co:4>;
-        BMAdd y1 y2 ->
-          case (evalTerm y1) `cast` <Co:3> of {
-            __DEFAULT -> wild `cast` <Co:4>;
-            BMLit dt ->
-              case (evalTerm y2) `cast` <Co:3> of {
-                __DEFAULT -> wild `cast` <Co:4>;
-                BMLit dt1 -> (BMLit (+# dt dt1)) `cast` <Co:4>
+  = \ (tm1 :: Term TermF) ->
+      case tm1 `cast` <Co:2> of wild {
+        BMBase y1 ->
+          case y1 of {
+            TmLit dt -> wild `cast` <Co:3>;
+            TmAdd y2 y3 ->
+              case (evalTerm y2) `cast` <Co:2> of {
+                BMBase y4 ->
+                  case y4 of {
+                    TmLit dt ->
+                      case (evalTerm y3) `cast` <Co:2> of {
+                        BMBase y5 ->
+                          case y5 of {
+                            TmLit dt1 -> (BMBase (TmLit (+# dt dt1))) `cast` <Co:3>;
+                            TmAdd ipv ipv1 -> wild `cast` <Co:3>
+                          };
+                        BMMul ipv -> wild `cast` <Co:3>
+                      };
+                    TmAdd ipv ipv1 -> wild `cast` <Co:3>
+                  };
+                BMMul ipv -> wild `cast` <Co:3>
               }
           };
-        BMMul y1 y2 ->
-          case (evalTerm y1) `cast` <Co:3> of {
-            __DEFAULT -> wild `cast` <Co:4>;
-            BMLit dt ->
-              case (evalTerm y2) `cast` <Co:3> of {
-                __DEFAULT -> wild `cast` <Co:4>;
-                BMLit dt1 -> (BMLit (*# dt dt1)) `cast` <Co:4>
-              }
+        BMMul ipv ->
+          case ipv of { TmMul x1 x2 ->
+          case (evalTerm x1) `cast` <Co:2> of {
+            BMBase y1 ->
+              case y1 of {
+                TmLit dt ->
+                  case (evalTerm x2) `cast` <Co:2> of {
+                    BMBase y2 ->
+                      case y2 of {
+                        TmLit dt1 -> (BMBase (TmLit (*# dt dt1))) `cast` <Co:3>;
+                        TmAdd ipv1 ipv2 -> wild `cast` <Co:3>
+                      };
+                    BMMul ipv1 -> wild `cast` <Co:3>
+                  };
+                TmAdd ipv1 ipv2 -> wild `cast` <Co:3>
+              };
+            BMMul ipv1 -> wild `cast` <Co:3>
+          }
           }
       }
 end Rec }
@@ -828,17 +873,152 @@ evalAddMulBig2 = Lit 7#
 evalAddMulBig1 :: Term
 evalAddMulBig1 = Lit 11#
 
-evalAddMulBig :: (Term -> Term) -> Term -> Term
+evalAddBig_$sevalTerm :: Term -> Term -> Term
+evalAddBig_$sevalTerm
+  = \ (sc :: Term) (sc1 :: Term) ->
+      case evalTerm sc of {
+        __DEFAULT -> Add sc sc1;
+        Lit dt ->
+          case evalTerm sc1 of {
+            __DEFAULT -> Add sc sc1;
+            Lit dt1 -> Lit (+# dt dt1)
+          }
+      }
+
+evalAddMulBig :: Term -> Term
 evalAddMulBig
-  = \ (eval :: Term -> Term) (tm :: Term) ->
-      eval
-        (case tm of dt { __DEFAULT ->
-         Add
-           (Mul (Add dt evalAddBig2) (Add dt evalAddBig1))
-           (Mul (Add dt evalAddMulBig2) (Add dt evalAddMulBig1))
-         })
+  = \ (tm :: Term) ->
+      case tm of dt { __DEFAULT ->
+      evalAddBig_$sevalTerm
+        (Mul (Add dt evalAddBig2) (Add dt evalAddBig1))
+        (Mul (Add dt evalAddMulBig2) (Add dt evalAddMulBig1))
+      }
 ```
 
 fuse
+```
+evalAddMulBig4 :: TermF (Term TermF)
+evalAddMulBig4 = BMLit 3#
+
+evalAddMulBig3 :: TermF (Term TermF)
+evalAddMulBig3 = BMLit 5#
+
+evalAddMulBig2 :: TermF (Term TermF)
+evalAddMulBig2 = BMLit 7#
+
+evalAddMulBig1 :: TermF (Term TermF)
+evalAddMulBig1 = BMLit 11#
+
+evalAddBig_$sevalTerm
+  :: Term TermF
+     -> Term TermF
+     -> (TermF (Term TermF) :: *) ~R# (Term TermF :: *) => Term TermF
+evalAddBig_$sevalTerm
+  = \ (sc :: Term TermF)
+      (sc1 :: Term TermF)
+      (sg :: (TermF (Term TermF) :: *) ~R# (Term TermF :: *)) ->
+      case (evalTerm sc) `cast` <Co:2> of {
+        __DEFAULT -> (BMAdd sc sc1) `cast` <Co:3>;
+        BMLit dt ->
+          case (evalTerm sc1) `cast` <Co:2> of {
+            __DEFAULT -> (BMAdd sc sc1) `cast` <Co:3>;
+            BMLit dt1 -> (BMLit (+# dt dt1)) `cast` <Co:3>
+          }
+      }
+
+evalAddMulBig :: Term TermF -> Term TermF
+evalAddMulBig
+  = \ (tm :: Term TermF) ->
+      case tm `cast` <Co:2> of nt { __DEFAULT ->
+      evalAddBig_$sevalTerm
+        ((BMMul
+            ((BMAdd (nt `cast` <Co:3>) (evalAddMulBig4 `cast` <Co:489>))
+             `cast` <Co:541>)
+            ((BMAdd (nt `cast` <Co:3>) (evalAddMulBig3 `cast` <Co:489>))
+             `cast` <Co:541>))
+         `cast` <Co:541>)
+        ((BMMul
+            ((BMAdd (nt `cast` <Co:3>) (evalAddMulBig2 `cast` <Co:489>))
+             `cast` <Co:541>)
+            ((BMAdd (nt `cast` <Co:3>) (evalAddMulBig1 `cast` <Co:489>))
+             `cast` <Co:541>))
+         `cast` <Co:541>)
+        @~ <Co:541>
+      }
+```
 
 compose
+```
+evalAddBig4 :: BaseF (Term TermF)
+evalAddBig4 = TmLit 3#
+
+evalAddBig2 :: BaseF (Term TermF)
+evalAddBig2 = TmLit 5#
+
+evalAddBig3 :: TermF (Term TermF)
+evalAddBig3 = BMBase evalAddBig4
+
+evalAddBig1 :: TermF (Term TermF)
+evalAddBig1 = BMBase evalAddBig2
+
+evalAddMulBig4 :: BaseF (Term TermF)
+evalAddMulBig4 = TmLit 7#
+
+evalAddMulBig2 :: BaseF (Term TermF)
+evalAddMulBig2 = TmLit 11#
+
+evalAddMulBig3 :: TermF (Term TermF)
+evalAddMulBig3 = BMBase evalAddMulBig4
+
+evalAddMulBig1 :: TermF (Term TermF)
+evalAddMulBig1 = BMBase evalAddMulBig2
+
+evalAddBig_$sevalTerm
+  :: Term TermF
+     -> Term TermF
+     -> (TermF (Term TermF) :: *) ~R# (Term TermF :: *) => Term TermF
+evalAddBig_$sevalTerm
+  = \ (sc :: Term TermF)
+      (sc1 :: Term TermF)
+      (sg :: (TermF (Term TermF) :: *) ~R# (Term TermF :: *)) ->
+      case (evalTerm sc) `cast` <Co:2> of {
+        BMBase y1 ->
+          case y1 of {
+            TmLit dt ->
+              case (evalTerm sc1) `cast` <Co:2> of {
+                BMBase y2 ->
+                  case y2 of {
+                    TmLit dt1 -> (BMBase (TmLit (+# dt dt1))) `cast` <Co:3>;
+                    TmAdd ipv ipv1 -> (BMBase (TmAdd sc sc1)) `cast` <Co:3>
+                  };
+                BMMul ipv -> (BMBase (TmAdd sc sc1)) `cast` <Co:3>
+              };
+            TmAdd ipv ipv1 -> (BMBase (TmAdd sc sc1)) `cast` <Co:3>
+          };
+        BMMul ipv -> (BMBase (TmAdd sc sc1)) `cast` <Co:3>
+      }
+
+evalAddMulBig :: Term TermF -> Term TermF
+evalAddMulBig
+  = \ (tm :: Term TermF) ->
+      case tm `cast` <Co:2> of nt { __DEFAULT ->
+      evalAddBig_$sevalTerm
+        ((BMMul
+            (TmMul
+               ((BMBase (TmAdd (nt `cast` <Co:3>) (evalAddBig3 `cast` <Co:499>)))
+                `cast` <Co:531>)
+               ((BMBase (TmAdd (nt `cast` <Co:3>) (evalAddBig1 `cast` <Co:499>)))
+                `cast` <Co:531>)))
+         `cast` <Co:531>)
+        ((BMMul
+            (TmMul
+               ((BMBase
+                   (TmAdd (nt `cast` <Co:3>) (evalAddMulBig3 `cast` <Co:499>)))
+                `cast` <Co:531>)
+               ((BMBase
+                   (TmAdd (nt `cast` <Co:3>) (evalAddMulBig1 `cast` <Co:499>)))
+                `cast` <Co:531>)))
+         `cast` <Co:531>)
+        @~ <Co:531>
+      }
+```

@@ -10,15 +10,15 @@ import Control.Lens
 import Control.DeepSeq (NFData)
 import GHC.Generics
 
-data TermF f a =
+data TermF f =
     BMLit !Int
-  | BMAdd !(f a) !(f a)
-  | BMMul !(f a) !(f a)
+  | BMAdd !f !f
+  | BMMul !f !f
   deriving (Eq, Ord, Show, Generic)
 
 makePrisms ''TermF
 
-instance NFData (f a) => NFData (TermF f a)
+instance NFData f => NFData (TermF f)
 
 instance HasBase TermF where
   _Lit = _Wrapped . _BMLit

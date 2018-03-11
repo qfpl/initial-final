@@ -9,18 +9,18 @@ import Control.Lens
 import Control.DeepSeq (NFData)
 import GHC.Generics
 
-data BaseF f a =
+data BaseF f =
     TmLit !Int
-  | TmAdd !(f a) !(f a)
+  | TmAdd !f !f
   deriving (Eq, Ord, Show, Generic)
 
 makePrisms ''BaseF
 
-instance NFData (f a) => NFData (BaseF f a)
+instance NFData f => NFData (BaseF f)
 
 class HasBase tm where
-  _Lit :: Prism' (Term tm a) Int
-  _Add :: Prism' (Term tm a) (Term tm a, Term tm a)
+  _Lit :: Prism' (Term tm) Int
+  _Add :: Prism' (Term tm) (Term tm, Term tm)
 
 instance HasBase BaseF where
   _Lit = _Wrapped . _TmLit

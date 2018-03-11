@@ -12,28 +12,28 @@ import Interpret.Eval
 import Base
 import Mul
 
-instance NFData (Term TermF a)
+instance NFData (Term TermF)
 
-evalTerm :: Term TermF a -> Term TermF a
+evalTerm :: Term TermF -> Term TermF
 evalTerm =
   mkEval $ mappend B.addRule M.mulRule
 
-lit2 :: Term TermF a
+lit2 :: Term TermF
 lit2 =
   lit 2
 
-evalAddSmall :: (Term TermF a -> Term TermF a) -> Term TermF a -> Term TermF a
-evalAddSmall eval tm =
-  eval $ add tm tm
+evalAddSmall :: Term TermF -> Term TermF
+evalAddSmall tm =
+  evalTerm $ add tm tm
 
-evalAddMulSmall :: (Term TermF a -> Term TermF a) -> Term TermF a -> Term TermF a
-evalAddMulSmall eval tm =
-  eval $ add (mul tm (lit 3)) (lit 5)
+evalAddMulSmall :: Term TermF -> Term TermF
+evalAddMulSmall tm =
+  evalTerm $ add (mul tm (lit 3)) (lit 5)
 
-evalAddBig :: (Term TermF a -> Term TermF a) -> Term TermF a -> Term TermF a
-evalAddBig eval tm =
-  eval $ add (add tm (lit 3)) (add tm (lit 5))
+evalAddBig :: Term TermF -> Term TermF
+evalAddBig tm =
+  evalTerm $ add (add tm (lit 3)) (add tm (lit 5))
 
-evalAddMulBig :: (Term TermF a -> Term TermF a) -> Term TermF a -> Term TermF a
-evalAddMulBig eval tm =
-  eval $ add (mul (add tm (lit 3)) (add tm (lit 5))) (mul (add tm (lit 7)) (add tm (lit 11)))
+evalAddMulBig :: Term TermF -> Term TermF
+evalAddMulBig tm =
+  evalTerm $ add (mul (add tm (lit 3)) (add tm (lit 5))) (mul (add tm (lit 7)) (add tm (lit 11)))

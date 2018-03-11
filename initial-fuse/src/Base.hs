@@ -9,9 +9,9 @@ import Base.Type
 
 import Control.Lens
 
-lit :: HasBase tm => Int -> Term tm a
+lit :: HasBase tm => Int -> Term tm
 lit = review _Lit
 
-add :: HasBase tm => Term tm a -> Term tm a -> Term tm a
+add :: HasBase tm => Term tm -> Term tm -> Term tm
 add tm1 tm2 = review _Add (tm1, tm2)
 

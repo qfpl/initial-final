@@ -10,14 +10,14 @@ import Control.Lens
 import Control.DeepSeq (NFData)
 import GHC.Generics
 
-data TermF f a =
-    BMBase !(BaseF f a)
-  | BMMul !(MulF f a)
+data TermF f =
+    BMBase !(BaseF f)
+  | BMMul !(MulF f)
   deriving (Eq, Ord, Show, Generic)
 
 makePrisms ''TermF
 
-instance NFData (f a) => NFData (TermF f a)
+instance NFData f => NFData (TermF f)
 
 instance HasBaseF TermF where
   _BaseF = _BMBase

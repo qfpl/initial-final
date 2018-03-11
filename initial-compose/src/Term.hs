@@ -11,7 +11,7 @@ import Control.Lens
 
 import GHC.Generics
 
-newtype Term f a = Term { unTerm :: f (Term f) a }
+newtype Term f = Term { unTerm :: f (Term f) }
   deriving Generic
 --  deriving (Eq, Ord, Show)
 

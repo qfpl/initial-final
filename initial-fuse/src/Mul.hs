@@ -7,7 +7,7 @@ import Mul.Type
 
 import Control.Lens
 
-mul :: HasMul tm => Term tm a -> Term tm a -> Term tm a
+mul :: HasMul tm => Term tm -> Term tm -> Term tm
 mul tm1 tm2 = review _Mul (tm1, tm2)
 
 

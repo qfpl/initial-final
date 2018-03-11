@@ -9,16 +9,16 @@ import Control.Lens
 import Control.DeepSeq (NFData)
 import GHC.Generics
 
-data MulF f a =
-    TmMul !(f a) !(f a)
+data MulF f =
+    TmMul !f !f
   deriving (Eq, Ord, Show, Generic)
 
 makePrisms ''MulF
 
-instance NFData (f a) => NFData (MulF f a)
+instance NFData f => NFData (MulF f)
 
 class HasMul tm where
-  _Mul :: Prism' (Term tm a) (Term tm a, Term tm a)
+  _Mul :: Prism' (Term tm) (Term tm, Term tm)
 
 instance HasMul MulF where
   _Mul = _Wrapped . _TmMul

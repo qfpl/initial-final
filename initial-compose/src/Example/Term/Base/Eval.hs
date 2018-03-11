@@ -8,8 +8,8 @@ import Interpret.Eval
 
 import Example.Base
 
-evalTerm :: Term TermF a -> Term TermF a
+evalTerm :: Term TermF -> Term TermF
 evalTerm = mkEval addRule
 
-eval1 :: Term TermF a
+eval1 :: Term TermF
 eval1 = evalTerm term1
