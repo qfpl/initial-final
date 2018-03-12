@@ -33,8 +33,8 @@ library initial-bp-print
   default-language:    Haskell2010
 
 library initial-bp-term
-  hs-source-dirs:      initial-bp-term
   signatures:          Term.Type
+  hs-source-dirs:      initial-bp-term
   build-depends:       base ^>=4.10
   ghc-options:         -Wall -O2
   if flag(dump)
@@ -42,22 +42,22 @@ library initial-bp-term
   default-language:    Haskell2010
 
 library initial-bp-base-sig
-  hs-source-dirs:      initial-bp-base-sig
   signatures:          Base.Type
   build-depends:       base ^>=4.10
                      , initial-bp-term 
                      , lens
+  hs-source-dirs:      initial-bp-base-sig
   ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
 
 library initial-bp-base
-  hs-source-dirs:      initial-bp-base
   exposed-modules:     Base
   build-depends:       base ^>=4.10
                      , initial-bp-base-sig
                      , lens
+  hs-source-dirs:      initial-bp-base
   ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
@@ -90,22 +90,22 @@ library initial-bp-base-print
   default-language:    Haskell2010
 
 library initial-bp-mul-sig
-  hs-source-dirs:      initial-bp-mul-sig
   signatures:          Mul.Type
   build-depends:       base ^>=4.10
                      , initial-bp-term 
                      , lens
+  hs-source-dirs:      initial-bp-mul-sig
   ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
 
 library initial-bp-mul
-  hs-source-dirs:      initial-bp-mul
   exposed-modules:     Mul
   build-depends:       base ^>=4.10
                      , initial-bp-mul-sig
                      , lens
+  hs-source-dirs:      initial-bp-mul
   ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
@@ -163,11 +163,11 @@ library initial-bp-example-mul
   default-language:    Haskell2010
 
 library initial-bp-example-term-base
-  hs-source-dirs:      initial-bp-example-term-base
   exposed-modules:     Term.Type
                      , Base.Type
   build-depends:       base ^>=4.10
                      , lens
+  hs-source-dirs:      initial-bp-example-term-base
   ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
@@ -198,13 +198,13 @@ library initial-bp-example-term-base-print
   default-language:    Haskell2010
 
 library initial-bp-example-term-base-mul
-  hs-source-dirs:      initial-bp-example-term-base-mul
   exposed-modules:     Term.Type
                      , Base.Type
                      , Mul.Type
   build-depends:       base ^>=4.10
                      , lens
                      , deepseq
+  hs-source-dirs:      initial-bp-example-term-base-mul
   ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes

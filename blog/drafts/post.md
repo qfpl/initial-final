@@ -4,27 +4,27 @@
 
 Imagine that we want to build a data type to describe some kind of expression, and we want to write several interpreters for those expressions.
 
-We also want to be able to add new constructors to the data type and to be able to add new interpreters, and we want to be able to do these things while making no changes to our existing code.
-
 In our case we were going to start with an expression type:
 ```haskell
 data Term =
     Lit
   | Add Term Term
 ```
-and an evaluator;
+and an evaluator:
 ```haskell
 evalTerm :: Term -> Term
 ```
 
-We are then going to change the requirements so that we need an extra constructor:
+We also want to be able to add new constructors to the data type and to be able to add new interpreters, and we want to be able to do these things while making no changes to our existing code.
+
+The changes we are going to make in this post are to add the extra constructor:
 ```haskell
 data Term =
   ...
   | Mul Term Term
   ...
 ```
-and so that we are able to pretty print terms:
+and the extra interpreter which to pretty prints our terms:
 ```haskell
 printTerm :: Term -> String
 ```
@@ -36,7 +36,8 @@ printTerm :: Term -> String
 One of the common solutions to this kind of problem is the [tagless-final style](http://okmij.org/ftp/tagless-final/index.html).
 
 In this style we avoid writing a data type entirely, and write a typeclass that focuses on interpreting the data type.
-If we only needed to manipulate the values of our expression type to interpret values of that type, then this lets us skip having to define the type and create values of that types entirely.
+This means that we don't have to write a data type for our expression, but it also means that we can't directly manipulate values of our expression type either.
+If the only thing we want to do to these expression values is interpret them in some way, then tagless final style is fine.
 
 For the base case we want to be able to produce "things" from integer literals and from pairs of "things", so we write:
 ```haskell
@@ -45,7 +46,7 @@ class ExpBase repr where
   add :: repr -> repr -> repr
 ```
 
-Our interpreters will be instances of this typeclass.
+Our interpreters will lbe instances of this typeclass.
 
 The evaluator is straighforward:
 ```haskell
@@ -116,10 +117,13 @@ This isn't my idea at all -- I learned about it during a conversation with Ed Km
 
 It's going to make some very simple uses of Backpack, but it's pretty neat.  The best source I've found for reasoning about how to make use of Backpack is [this](https://github.com/ezyang/ghc-proposals/blob/backpack/proposals/0000-backpack.rst), in case you wanted to follow along. You'll need GHC 8.2 and Cabal 2.0 or greater to play along.
 
-The short description of Backpack is this:  we want to be able to write signatures for modules, and have modules that implement those signatures, and we want to be able to mix and match those puzzle pieces pretty freely.
-If I want a signature to depend on two other signatures, and then I provide an implementation for one of those signatures then I should be able to.
+The short description of Backpack is this: we want to be able to leave holes in modules to be filled in later.
+These holes can be data types or functions, and are defined as "signatures".
+We want to be able to write signatures for modules, and have modules that implement those signatures, and we want to be able to mix and match those puzzle pieces pretty freely.
 
 Backpack allows you to write a signature for the types and functions you would like from a module that dealt with String-like things, and then people can write libraries in terms of those signatures, and the users of those libraries can be the ones to pick which String-like implementation should be used.
+
+We're going to use that machinery for something else.
 
 We first set up a signature to play the role of the typeclass variable in our tagless final version:
 ```haskell
@@ -128,6 +132,7 @@ signature Repr where
 
 data Repr
 ```
+
 This will allow us to write code that depends on an indefinite type `Repr`, which we can fill in with different types later on when we glue things together.
 
 We're making use of Cabal's support for multiple sub-libraries within the one Cabal file to group all of this together. I've gone a bit wild with it, leading to a lot of small sub-libraries, but I've found I don't mind that too much.
@@ -270,6 +275,8 @@ library final-bp-mul-eval
   build-depends:       final-bp-eval
 ```
 
+And we can mix that together freely with the code that we wrote before.
+
 Now we _really_ have no tags, and we're breaking things up like we don't have a care in the world.
 
 ## An initial encoding that isn't extendable
@@ -309,7 +316,15 @@ evalTerm tm =
 ```
 although we'll be paying a price for building up and tearing down the value.
 
+We could just as easily write `prettyTerm :: Term -> String`.  The main point of difficulty is going to be adding new constructors in a way that means we don't have to rewrite our existing interpreter, so I'll be focusing on the evaluator from this point onwards.
+
 ## Initial encoding with classy `Prism`s
+
+With the initial encoding one of the main challenges is in being extensible in the constructors that are available to our users.
+
+We're going to be using `Prism`s (and other optics) from the `lens` package to make this happen.
+
+We'll create a data type to wrap up our constructors, which will be a kind of fixed point:
 
 ```haskell
 newtype Term f = Term { unTerm :: f (Term f) }
@@ -317,6 +332,9 @@ newtype Term f = Term { unTerm :: f (Term f) }
 makeWrapped ''Term
 ```
 
+The use of `makeWrapped` gives us access to an `Iso` named `_Wrapped` that allows us to wrap and unwrap this newtype.
+
+We'll create a type for fragment of our expression that deals with literals and addition:
 ```haskell
 data BaseF f =
     TmLit !Int
@@ -326,6 +344,30 @@ data BaseF f =
 makePrisms ''BaseF
 ```
 
+The use of `makePrisms` gives us `_TmLit :: Prism' BaseF Int` and `_TmAdd :: Prism' BaseF (f, f)`.
+
+We can use `review` with these prisms to build up a value of type `BaseF`:
+```
+> review _TmLit 2
+TmLit 2
+> review _TmAdd (review _TmLit 2) (review _TmLit 3)
+TmAdd (TmLit 2) (TmLit 3)
+```
+and we can use `preview` to pattern match on those values
+```
+> preview _TmLit (TmLit 2)
+Just 2
+> preview _TmLit (TmAdd (TmLit 2) (TmLit 3))
+Nothing
+```
+
+If we now wrote `type MyTerm = Term BaseF` we'd have something we could work with, although we'll be building everything up using various optics.
+
+We can make some of this a bit tidier using a variant on the "classy `Prism`s" approach.
+
+We write a typeclass that gives us a `Prism` from some `tm` to `BaseF`, and from that we can build `Prism`s from `Term tm` to the underlying types.
+
+An example might help:
 ```haskell
 class HasBaseF tm where
   _BaseF :: Prism' (tm f) (BaseF f)
@@ -337,12 +379,16 @@ class HasBaseF tm where
   _Add :: Prism' (Term tm) (Term tm, Term tm)
   _Add = _Wrapped . _BaseF . _TmAdd
   {-# INLINE _Add #-}
+```
 
+The simplest instance is for the case where `tm` _is_ `BaseF`, which is what we need to work with the `MyTerm` type specified above:
+```haskell
 instance HasBaseF BaseF where
   _BaseF = id
   {-# INLINE _BaseF #-}
 ```
 
+We'll also write some helper functions to build up terms where we have access to an instance of this typeclass:
 ```haskell
 lit :: HasBaseF tm => Int -> Term tm
 lit = review _Lit
@@ -351,24 +397,21 @@ add :: HasBaseF tm => Term tm -> Term tm -> Term tm
 add tm1 tm2 = review _Add (tm1, tm2)
 ```
 
+This can be used to build up value of type `Term tm` whenever we have a `HasBaseF` instance for `tm`.
+
 ```haskell
-addRule :: HasBaseF tm => EvalRule (Term tm)
-addRule = EvalRule $ \e tm -> do
-  (tm1, tm2) <- preview _Add tm
-  i1 <- preview _Lit (e tm1)
-  i2 <- preview _Lit (e tm2)
-  pure $ review _Lit (i1 + i2)
+> add (lit 2) (lit 3) :: MyTerm
+Term (TmAdd (Term (TmLit 2)) (Term (TmLit 3)))
 ```
 
+We can do the same thing for the fragment of our expression that deals with multiplication:
 ```haskell
 data MulF f =
     TmMul !f !f
   deriving (Eq, Ord, Show)
 
 makePrisms ''MulF
-```
 
-```haskell
 class HasMulF tm where
   _MulF :: Prism' (tm f) (MulF f)
 
@@ -379,56 +422,148 @@ class HasMulF tm where
 instance HasMulF MulF where
   _MulF = id
   {-# INLINE _MulF #-}
-```
 
-```haskell
 mul :: HasMulF tm => Term tm -> Term tm -> Term tm
 mul tm1 tm2 = review _Mul (tm1, tm2)
 ```
 
+If we want to use both of these fragments together, we can write a type to combine both of the intermediate types, and then write the relevant typeclass instances:
 ```haskell
+data BMF f =
+    BMBase !(BaseF f)
+  | BMMul !(MulF f)
+  deriving (Eq, Ord, Show)
+
+makePrisms ''BMF
+
+instance HasBaseF BMF where
+  _BaseF = _BMBase
+  {-# INLINE _BaseF #-}
+
+instance HasMulF BMF where
+  _MulF = _BMMul
+  {-# INLINE _MulF #-}
+```
+and we can use that with the helper functions that we defined earlier
+```
+> lit 2 :: Term BMF
+Term (BmBase (TmLit 2))
+```
+
+### Writing the evaluator
+
+We're going to use open recursion and a dash of laziness to write our evaluator.
+
+We'll define a type for our evaluation rules:
+```haskell
+newtype EvalRule tm =
+  EvalRule ((tm -> tm) -> tm -> Maybe tm)
+```
+which takes the evaluation function and a term and, if the rule applies, will return the evaluation of that term.
+
+We also have a type for rules in continuation-passing style:
+```haskell
+newtype EvalRuleK tm =
+  EvalRuleK (forall r. (tm -> tm) -> (tm -> r) -> (tm -> r) -> tm -> r)
+```
+which will allow for us to combine rules with much better performance.
+
+The constructor takes an evaluator function, a function to run if the rule applies, a function to run if the rule does not apply, and a term.  If the rule matches the first function will be called with the evaluated term, otherwise the second function will be called with the input term.  We'll see the effect of that shortly.
+
+We have a `Monoid` instance for this type to help carry out the work of combining these rules:
+```haskell
+instance Monoid (EvalRuleK tm) where
+  mempty =
+    EvalRuleK $ \_ _ bad -> 
+      bad
+  mappend (EvalRuleK r1) (EvalRuleK r2) =
+    EvalRuleK $ \e good bad -> 
+      r1 e good (r2 e good bad)
+```
+and we have a function that converts our easy-to-define rules into our efficient rules:
+```haskell
+toEvalK :: EvalRule tm -> EvalRuleK tm
+toEvalK (EvalRule f) =
+  EvalRuleK $ \e good bad tm ->
+    maybe (bad tm) good . f e $ tm
+```
+
+The last piece of the puzzle is a function that turn our efficient rules into an evaluator:
+```haskell
+mkEval :: EvalRuleK tm -> tm -> tm
+mkEval (EvalRuleK f) =
+  let
+    step = f eval Just (const Nothing)
+    eval tm = case step tm of
+      Nothing -> tm
+      Just tm' -> eval tm'
+  in
+    eval
+```
+
+This makes use of laziness to make the evaluation function available to each of the rules, even though the rules 
+are used to define the evaluation function.
+
+The stage is now set, and we can now write the evaluation rules for the various pieces of our AST.
+
+The rules for `BaseF` handle addition and make use of the `Prism`s from the `HasBaseF` typeclass to deconstruct the term:
+```haskell
+-- Base.Eval
+addRule :: HasBaseF tm => EvalRule (Term tm)
+addRule = EvalRule $ \e tm -> do
+  (tm1, tm2) <- preview _Add tm
+  i1 <- preview _Lit (e tm1)
+  i2 <- preview _Lit (e tm2)
+  pure $ review _Lit (i1 + i2)
+
+evalRules :: HasBase f => EvalRuleK (Term f)
+evalRules = toEvallK addRule
+```
+and the rules for `MulF` are similar:
+```haskell
+-- Mul.Eval
 mulRule :: (HasBaseF tm, HasMulF tm) => EvalRule (Term tm)
 mulRule = EvalRule $ \e tm -> do
   (tm1, tm2) <- preview _Mul tm
   i1 <- preview _Lit (e tm1)
   i2 <- preview _Lit (e tm2)
   pure $ review _Lit (i1 * i2)
+
+evalRules :: HasBase f => EvalRuleK (Term f)
+evalRules = toEvallK mulRule
 ```
 
+We can combine these rules if we are using both of those pieces at the same time:
 ```haskell
-data TermF f =
-    BMBase !(BaseF f)
-  | BMMul !(MulF f)
-  deriving (Eq, Ord, Show)
+-- Combined.Eval
+import qualified Base.Eval as B
+import qualified Mul.Eval as M
 
-makePrisms ''TermF
+evalRules :: (HasBaseF tm, HasMulF tm) => EvalRuleK (Term f)
+evalRules =
+  mappend B.evalRules M.evalRules
 ```
-
-```haskell
-instance HasBaseF TermF where
-  _BaseF = _BMBase
-  {-# INLINE _BaseF #-}
-```
-
-```haskell
-instance HasMulF TermF where
-  _MulF = _BMMul
-  {-# INLINE _MulF #-}
-```
+and if we had more fragments that we wanted to combine we would add them in here as well.
 
 ## Initial encoding with classy `Prism`s - another approach
 
+There is an alternate approach which is worth mentioning.
+
+If we are happy to lose the convenience of intermediate data types likes `BaseF`, we can have typeclasses that expose `Prism`s to the constructors that we are interested in directly.
+
+In our case this leads to the classes:
 ```haskell
 class HasBase tm where
   _Lit :: Prism' (Term tm) Int
   _Add :: Prism' (Term tm) (Term tm, Term tm)
 ```
-
+and
 ```haskell
 class HasMul tm where
   _Mul :: Prism' (Term tm) (Term tm, Term tm)
 ```
 
+We have to roll our own data type to use these:
 ```haskell
 data TermF f =
     BMLit !Int
@@ -438,20 +573,19 @@ data TermF f =
 
 makePrisms ''TermF
 ```
-
+and wire up the appropriate instances:
 ```haskell
 instance HasBase TermF where
   _Lit = _Wrapped . _BMLit
   {-# INLINE _Lit #-}
   _Add = _Wrapped . _BMAdd
   {-# INLINE _Add #-}
-```
 
-```haskell
 instance HasMul TermF where
   _Mul = _Wrapped . _BMMul
   {-# INLINE _Mul #-}
 ```
+but otherwise nothing much else changes.
 
 ## Initial encoding with Backpack
 
@@ -460,6 +594,11 @@ instance HasMul TermF where
 signature Term.Type where
 
 data Term
+```
+
+```
+library initial-bp-term
+  signatures: Term.Type
 ```
 
 ```haskell
@@ -472,6 +611,12 @@ import Control.Lens
 
 _Lit :: Prism' Term Int
 _Add :: Prism' Term (Term, Term)
+```
+
+```
+library initial-bp-base-sig
+  signatures:    Base.Type
+  build-depends: initial-bp-term, lens
 ```
 
 ```haskell
@@ -488,6 +633,12 @@ lit = review _Lit
 
 add :: Term -> Term -> Term
 add x y = review _Add (x, y)
+```
+
+```
+library initial-bp-base
+  exposed-modules: Base
+  build-depends:   initial-bp-base-sig, lens
 ```
 
 ```haskell
@@ -514,6 +665,12 @@ module Base.Type (
 import Term.Type
 ```
 
+```
+library initial-bp-example-term-base
+  exposed-modules: Term.Type, Base.Type
+  build-depends:   lens
+```
+
 ```haskell
 -- initial-bp-mul-sig
 signature Mul.Type where
@@ -523,6 +680,12 @@ import Term.Type
 import Control.Lens
 
 _Mul :: Prism' Term (Term, Term)
+```
+
+```
+library initial-bp-mul-sig
+  signatures:    Mul.Type
+  build-depends: initial-bp-term, lens
 ```
 
 ```haskell
@@ -536,6 +699,12 @@ import Control.Lens
 
 mul :: Term -> Term -> Term
 mul x y = review _Mul (x, y)
+```
+
+```
+library initial-bp-mul
+  exposed-modules: Mul
+  build-depends:   initial-bp-mul-sig, lens
 ```
 
 ```haskell
@@ -572,10 +741,15 @@ module Mul.Type (
 import Term.Type
 ```
 
+```
+library initial-bp-example-term-base-mul
+  exposed-modules: Term.Type, Base.Type, Mul.Type
+  build-depends:   lens
+```
+
 # Benchmarking the code
 
 The code was benchmarked using `criterion`.
-
 There were a number of benchmarks that were used, but I'll be focusing on this one:
 ```haskell
 evalAddMulBig tm =
@@ -590,73 +764,41 @@ where the benchmark itself looks something like:
   nf evalAddMulBig (lit 2)
 ```
 
+## Final encoding
+
+### Benchmark results
+
 The tagless final approach on `Int`
 ```
-time                 4.914 ns   (4.846 ns .. 4.981 ns)
-                     0.999 R²   (0.999 R² .. 0.999 R²)
-mean                 4.887 ns   (4.843 ns .. 4.931 ns)
-std dev              147.4 ps   (128.8 ps .. 170.5 ps)
+time                 3.463 ns   (3.439 ns .. 3.488 ns)
+                     1.000 R²   (0.999 R² .. 1.000 R²)
+mean                 3.472 ns   (3.450 ns .. 3.505 ns)
+std dev              91.75 ps   (68.67 ps .. 118.7 ps)
+variance introduced by outliers: 46% (moderately inflated)
 ```
 and on a newtype wrapping `Int`
 ```
-time                 4.504 ns   (4.438 ns .. 4.568 ns)
-                     0.999 R²   (0.998 R² .. 0.999 R²)
-mean                 4.518 ns   (4.470 ns .. 4.575 ns)
-std dev              174.0 ps   (144.2 ps .. 222.0 ps)
+time                 3.222 ns   (3.201 ns .. 3.245 ns)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 3.215 ns   (3.200 ns .. 3.235 ns)
+std dev              59.28 ps   (50.17 ps .. 69.78 ps)
+variance introduced by outliers: 29% (moderately inflated)
 ```
 and the version using Backpack
 ```
-time                 4.941 ns   (4.891 ns .. 4.998 ns)
-                     0.999 R²   (0.997 R² .. 0.999 R²)
-mean                 4.999 ns   (4.936 ns .. 5.145 ns)
-std dev              295.7 ps   (161.1 ps .. 593.6 ps)
+time                 3.452 ns   (3.433 ns .. 3.472 ns)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 3.447 ns   (3.429 ns .. 3.476 ns)
+std dev              80.32 ps   (64.39 ps .. 105.0 ps)
+variance introduced by outliers: 39% (moderately inflated)
 ```
 were all very similar.
 
-The vanilla initial encoding was slower that the final encodings
-```
-time                 79.14 ns   (77.89 ns .. 80.63 ns)
-                     0.998 R²   (0.997 R² .. 0.999 R²)
-mean                 79.04 ns   (78.17 ns .. 80.08 ns)
-std dev              3.335 ns   (2.678 ns .. 4.213 ns)
-```
-which makes sense, since it needed to build up and tear down values for the expressions.
+### Looking at the generated Core
 
-The versions using classy `Prism`s
-```
-time                 78.82 ns   (77.89 ns .. 79.91 ns)
-                     0.999 R²   (0.998 R² .. 0.999 R²)
-mean                 79.24 ns   (78.40 ns .. 80.21 ns)
-std dev              3.210 ns   (2.656 ns .. 4.498 ns)
-```
-and Backpack
-```
-time                 74.67 ns   (74.20 ns .. 75.26 ns)
-                     0.999 R²   (0.999 R² .. 1.000 R²)
-mean                 75.52 ns   (74.79 ns .. 76.56 ns)
-std dev              2.982 ns   (2.371 ns .. 4.149 ns)
-```
-were similar to the vanilla version.
+If we have a look at the Core which was produced, we can see why they are so similar (and so very fast).
 
-The version using classy `Prism`s via the convenience types for the various pieces:
-```haskell
-data TermF f =
-    BMBase !(BaseF f)
-  | BMMul  !(MulF f)
-```
-fared a bit worse:
-```
-time                 126.1 ns   (124.8 ns .. 127.5 ns)
-                     0.999 R²   (0.998 R² .. 0.999 R²)
-mean                 126.8 ns   (125.4 ns .. 128.5 ns)
-std dev              5.051 ns   (4.087 ns .. 6.742 ns)
-```
-
-# Looking at the core
-
-## Final encoding
-
-final int
+This is the version for the final encoding on an Int:
 ```
 evalAddMulBig :: Int -> Int
 evalAddMulBig
@@ -665,8 +807,16 @@ evalAddMulBig
       I# (+# (*# (+# x 3#) (+# x 5#)) (*# (+# x 7#) (+# x 11#)))
       }
 ```
-
-final eval
+which is identical to the version using Backpack (since `Repr` is `Int` in this case):
+```
+evalAddMulBig :: Repr -> Repr
+evalAddMulBig
+  = \ (tm :: Repr) ->
+      case tm of { I# x ->
+      I# (+# (*# (+# x 3#) (+# x 5#)) (*# (+# x 7#) (+# x 11#)))
+      }
+```
+and is the same as for the final encoding on a newtype around an Int with the exception of a few coercions:
 ```
 evalAddMulBig1 :: Eval -> Int
 evalAddMulBig1
@@ -679,19 +829,62 @@ evalAddMulBig :: Eval -> Eval
 evalAddMulBig = evalAddMulBig1 `cast` <Co:18>
 ```
 
-final bp
+What we're looking at here is code that breaks open the usual `Int` type to get hold of the unpacked machine `Int` (`I#`), and everything else from that point on is happening in terms of those unpacked machine `Int`s.
+
+## Initial encoding
+
+### Benchmark results
+
+The vanilla initial encoding was slower that the final encodings
 ```
-evalAddMulBig :: Repr -> Repr
-evalAddMulBig
-  = \ (tm :: Repr) ->
-      case tm of { I# x ->
-      I# (+# (*# (+# x 3#) (+# x 5#)) (*# (+# x 7#) (+# x 11#)))
-      }
+time                 58.13 ns   (57.77 ns .. 58.51 ns)
+                     1.000 R²   (0.999 R² .. 1.000 R²)
+mean                 58.33 ns   (57.95 ns .. 58.86 ns)
+std dev              1.445 ns   (1.066 ns .. 1.822 ns)
+variance introduced by outliers: 38% (moderately inflated)
+```
+which makes sense, since it needed to build up and tear down values for the expressions.
+
+The versions using classy `Prism`s
+```
+time                 63.02 ns   (61.71 ns .. 64.53 ns)
+                     0.997 R²   (0.996 R² .. 0.999 R²)
+mean                 63.38 ns   (62.37 ns .. 64.48 ns)
+std dev              3.693 ns   (2.988 ns .. 4.670 ns)
+variance introduced by outliers: 77% (severely inflated)
+```
+and Backpack
+```
+time                 55.35 ns   (54.95 ns .. 55.79 ns)
+                     1.000 R²   (0.999 R² .. 1.000 R²)
+mean                 55.59 ns   (55.17 ns .. 56.07 ns)
+std dev              1.567 ns   (1.184 ns .. 1.932 ns)
+variance introduced by outliers: 44% (moderately inflated)
+```
+were similar to the vanilla version.
+
+The version using classy `Prism`s via the convenience types for the various pieces:
+```haskell
+data TermF f =
+    BMBase !(BaseF f)
+  | BMMul  !(MulF f)
+```
+fared a bit worse:
+```
+time                 80.63 ns   (80.03 ns .. 81.22 ns)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 80.61 ns   (80.09 ns .. 81.36 ns)
+std dev              2.083 ns   (1.624 ns .. 2.820 ns)
+variance introduced by outliers: 39% (moderately inflated)
 ```
 
-## Initial encodings
+### Looking at the generated Core
 
-vanilla
+Again, looking at the core will be useful for understanding the differences between the benchmark results.
+
+We'll start looking at our evaluation function, which was called `evalTerm` in our code.
+
+The version generated for the vanilla initial encoding:
 ```
 Rec {
 evalTerm :: Term -> Term
@@ -720,8 +913,7 @@ evalTerm
       }
 end Rec }
 ```
-
-initial bp
+and for the version using Backpack: 
 ```
 Rec {
 -- RHS size: {terms: 39, types: 15, coercions: 0, joins: 0/0}
@@ -751,8 +943,9 @@ evalTerm
       }
 end Rec }
 ```
+are identical.
 
-fuse
+The version using classy `Prism`s and no intermediate data structures is more or less the same except for the casts and coercions:
 ```
 Rec {
 evalTerm :: Term TermF -> Term TermF
@@ -782,10 +975,9 @@ evalTerm
 end Rec }
 ```
 
-compose
+The version using the intermediate data structures has to do the work of walking through those data structures:
 ```
 Rec {
--- RHS size: {terms: 67, types: 102, coercions: 43, joins: 0/0}
 evalTerm :: Term TermF -> Term TermF
 evalTerm
   = \ (tm1 :: Term TermF) ->
@@ -834,7 +1026,11 @@ evalTerm
 end Rec }
 ```
 
-vanilla
+That goes part of the way to explaining the benchmark results.
+
+In order to dig further into the differences in the benchmarks, we have to look at how `evalTerm` is used.
+
+The Core for the vanilla initial encoding uses `evalTerm` pretty directly:
 ```
 evalAddBig2 :: Term
 evalAddBig2 = Lit 3#
@@ -859,7 +1055,10 @@ evalAddMulBig
       }
 ```
 
-initial bp
+The Core for the Backpack solution is interesting. It is mostly the same as the vanilla initial encoding.
+
+Instead of `evalTerm (Add x y)` we have `evalAddBig_$evalTerm x y`, where `evalAddBig_$evalTerm` is a partial unfolding of the rule for dealing with addition.  This is likely why this version is slightly faster than the vanilla initial encoding.
+
 ```
 evalAddBig2 :: Term
 evalAddBig2 = Lit 3#
@@ -895,7 +1094,7 @@ evalAddMulBig
       }
 ```
 
-fuse
+The same is true for the version using classy `Prism`s, although it has a number of casts and coercions mixed through it:
 ```
 evalAddMulBig4 :: TermF (Term TermF)
 evalAddMulBig4 = BMLit 3#
@@ -947,7 +1146,7 @@ evalAddMulBig
       }
 ```
 
-compose
+The version using the intermediate data structures has to do the work, both when creating and when walking through those data structures:
 ```
 evalAddBig4 :: BaseF (Term TermF)
 evalAddBig4 = TmLit 3#
@@ -1022,3 +1221,46 @@ evalAddMulBig
         @~ <Co:531>
       }
 ```
+
+# Conclusions, open questions, future work
+
+I learned a few things from this.
+
+Final encodings can be blazingly fast, and Backpack lets us decompose final encodings a little more than we can with the usual approach.  I think I'd heard this before, but running some benchmarks and dumping the generated Core really hammered that home for me.
+
+Classy `Prism`s (or the Backpack equivalent) lets us write extensible code with performance that is competitive with the equivalent code that wasn't written to be extended.  I wasn't expecting that at all.  
+
+I have a few different bodies of code where I use classy `Prism`s and open-recursion rules systems to build up little languages from these pieces, so I'm keen to roll out the continuation-based rules systems in the next version of that project and see how it performs.  The rules system could present a simpler API to the people using them, so that's something I'll probably work on at the same time.
+
+Mostly, I wrote this because I liked the look of the Backpack version of the tagless final style that Ed showed me,
+and I wanted to see if I could do similar cool things with Backpack.
+
+It seems like there is much more to explore.
+
+We could try to build something like [Trees that grow (PDF)](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/11/trees-that-grow.pdf):
+```
+signature AddPiece where
+
+import Control.Lens
+
+import Term.Type
+
+data AddAnnotation
+
+_Add'   :: Prism' Term (AddAnnotation, (Term, Term))
+
+_AddAnn :: Prism' Term AddAnnotation
+_AddAnn = _Add' . _1
+
+_Add    :: Prism' Term (Term, Term)
+_Add    = _Add' . _2
+```
+where we could fill in the `Prism`s and leave the `AddAnnotation` to be filled in later.
+
+In other areas, Ed has also done something interesting [here](https://github.com/ekmett/coda/blob/master/lib/coda-set/Elem.hsig) and [here](https://github.com/ekmett/coda/blob/master/lib/coda-set/Set/Internal.hs#L248).
+
+This is a copy of the code for `Set` from `containers`, where the element type is fixed via a Backpack signature.
+The twist is that this will `{-# UNPACK #-}` the element type into the definition of the `Set`.
+I haven't played with it yet, but it seems like a really interesting idea. 
+
+It feels like there is a lot of applications and techniques involving Backpack that are yet to be discovered. Hopefully this gives some folks the motivation to go digging.
