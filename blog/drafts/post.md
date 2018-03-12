@@ -8,7 +8,7 @@ Imagine that we want to build a data type to describe some kind of expression, a
 In our case we were going to start with an expression type:
 ```haskell
 data Term =
-    Lit
+    Lit Int
   | Add Term Term
 ```
 and an evaluator:
