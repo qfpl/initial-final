@@ -33,6 +33,8 @@ and the extra interpreter which to pretty prints our terms:
 printTerm :: Term -> String
 ```
 
+This is known as "The Expression Problem".
+
 ## The solutions
 
 ### Final encoding with tagless-final
@@ -93,7 +95,7 @@ mul (lit 3) (testMe (lit 5))
 ```
 
 A slight drawback to that approach arises from the orphan instance problem.
-If we have a lot of different interpreters, and we're not writing them alongside the definitions of the interpreters, we're going to have a lot of different types that have instances of these typeclasses.
+If we have a lot of different interpreters we're going to have a lot of different types that have instances of these typeclasses.
 
 If we're not defining them in the same module as the typeclass for our interpreter then we need to define them in the same module as the data type, so that we don't end up with orphan instances.
 
@@ -112,7 +114,7 @@ instance ExpMul Eval where
 where we may have wanted to split things up a bit more.
 
 The other slight drawback is that while we don't have to create explicit tags to mark out which types support which interpreters, we are paying the cost for the implicit tagging that we are doing.
-This happens because we are passing typeclass dictionaries all over the place, although this may not actually effect you if your code is simple and/or if you compile with optimisations turned up.
+This happens because we are passing typeclass dictionaries all over the place, although this may not actually affect you if your code is simple and/or if you compile with optimisations turned up.
 
 ### Final encoding with Backpack
 
