@@ -1,5 +1,8 @@
-% The expression problem with Backpack
-% Dave Laing
+---
+title: Backpack for initial and final encodings
+date: 2018-03-14
+authors: dlaing
+---
 
 ## Introduction
 
