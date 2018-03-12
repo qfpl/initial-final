@@ -64,13 +64,13 @@ library initial-bp-base
   default-language:    Haskell2010
 
 library initial-bp-base-eval
-  hs-source-dirs:      initial-bp-base-eval
   exposed-modules:     Base.Eval
   build-depends:       base ^>=4.10
                      , initial-bp-base-sig
                      , initial-bp-term
                      , initial-bp-eval
                      , lens
+  hs-source-dirs:      initial-bp-base-eval
   ghc-options:         -Wall -O2
   if flag(dump)
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes

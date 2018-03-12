@@ -1,6 +1,7 @@
 % The expression problem with Backpack
+% Dave Laing
 
-# The problem
+## Introduction
 
 Imagine that we want to build a data type to describe some kind of expression, and we want to write several interpreters for those expressions.
 
@@ -29,9 +30,9 @@ and the extra interpreter which to pretty prints our terms:
 printTerm :: Term -> String
 ```
 
-# The solutions
+## The solutions
 
-## Final encoding with tagless-final
+### Final encoding with tagless-final
 
 One of the common solutions to this kind of problem is the [tagless-final style](http://okmij.org/ftp/tagless-final/index.html).
 
@@ -110,7 +111,7 @@ where we may have wanted to split things up a bit more.
 The other slight drawback is that while we don't have to create explicit tags to mark out which types support which interpreters, we are paying the cost for the implicit tagging that we are doing.
 This happens because we are passing typeclass dictionaries all over the place, although this may not actually effect you if your code is simple and/or if you compile with optimisations turned up.
 
-## Final encoding with Backpack
+### Final encoding with Backpack
 
 We're now going to solve the problem again using Backpack, partly to address these problems and partly just to play around with Backpack a little.
 This isn't my idea at all -- I learned about it during a conversation with Ed Kmett about his use of this trick in `coda`.
@@ -279,7 +280,7 @@ And we can mix that together freely with the code that we wrote before.
 
 Now we _really_ have no tags, and we're breaking things up like we don't have a care in the world.
 
-## An initial encoding that isn't extendable
+### An initial encoding that isn't extendable
 
 If we really want to be able to play with values of our term, we can write a data type for our terms:
 ```haskell
@@ -318,7 +319,7 @@ although we'll be paying a price for building up and tearing down the value.
 
 We could just as easily write `prettyTerm :: Term -> String`.  The main point of difficulty is going to be adding new constructors in a way that means we don't have to rewrite our existing interpreter, so I'll be focusing on the evaluator from this point onwards.
 
-## Initial encoding with classy `Prism`s
+### Initial encoding with classy `Prism`s
 
 With the initial encoding one of the main challenges is in being extensible in the constructors that are available to our users.
 
@@ -450,7 +451,7 @@ and we can use that with the helper functions that we defined earlier
 Term (BmBase (TmLit 2))
 ```
 
-### Writing the evaluator
+#### Writing the evaluator
 
 We're going to use open recursion and a dash of laziness to write our evaluator.
 
@@ -545,7 +546,7 @@ evalRules =
 ```
 and if we had more fragments that we wanted to combine we would add them in here as well.
 
-## Initial encoding with classy `Prism`s - another approach
+### Initial encoding with classy `Prism`s - another approach
 
 There is an alternate approach which is worth mentioning.
 
@@ -587,8 +588,11 @@ instance HasMul TermF where
 ```
 but otherwise nothing much else changes.
 
-## Initial encoding with Backpack
+### Initial encoding with Backpack
 
+Let us translate that into code that uses Backpack.
+
+We'll start with a signature that gives a name to our `Term` type
 ```haskell
 -- initial-bp-term-sig
 signature Term.Type where
@@ -597,10 +601,11 @@ data Term
 ```
 
 ```
-library initial-bp-term
+library initial-bp-term-sig
   signatures: Term.Type
 ```
 
+We'll build on that to create a signature that exposes the `Prism`s that we want for the base fragment of our expression:
 ```haskell
 -- initial-bp-base-sig
 signature Base.Type where
@@ -612,13 +617,14 @@ import Control.Lens
 _Lit :: Prism' Term Int
 _Add :: Prism' Term (Term, Term)
 ```
-
+which will require an implementation for the `Term` signature before we can use it.
 ```
 library initial-bp-base-sig
   signatures:    Base.Type
-  build-depends: initial-bp-term, lens
+  build-depends: initial-bp-term-sig, lens
 ```
 
+We can build on this with the usual helper functions:
 ```haskell
 -- initial-bp-base
 module Base where
@@ -641,6 +647,7 @@ library initial-bp-base
   build-depends:   initial-bp-base-sig, lens
 ```
 
+If we want to start implementing these things, we can create an implementation for `Term.Type`:
 ```haskell
 -- initial-bp-example-term-base
 module Term.Type where
@@ -654,7 +661,7 @@ data Term =
 
 makePrisms ''Term
 ```
-
+and then reexport the `Prism`s to create an implementation for `Base.Type`:
 ```haskell
 -- initial-bp-example-term-base
 module Base.Type (
@@ -671,6 +678,7 @@ library initial-bp-example-term-base
   build-depends:   lens
 ```
 
+We can build up the same machine for the fragment which deals with multiplication:
 ```haskell
 -- initial-bp-mul-sig
 signature Mul.Type where
@@ -685,9 +693,9 @@ _Mul :: Prism' Term (Term, Term)
 ```
 library initial-bp-mul-sig
   signatures:    Mul.Type
-  build-depends: initial-bp-term, lens
+  build-depends: initial-bp-term-sig, lens
 ```
-
+including the usual helper function:
 ```haskell
 -- initial-bp-mul
 module Mul where
@@ -707,6 +715,7 @@ library initial-bp-mul
   build-depends:   initial-bp-mul-sig, lens
 ```
 
+Then we can create a new implementation for `Term.Type`:
 ```haskell
 -- initial-bp-example-term-base-mul
 module Term.Type where
@@ -721,7 +730,7 @@ data Term =
 
 makePrisms ''Term
 ```
-
+and reexport the `Prism`s for the base fragment:
 ```haskell
 -- initial-bp-example-term-base-mul
 module Base.Type (
@@ -731,7 +740,7 @@ module Base.Type (
 
 import Term.Type
 ```
-
+and for the multiplication fragment:
 ```haskell
 -- initial-bp-example-term-base-mul
 module Mul.Type (
@@ -747,7 +756,36 @@ library initial-bp-example-term-base-mul
   build-depends:   lens
 ```
 
-# Benchmarking the code
+We can capture our rules types and associated functions in a sub-library (`initial-bp-eval`), and then we can write the rules for our fragments as we did before:
+```haskell
+-- initial-bp-base-eval
+module Base.Eval where
+
+import Control.Lens
+
+import Interpret.Eval
+
+import Term.Type
+import Base.Type
+
+addRule :: EvalRule Term
+addRule = EvalRule $ \e tm -> do
+  (tm1, tm2) <- preview _Add tm
+  i1 <- preview _Lit (e tm1)
+  i2 <- preview _Lit (e tm2)
+  pure $ review _Lit (i1 + i2)
+
+evalRules :: EvalRuleK Term
+evalRules = toEvalK addRule
+```
+where we are generic in the `Term` and `Base` signatures:
+```
+library initial-bp-base-eval
+  exposed-modules: Base.Eval
+  build-depends:   initial-bp-term-sig, initial-bp-base-sig, initial-bp-eval, lens
+```
+
+## Benchmarking the code
 
 The code was benchmarked using `criterion`.
 There were a number of benchmarks that were used, but I'll be focusing on this one:
@@ -764,9 +802,9 @@ where the benchmark itself looks something like:
   nf evalAddMulBig (lit 2)
 ```
 
-## Final encoding
+### Final encoding
 
-### Benchmark results
+#### Benchmark results
 
 The tagless final approach on `Int`
 ```
@@ -794,7 +832,7 @@ variance introduced by outliers: 39% (moderately inflated)
 ```
 were all very similar.
 
-### Looking at the generated Core
+#### Looking at the generated Core
 
 If we have a look at the Core which was produced, we can see why they are so similar (and so very fast).
 
@@ -831,9 +869,9 @@ evalAddMulBig = evalAddMulBig1 `cast` <Co:18>
 
 What we're looking at here is code that breaks open the usual `Int` type to get hold of the unpacked machine `Int` (`I#`), and everything else from that point on is happening in terms of those unpacked machine `Int`s.
 
-## Initial encoding
+### Initial encoding
 
-### Benchmark results
+#### Benchmark results
 
 The vanilla initial encoding was slower that the final encodings
 ```
@@ -878,7 +916,7 @@ std dev              2.083 ns   (1.624 ns .. 2.820 ns)
 variance introduced by outliers: 39% (moderately inflated)
 ```
 
-### Looking at the generated Core
+#### Looking at the generated Core
 
 Again, looking at the core will be useful for understanding the differences between the benchmark results.
 
@@ -1222,7 +1260,7 @@ evalAddMulBig
       }
 ```
 
-# Conclusions, open questions, future work
+## Conclusion
 
 I learned a few things from this.
 
