@@ -19,7 +19,7 @@ and an evaluator:
 evalTerm :: Term -> Term
 ```
 
-We also want to be able to add new constructors to the data type and to be able to add new interpreters, and we want to be able to do these things while making no changes to our existing code.
+We also want to be able to add new constructors to the data type and to be able to add new interpreters, and we want to be able to add these things without having to change our existing code.
 
 The changes we are going to make in this post are to add the extra constructor:
 ```haskell
@@ -41,8 +41,8 @@ This is known as "The Expression Problem".
 
 One of the common solutions to this kind of problem is the [tagless-final style](http://okmij.org/ftp/tagless-final/index.html).
 
-In this style we avoid writing a data type entirely, and write a typeclass that focuses on interpreting the data type.
-This means that we don't have to write a data type for our expression, but it also means that we can't directly manipulate values of our expression type either.
+In this style we avoid writing a data type entirely, and instead write a typeclass that does the interpretation directly.
+This means that we don't have to write a data type for our expression, and so the tradeoff is that we can't directly manipulate values of our expression type.
 If the only thing we want to do to these expression values is interpret them in some way, then tagless final style is fine.
 
 For the base case we want to be able to produce "things" from integer literals and from pairs of "things", so we write:
@@ -60,7 +60,7 @@ instance ExpBase Int where
   lit = id
   add = (+)
 ```
-but we could just as easily write a pretty-printer (of dubious prettiness):
+and we could just as easily write a pretty-printer (of dubious prettiness):
 ```haskell
 instance ExpBase String where
   lit = show
@@ -89,15 +89,19 @@ with inferred type:
 ```haskell
 testMe :: ExpBase tm => tm -> tm
 ```
-then we wouldn't even need to recompile it to be able to use it in
+then we wouldn't even need to recompile it to be able to use it in:
 ```haskell
-mul (lit 3) (testMe (lit 5))
+otherTest = mul (lit 3) (testMe (lit 5))
+```
+although now we have the inferred type:
+```haskell
+otherTest :: (ExpBase tm, ExpMul tm) => tm -> tm
 ```
 
 A slight drawback to that approach arises from the orphan instance problem.
-If we have a lot of different interpreters we're going to have a lot of different types that have instances of these typeclasses.
+If we have a lot of different interpreters we're going to have a lot of different instances of these typeclasses.
 
-If we're not defining them in the same module as the typeclass for our interpreter then we need to define them in the same module as the data type, so that we don't end up with orphan instances.
+If we're not defining them in the same module as the typeclass then we need to define them in the same module as the data type, so that we don't end up with orphan instances.
 
 We end up with something like this:
 ```haskell
@@ -111,25 +115,34 @@ instance ExpBase Eval where
 instance ExpMul Eval where
   mul (Eval x) (Eval y) = Eval (x * y)
 ```
-where we may have wanted to split things up a bit more.
+
+If we wanted to split things up a bit more, we are out of luck.
 
 The other slight drawback is that while we don't have to create explicit tags to mark out which types support which interpreters, we are paying the cost for the implicit tagging that we are doing.
-This happens because we are passing typeclass dictionaries all over the place, although this may not actually affect you if your code is simple and/or if you compile with optimisations turned up.
+
+This happens because we are passing typeclass dictionaries all over the place.
+If we use `testMe` in a context where an `Int` is expected, the `ExpBase Int` instance will be used to compute the result.
+This instance is -- in theory -- being passed along to `testMe` at runtime.
+You may not be effected by this if your code is simple and/or if you compile with optimisations turned up.
 
 ### Final encoding with Backpack
 
 We're now going to solve the problem again using Backpack, partly to address these problems and partly just to play around with Backpack a little.
 This isn't my idea at all -- I learned about it during a conversation with Ed Kmett about his use of this trick in `coda`.
 
-It's going to make some very simple uses of Backpack, but it's pretty neat.  The best source I've found for reasoning about how to make use of Backpack is [this](https://github.com/ezyang/ghc-proposals/blob/backpack/proposals/0000-backpack.rst), in case you wanted to follow along. You'll need GHC 8.2 and Cabal 2.0 or greater to play along.
+We're going to make some very simple uses of Backpack along the way, but it's a pretty neat trick so please stick with it.
+
+The best source I've found for reasoning about how to make use of Backpack is [this](https://github.com/ezyang/ghc-proposals/blob/backpack/proposals/0000-backpack.rst), in case you wanted more details. You'll need GHC 8.2 and Cabal 2.0 or greater to play along.
 
 The short description of Backpack is this: we want to be able to leave holes in modules to be filled in later.
-These holes can be data types or functions, and are defined as "signatures".
+These holes can be data types or functions, and are called "signatures".
 We want to be able to write signatures for modules, and have modules that implement those signatures, and we want to be able to mix and match those puzzle pieces pretty freely.
 
 Backpack allows you to write a signature for the types and functions you would like from a module that dealt with String-like things, and then people can write libraries in terms of those signatures, and the users of those libraries can be the ones to pick which String-like implementation should be used.
 
-We're going to use that machinery for something else.
+We're going to use that machinery for something else entirely.
+
+Let us have a go at the tagless final style using Backpack.
 
 We first set up a signature to play the role of the typeclass variable in our tagless final version:
 ```haskell
@@ -141,7 +154,7 @@ data Repr
 
 This will allow us to write code that depends on an indefinite type `Repr`, which we can fill in with different types later on when we glue things together.
 
-We're making use of Cabal's support for multiple sub-libraries within the one Cabal file to group all of this together. I've gone a bit wild with it, leading to a lot of small sub-libraries, but I've found I don't mind that too much.
+We're making use of Cabal's support for multiple sub-libraries within the one Cabal file to group all of this together. I've gone a bit wild with it, leading to a lot of small sub-libraries, but I haven't had problems with it so far.
 
 Our first library just packages up the `Repr` signature:
 ```
@@ -322,13 +335,14 @@ evalTerm tm =
 ```
 although we'll be paying a price for building up and tearing down the value.
 
-We could just as easily write `prettyTerm :: Term -> String`.  The main point of difficulty is going to be adding new constructors in a way that means we don't have to rewrite our existing interpreter, so I'll be focusing on the evaluator from this point onwards.
+We could just as easily write `prettyTerm :: Term -> String`.  The main point of difficulty is going to be adding new constructors in a way that means we don't have to rewrite our existing interpreters, so I'll be focusing on the evaluator from this point onwards.
 
 ### Initial encoding with classy `Prism`s
 
 With the initial encoding one of the main challenges is in being extensible in the constructors that are available to our users.
 
 We're going to be using `Prism`s (and other optics) from the `lens` package to make this happen.
+I'm assuming a little bit of familiarity with `lens` here, so if you're not there yet feel free to skip ahead to the  benchmarks for the final encoding.
 
 We'll create a data type to wrap up our constructors, which will be a kind of fixed point:
 
@@ -339,8 +353,9 @@ makeWrapped ''Term
 ```
 
 The use of `makeWrapped` gives us access to an `Iso` named `_Wrapped` that allows us to wrap and unwrap this newtype.
+We'll see that in use shortly.
 
-We'll create a type for fragment of our expression that deals with literals and addition:
+Next we create a type for fragment of our expression that deals with literals and addition:
 ```haskell
 data BaseF f =
     TmLit !Int
@@ -350,9 +365,11 @@ data BaseF f =
 makePrisms ''BaseF
 ```
 
+The type variable `f` is going to be filled in with a `Term g` for some `g`, which we'll sort out later.
+
 The use of `makePrisms` gives us `_TmLit :: Prism' BaseF Int` and `_TmAdd :: Prism' BaseF (f, f)`.
 
-We can use `review` with these prisms to build up a value of type `BaseF`:
+If you haven't seen `Prism`s before, all you need to know is that we can use `review` with these prisms to build up a value of type `BaseF`:
 ```
 > review _TmLit 2
 TmLit 2
