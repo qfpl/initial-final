@@ -623,7 +623,7 @@ instance HasMul TermF where
 ```
 but otherwise nothing much else changes.
 
-### Initial encoding with Backpack
+### Initial encoding with "Backpacky `Prism`s"
 
 Let us translate that into code that uses Backpack.
 
