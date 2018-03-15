@@ -42,7 +42,7 @@ This is known as ["The Expression Problem"](https://en.wikipedia.org/wiki/Expres
 One of the common solutions to this kind of problem is the [tagless-final style](http://okmij.org/ftp/tagless-final/index.html).
 
 In this style we avoid writing a data type entirely, and instead write a typeclass that does the interpretation directly.
-The tradeoff is that we don't have values of the data type which we can manipulate, but if the only thing we want to do to with these values is interpret them in some way then tagless final style is fine.
+The trade-off is that we don't have values of the data type which we can manipulate, but if the only thing we want to do to with these values is interpret them in some way then tagless final style is fine.
 
 For the base case we want to be able to interpret integer literals and the addition of things, so we write:
 ```haskell
@@ -121,7 +121,7 @@ The other slight drawback is that while we don't have to create explicit tags to
 This happens because we are passing typeclass dictionaries all over the place.
 If we use `testMe` in a context where an `Int` is expected, the `ExpBase Int` instance will be used to compute the result.
 This instance is -- in theory -- being passed along to `testMe` at runtime.
-You may not be effected by this if your code is simple and/or if you compile with optimisations turned up.
+You may not be affected by this if your code is simple and/or if you compile with optimisations turned up.
 
 ### Final encoding with Backpack
 
