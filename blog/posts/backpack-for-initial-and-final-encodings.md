@@ -66,12 +66,12 @@ instance ExpBase String where
   add x y = mconcat ["(", x, " + ", y, ")"]
 ```
 
-We can also add constructors to our virtual data type by writing addition typeclass:
+We can also add constructors to our virtual data type by writing an additional typeclass:
 ```haskell
 class ExpMul repr where
   mul :: repr -> repr -> repr
 ```
-and we can extend our existing interpreters:
+and we can extend our existing interpreters by writing instances for that typeclass:
 ```haskell
 instance ExpMul Int where
   mul = (*)
