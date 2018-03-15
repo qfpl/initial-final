@@ -180,7 +180,6 @@ library final-bp-base-sig
 This can be used to create `Repr`-agnostic terms like so:
 ```haskell
 -- final-bp-example-base
-haskell
 module Example.Base where
 
 import Repr
