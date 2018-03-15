@@ -53,7 +53,7 @@ class ExpBase repr where
 
 Our interpreters will be instances of this typeclass.
 
-The evaluator is straighforward:
+The evaluator is straightforward:
 ```haskell
 instance ExpBase Int where
   lit = id
@@ -71,7 +71,7 @@ We can also add constructors to our virtual data type by writing addition typecl
 class ExpMul repr where
   mul :: repr -> repr -> repr
 ```
-and we can extend our exisiting interpreters:
+and we can extend our existing interpreters:
 ```haskell
 instance ExpMul Int where
   mul = (*)
@@ -1003,7 +1003,6 @@ end Rec }
 and for the version using Backpack: 
 ```
 Rec {
--- RHS size: {terms: 39, types: 15, coercions: 0, joins: 0/0}
 evalTerm :: Term -> Term
 evalTerm
   = \ (tm1 :: Term) ->
