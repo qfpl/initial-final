@@ -254,7 +254,7 @@ library final-bp-example-eval
 
 If we run `cabal new-repl final-bp-example-eval` we can even take this for a spin:
 ```
-Example.Eval > term1
+> term1
 11
 ```
 
@@ -409,7 +409,7 @@ class HasBaseF tm where
 ```
 so that we only have to supply an implementation of `_BaseF` in order to make use of `_Lit` and `_Add`.
 
-We have `INLINE` pragmas here to keep the cost of using the typeclass down.  It seems to be standard for classy `Prissm`s approaches, and we'll see what that does for us when we start benchmarking this code.
+We have `INLINE` pragmas here to keep the cost of using the typeclass down.  It seems to be standard for classy `rissm`s approaches, and we'll see what that does for us when we start benchmarking this code.
 
 The simplest instance is for the case where `tm` _is_ `BaseF`, which is what we need to work with the `MyTerm` type specified above:
 ```haskell
