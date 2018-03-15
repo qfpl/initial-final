@@ -1324,6 +1324,8 @@ I have a few projects where I use classy `Prism`s and open-recursion rules syste
 Mostly, I wrote this because I liked the look of the Backpack version of the tagless final style that Ed showed me,
 and I wanted to see if I could do similar cool things with Backpack.
 
+If you find yourself wanting to poke around with the code mentioned in this post, the repository is [here](https://github.com/qfpl/initial-final).
+
 It seems like there is much more to explore.
 
 We could try to build something like [Trees that grow (PDF)](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/11/trees-that-grow.pdf), with this being a rough sketch of how it might go:
