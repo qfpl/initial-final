@@ -28,7 +28,7 @@ data Term =
   | Mul Term Term
   ...
 ```
-and the extra interpreter which to pretty prints our terms:
+and the extra interpreter which pretty prints our terms:
 ```haskell
 printTerm :: Term -> String
 ```
@@ -51,7 +51,7 @@ class ExpBase repr where
   add :: repr -> repr -> repr
 ```
 
-Our interpreters will lbe instances of this typeclass.
+Our interpreters will be instances of this typeclass.
 
 The evaluator is straighforward:
 ```haskell
