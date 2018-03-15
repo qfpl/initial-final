@@ -32,9 +32,9 @@ library initial-bp-print
     ghc-options:         -ddump-simpl -dsuppress-idinfo -dsuppress-coercions -dsuppress-type-applications -dsuppress-uniques -dsuppress-module-prefixes
   default-language:    Haskell2010
 
-library initial-bp-term
+library initial-bp-term-sig
   signatures:          Term.Type
-  hs-source-dirs:      initial-bp-term
+  hs-source-dirs:      initial-bp-term-sig
   build-depends:       base ^>=4.10
   ghc-options:         -Wall -O2
   if flag(dump)
@@ -44,7 +44,7 @@ library initial-bp-term
 library initial-bp-base-sig
   signatures:          Base.Type
   build-depends:       base ^>=4.10
-                     , initial-bp-term 
+                     , initial-bp-term-sig
                      , lens
   hs-source-dirs:      initial-bp-base-sig
   ghc-options:         -Wall -O2
@@ -67,7 +67,7 @@ library initial-bp-base-eval
   exposed-modules:     Base.Eval
   build-depends:       base ^>=4.10
                      , initial-bp-base-sig
-                     , initial-bp-term
+                     , initial-bp-term-sig
                      , initial-bp-eval
                      , lens
   hs-source-dirs:      initial-bp-base-eval
@@ -81,7 +81,7 @@ library initial-bp-base-print
   exposed-modules:     Base.Print
   build-depends:       base ^>=4.10
                      , initial-bp-base-sig
-                     , initial-bp-term
+                     , initial-bp-term-sig
                      , initial-bp-print
                      , lens
   ghc-options:         -Wall -O2
@@ -92,7 +92,7 @@ library initial-bp-base-print
 library initial-bp-mul-sig
   signatures:          Mul.Type
   build-depends:       base ^>=4.10
-                     , initial-bp-term 
+                     , initial-bp-term-sig
                      , lens
   hs-source-dirs:      initial-bp-mul-sig
   ghc-options:         -Wall -O2
@@ -115,7 +115,7 @@ library initial-bp-mul-eval
   hs-source-dirs:      initial-bp-mul-eval
   exposed-modules:     Mul.Eval
   build-depends:       base ^>=4.10
-                     , initial-bp-term
+                     , initial-bp-term-sig
                      , initial-bp-base-sig
                      , initial-bp-mul-sig
                      , initial-bp-eval
@@ -129,7 +129,7 @@ library initial-bp-mul-print
   hs-source-dirs:      initial-bp-mul-print
   exposed-modules:     Mul.Print
   build-depends:       base ^>=4.10
-                     , initial-bp-term
+                     , initial-bp-term-sig
                      , initial-bp-mul-sig
                      , initial-bp-print
                      , lens

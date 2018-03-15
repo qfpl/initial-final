@@ -146,7 +146,7 @@ Let us have a go at the tagless final style using Backpack.
 
 We first set up a signature to play the role of the typeclass variable in our tagless final version:
 ```haskell
--- repr
+-- final-bp-repr-sig
 signature Repr where
 
 data Repr
@@ -158,13 +158,13 @@ We're making use of Cabal's support for multiple sub-libraries within the one Ca
 
 Our first library just packages up the `Repr` signature:
 ```
-library repr
+library final-bp-repr-sig
   signatures:          Repr
 ```
 
 We now move to describing our base functionality.  Just like in the tagless final case, we want to be able to produce "things" from integer literals and from pairs of "things":
 ```haskell
--- final-bp-base
+-- final-bp-base-sig
 signature Base where
 
 import Repr
@@ -175,9 +175,9 @@ add :: Repr -> Repr -> Repr
 
 We export the `Base` signature and depend on the `Repr` signature:
 ```
-library final-bp-base
+library final-bp-base-sig
   signatures:          Base
-  build-depends:       repr
+  build-depends:       final-bp-repr-sig
 ```
 
 This can be used to create `Repr`-agnostic terms like so:
@@ -196,7 +196,7 @@ term1 = add (lit 8) (add (lit 1) (lit 2))
 ```
 library final-bp-example-base
   exposed-modules:     Example.Base
-  build-depends:       final-bp-base
+  build-depends:       final-bp-base-sig
 ```
 although we won't be able to use them until we supply an implementation for `Repr`.
 
@@ -264,7 +264,7 @@ Example.Eval > term1
 If we then want to add multiplication in the mix, we can follow the lead of tagless final and create a new signature:
 
 ```haskell
--- final-bp-mul
+-- final-bp-mul-sig
 signature Mul where
 
 import Repr
@@ -273,9 +273,9 @@ mul :: Repr -> Repr -> Repr
 ```
 
 ```
-library final-bp-mul
+library final-bp-mul-sig
   signatures:          Mul
-  build-depends:       repr
+  build-depends:       final-bp-repr-sig
 ```
 
 and then implement the signature for our `Repr` for evaluation:
