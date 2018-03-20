@@ -1,0 +1,5 @@
+signature Mul where
+
+import Repr
+
+mul :: Num a => Repr a -> Repr a -> Repr a

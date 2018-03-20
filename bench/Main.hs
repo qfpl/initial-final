@@ -10,10 +10,12 @@ module Main (
   ) where
 
 import qualified Vanilla.Bench as Vanilla
+import qualified Initial.Bench.NoCPS as InitialNoCPS
 import qualified Initial.Bench.Compose as InitialCompose
 import qualified Initial.Bench.Fuse as InitialFuse
 import qualified Final.Bench.Int as FinalInt
 import qualified Final.Bench.Eval as FinalEval
+import qualified FinalGADT.Bench as FinalGADT
 import qualified InitialBP.Bench as InitialBP
 import qualified FinalBP.Bench as FinalBP
 
@@ -25,7 +27,9 @@ main =
     vl = let l = Vanilla.lit2 in seq l l
     fil = let l = FinalInt.lit2 in seq l l
     fel = let l = FinalEval.lit2 in seq l l
+    fgl = let l = FinalGADT.lit2 in seq l l
     fbpl = let l = FinalBP.lit2 in seq l l
+    inl = let l = InitialNoCPS.lit2 in seq l l
     icl = let l = InitialCompose.lit2 in seq l l
     ifl = let l = InitialFuse.lit2 in seq l l
     ibpl = let l = InitialBP.lit2 in seq l l
@@ -38,8 +42,12 @@ main =
         nf FinalInt.evalAddSmall fil
     , bench "final (eval)" $ 
         nf FinalEval.evalAddSmall fel
+    , bench "final-gadt" $ 
+        nf FinalGADT.evalAddSmall fgl
     , bench "final-bp" $ 
         nf FinalBP.evalAddSmall fbpl
+    , bench "initial (no cps)" $ 
+        nf InitialNoCPS.evalAddSmall inl
     , bench "initial (compose)" $ 
         nf InitialCompose.evalAddSmall icl
     , bench "initial (fuse)" $ 
@@ -54,8 +62,12 @@ main =
         nf FinalInt.evalAddMulSmall fil
     , bench "final (eval)" $ 
         nf FinalEval.evalAddMulSmall fel
+    , bench "final-gadt" $ 
+        nf FinalGADT.evalAddMulSmall fgl
     , bench "final-bp" $ 
         nf FinalBP.evalAddMulSmall fbpl
+    , bench "initial (no cps)" $ 
+        nf InitialNoCPS.evalAddMulSmall inl
     , bench "initial (compose)" $ 
         nf InitialCompose.evalAddMulSmall icl
     , bench "initial (fuse)" $ 
@@ -70,8 +82,12 @@ main =
         nf FinalInt.evalAddBig fil
     , bench "final (eval)" $ 
         nf FinalEval.evalAddBig fel
+    , bench "final-gadt" $ 
+        nf FinalGADT.evalAddBig fgl
     , bench "final-bp" $ 
         nf FinalBP.evalAddBig fbpl
+    , bench "initial (no cps)" $ 
+        nf InitialNoCPS.evalAddBig inl
     , bench "initial (compose)" $ 
         nf InitialCompose.evalAddBig icl
     , bench "initial (fuse)" $ 
@@ -86,8 +102,12 @@ main =
         nf FinalInt.evalAddMulBig fil
     , bench "final (eval)" $ 
         nf FinalEval.evalAddMulBig fel
+    , bench "final-gadt" $ 
+        nf FinalGADT.evalAddMulBig fgl
     , bench "final-bp" $ 
         nf FinalBP.evalAddMulBig fbpl
+    , bench "initial (no cps)" $ 
+        nf InitialNoCPS.evalAddMulBig inl
     , bench "initial (compose)" $ 
         nf InitialCompose.evalAddMulBig icl
     , bench "initial (fuse)" $ 

@@ -2,7 +2,9 @@ packages:
   vanilla/
   final/
   final-bp/
+  initial-no-cps/
   initial-compose/
   initial-fuse/
   initial-bp/
+  final-gadt/
   bench/

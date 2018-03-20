@@ -964,6 +964,28 @@ variance introduced by outliers: 39% (moderately inflated)
 ```
 which we assumed was due to the extra data structures that had to be built up and traversed.
 
+As an aside, someone on Reddit asked about the impact of using CPS for the evaluation rules.
+
+The most relevant change to the code is:
+```haskell
+mkEval :: [EvalRule tm] -> tm -> tm
+mkEval rules =
+  let
+    step tm = asum . fmap (\(EvalRule f) -> f eval tm) $ rules
+    eval tm = case step tm of
+      Nothing -> tm
+      Just tm' -> eval tm'
+  in
+    eval
+```
+and the benchmark results are much, much worse than any other approach we looked at:
+```
+time                 14.38 μs   (14.32 μs .. 14.45 μs)
+                     1.000 R²   (1.000 R² .. 1.000 R²)
+mean                 14.35 μs   (14.32 μs .. 14.40 μs)
+std dev              141.4 ns   (103.5 ns .. 200.9 ns)
+```
+
 #### Looking at the generated Core
 
 Again, looking at the core will be useful for understanding the differences between the benchmark results.

@@ -1,0 +1,3 @@
+signature Repr where
+
+data Repr a

@@ -1,0 +1,6 @@
+signature Base where
+
+import Repr
+
+lit :: a -> Repr a
+add :: Num a => Repr a -> Repr a -> Repr a

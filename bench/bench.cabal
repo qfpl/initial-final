@@ -14,9 +14,11 @@ executable bench
   build-depends:       base
                      , criterion
                      , vanilla
+                     , initial-no-cps
                      , initial-fuse
                      , initial-compose
                      , final
+                     , final-gadt
                      , initial-bp
                      , final-bp
   default-language:    Haskell2010
